@@ -1,0 +1,5686 @@
+{
+    "STATION": [
+        {
+            "id": "601",
+            "latitude": "11.5704444444444",
+            "longitude": "104.905083333333",
+            "title": "PTT Station Neak Vorn",
+            "description": [
+                "Amazon",
+                "7-Eleven",
+                "Otr"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Russian Federation Blvd (St.110), Sangkat Srah Chak, Khan Doun Penh, Cambodia",
+            "status": "24h",
+            "promotion": [],
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 603,
+            "latitude": 10.6345944444444,
+            "longitude": 103.544305555555,
+            "title": "PTT Station Klaing Leu",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "National Road No. 4, Sangkat 1, Khan Mittapheap, Sihanouk Province, Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 604,
+            "latitude": 13.3578305555555,
+            "longitude": 103.890619444444,
+            "title": "PTT Station Seang Nam",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "National Road No. 6, Sangkat Chreav, Khan Siem Reap, Siem Reap Province, Kingdom of Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "605",
+            "latitude": "11.53295",
+            "longitude": "104.954105555555",
+            "title": "PTT Station Chba Ampov",
+            "description": [
+                "Amazon",
+                "7-Eleven",
+                "Otr"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV",
+                "Onion"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "National Road No. 1 (Phnom Penh-Vietnam), Sangkat Niruth, Khan Chbar Ampov, Phnom Penh, Cambodia",
+            "status": "24h",
+            "promotion": null,
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 606,
+            "latitude": 13.3689138888888,
+            "longitude": 103.846791666666,
+            "title": "PTT Staton Siem Reap",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "Onion",
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "National road No. 6, Phum Sala Kanseng, Sangkat No.2, Siem Reap Province, Kingdom of Cambodia ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 608,
+            "latitude": 12.0522972222222,
+            "longitude": 105.050086111111,
+            "title": "PTT Station Phdao Chum I",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Cham",
+            "address": "National Road No. 6 Phum Chheur Teal, Khum Phdao Chum, Srok Cherng Prey, Kampong Cham Province, Kingdom of Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "609",
+            "latitude": "11.20863889",
+            "longitude": "104.1078056",
+            "title": "PTT Station Pich Nil",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": null,
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Speu",
+            "address": "National Road No4, Phumi 6, Khom Traeng Troyeung, Srok Phnom Srouch, Kampong Speu Province, Cambodia.",
+            "status": "24h",
+            "promotion": null,
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 610,
+            "latitude": 11.4876277777777,
+            "longitude": 104.816497222222,
+            "title": "PTT Station Prey Key",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "National road No.3, Phum Prey Key, Sangkat Pleung Chhess Rotes, Khan Posen Chey, Phnom Penh, Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 611,
+            "latitude": 10.9900527777777,
+            "longitude": 104.782825,
+            "title": "PTT Station Takeo City",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Takeo",
+            "address": "Poum 3, Sangkat Rokar Knung,Krung DounKeo, Takeo Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 612,
+            "latitude": 12.2197222222222,
+            "longitude": 104.668166666666,
+            "title": "PTT Station Kampong Chhnang",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Chhnang",
+            "address": "National R. 5, Phum Toul Khsach, Khum Chrey Bak, Srok Rolea Pa Ear, Kanpong Chhnang province ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 613,
+            "latitude": 11.6797222222222,
+            "longitude": 104.850527777777,
+            "title": "PTT Station Prek Phnov",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "National Road 5, Doung Village, Sangkat Por Nhea Leu, Khan Prek Phnov, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 614,
+            "latitude": 12.0518027777777,
+            "longitude": 105.042508333333,
+            "title": "PTT Station Phdao-Chum II",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Cham",
+            "address": "National Road No. 6 Phum Chheur Teal, Khum Phdao Chum, Srok Cherng Prey, Kampong Cham Province, Kingdom of Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 617,
+            "latitude": 11.4986944444444,
+            "longitude": 104.872361111111,
+            "title": "PTT Station Prey Sar",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#811 Rd.PreySor, Sangkat PreySor,Khan Dongkor Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029691,
+            "latitude": 11.6060277777777,
+            "longitude": 104.886722222222,
+            "title": "PTT Aeon II",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#4818, St 1003, Bonla Swet Village, Sangkat Khmough, Khan Sen Sok, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032997,
+            "latitude": 11.5771666666666,
+            "longitude": 104.9555,
+            "title": "PTT AKREIY KSAT",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "Phum Arey Ksat, Khum Arey Ksat, Srok Lave Am, Kandal Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033524,
+            "latitude": 11.6345277777777,
+            "longitude": 104.869336111111,
+            "title": "PTT-Station-Grand Phnom Penh II",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Street 307, Lor Kambor Village, Sangkat Svay Pak, Khan Russey Keo, PP",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032217,
+            "latitude": 11.6031944444444,
+            "longitude": 104.926944444444,
+            "title": "PTT Station Chroy Chang Va III",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#Land B KeanKlang Vilage, Sangkat Chroy ChangVa, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029692,
+            "latitude": 11.7353888888888,
+            "longitude": 105.027194444444,
+            "title": "PTT Prek Tameak",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "National R. 8, Anlong Village, Prek Tamak Commune, Kandal District, Kandal",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032352,
+            "latitude": 11.6154999999999,
+            "longitude": 104.849361111111,
+            "title": "PTT Khmounh Sen Sok",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#F56, St. Fortune, Chong Thnol Khang Kert Village, Sangkat Tuek Thla, Khan Sen Sok, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032353,
+            "latitude": 11.52025,
+            "longitude": 104.882444444444,
+            "title": "PTT Moil Villlage",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": " St. Toul Pong Ror, Phum Morl, Sangkat Dongkar, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033523,
+            "latitude": 11.5690222222222,
+            "longitude": 104.864958333333,
+            "title": "PTT DEY THMEY",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#620, street: 58P, Dey Thmey Village, Sangkat: Koukleang, Khan: Sen Sok, Phnom Penh. ",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10033316",
+            "latitude": "11.4423666666666",
+            "longitude": "104.884575",
+            "title": "PTT SOK KEO KOUR SROV",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "National Road No.2, Phum krang Svay,Sangkat Prek Kampeus,Khan Dongkor",
+            "status": "24h",
+            "promotion": [],
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033821,
+            "latitude": 11.8824166666666,
+            "longitude": 104.884777777777,
+            "title": "PTT Road 61",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kampong Cham",
+            "address": "St.  61, Sangkerb Village, Sambour Commune, \nBatheay District, Kampong Cham Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030896,
+            "latitude": 11.8319722222222,
+            "longitude": 104.731777777777,
+            "title": "PTT OUDONG",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Chhnang",
+            "address": "No. 0136, Road No. 5, Chhunleak Dei Village, Svay Commune, Samaki Meanchey District, Kompongchhnang Province.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032893,
+            "latitude": 11.6150722222222,
+            "longitude": 104.897316666666,
+            "title": "PTT Wat Tul",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": " #201, St 1701, Kroul Kour Village, Sangkat Kilomet lerk 6, Khan Russey Keo, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032705,
+            "latitude": 13.2293611111111,
+            "longitude": 104.164138888888,
+            "title": "PTT DOM DEK",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "National Road No. 6, Khum Dam Dek, Srok Sonikum, Siem Reap Province, Kingdom of Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031114,
+            "latitude": 12.7536666666666,
+            "longitude": 104.905972222222,
+            "title": "PTT KOMPONGTHOM II",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Thom",
+            "address": "National Road 6, Phum Thnal Bek, Kum Trapang Rassey, Srok Kompong Svay, Kompongthom",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030505,
+            "latitude": 13.0588611111111,
+            "longitude": 103.261805555555,
+            "title": "PTT BTB Before City",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "#St,Phum Svaykong,Khum Anlongvel,SANGKE DISTRICT,Battambang Provinc",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031826,
+            "latitude": 13.0711111111111,
+            "longitude": 103.166361111111,
+            "title": "PTT Battambang Road57",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "National Road 57, Andong Preng Village, Omal Commune, Battambang District, Battambang province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027087,
+            "latitude": 10.6083333333333,
+            "longitude": 104.194555555555,
+            "title": "PTT KOMPOT I",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampot",
+            "address": "National Road 3, Kompongbay Khang Cherng village, Kompongbay commune, Kampot",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026213,
+            "latitude": 11.4569361111111,
+            "longitude": 104.958044444444,
+            "title": "PTT Mony Oudom(N21)",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "National Road 21, Phum Prek Somrong,Sangkat Takhmao,Krung Takhmao",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027210,
+            "latitude": 10.9937777777777,
+            "longitude": 104.756402777777,
+            "title": "PTT SOK KEO TAKEO",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Takeo",
+            "address": "House No. N/A, Road No. 02, Phum Khseung,Sangkat Rokar Khnong,Daun Keo",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10025514,
+            "latitude": 11.5588194444444,
+            "longitude": 104.925494444444,
+            "title": "PTT Pasteur",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": " #120, St. Pastor, village 4, Sangkat Chaktoumouk, Khan Doun Penh           Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034019,
+            "latitude": 11.7262777777777,
+            "longitude": 104.963666666666,
+            "title": "PTT_PREK ANCHANH",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Land No .5, Road 6A, Phum Prek Taben, Khum Prekanh Chanh, Srok Mokkam Pol, Khet Kandal, Cambodia.",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033146,
+            "latitude": 13.2561944444444,
+            "longitude": 103.090194444444,
+            "title": "PTT THMOR KOL I",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "National Road 5, Kaksekam Village, Tapoung Commune, Thma koul district, battambang province.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027790,
+            "latitude": 11.4965833333333,
+            "longitude": 104.892694444444,
+            "title": "PTT ChomkaDoung S.J.K",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "Street 217, Phum Taley, Sangkat Dangkor, Khan Dangkor, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029893,
+            "latitude": 11.4737222222222,
+            "longitude": 104.893138888888,
+            "title": "PTT MEETING POINT",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "KHQR",
+                "Cash",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "St. Tomnob 7 Makara, Road 60m, Phum Baku, Sangkat Dangkor, Khan Dangkor, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030924,
+            "latitude": 11.5019722222222,
+            "longitude": 104.841194444444,
+            "title": "PTT KS TOUL PONGRO",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#12 Street Betong, Sangkat Chom Chao, Khan Porsenchey, Phnom Penh (Infront of JS Corp factory)",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030247,
+            "latitude": 11.5072222222222,
+            "longitude": 104.887972222222,
+            "title": "PTT Prey Sar_MOM2K",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "Prey Sor Street, Thmey Village, Sangkat Dongkor, Khan Dongkor, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030894,
+            "latitude": 11.37725,
+            "longitude": 104.75825,
+            "title": "PTT KANDAL STEUNG",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "National Road 3, Taleuk village, Tropeang Veng commune, Kandal Steung district, Kandal province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034050,
+            "latitude": 11.5750555555555,
+            "longitude": 104.863805555555,
+            "title": "PTT KHORK KHLEANG",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "located at plot land no. 600 and 601, Street 72 P, Roung Chak Village, Sangkat Khork Khleang, Khan Sen Sok, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026251,
+            "latitude": 11.5589194444444,
+            "longitude": 104.850013888888,
+            "title": "PTT Station Airport",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "No. 230, Russian Federation Blvd,Sangkat Kakab,Khan Porsenchey",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032197,
+            "latitude": 11.5876388888888,
+            "longitude": 104.899055555555,
+            "title": "PTT Staion TK _DARA RITH",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "at street No. 103, 4 Village, Sangkat Phsar Daeum Thkov, Khan Chamkarmon, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10025835,
+            "latitude": 11.5582222222222,
+            "longitude": 104.856833333333,
+            "title": "PTT Maeda (New)",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#2004 (Maida), Trapang Lvea village, Sangkat Kakab,Khan Posenchey, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027083,
+            "latitude": 11.5685277777777,
+            "longitude": 104.920194444444,
+            "title": "PTT Central Market",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "St.217 &St.67,Sangkat Psar Thmey II,Khan Teuk Chhoo",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027423,
+            "latitude": 11.5231666666666,
+            "longitude": 104.898472222222,
+            "title": "PTT 371",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Street 371, Tnut Chrum Village,Sangkat Boeung Tumpun, Khan Meanchey",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027424,
+            "latitude": 11.5399444444444,
+            "longitude": 104.910444444444,
+            "title": "PTT St 430",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "Street 430 corner of street 450,Sangkat Toul Tompong 2,Khan Chamkarmon",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027728,
+            "latitude": 11.5621666666666,
+            "longitude": 104.895638888888,
+            "title": "PTT TEP PORN",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "No. 3+4, St. Oknha Tep Phan, Sangkat Boeng Keng Kang 1, Khan Chamkar Morn, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10023722,
+            "latitude": 11.4441666666666,
+            "longitude": 104.897166666666,
+            "title": "PTT Station Mongkol",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "National road 2, Sangkat Prek Kompes, Khan Dongkou, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026809,
+            "latitude": 11.4975277777777,
+            "longitude": 104.942527777777,
+            "title": "PTT Changr\u00c3\u00a9 Krom",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#760C, National Road No.2, Prektalong Village,Sangkat Chak Angre Krom,Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029690,
+            "latitude": 11.5344888888888,
+            "longitude": 104.828163888888,
+            "title": "PTT Chaom Chao",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#235, National Road No.4,Pray Pring Khang Cheung Village Sangkat Chom Chao KHAN POR SENCHEY Phnom Penh Cambodia.",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027224,
+            "latitude": 11.5667222222222,
+            "longitude": 104.853155555555,
+            "title": "PTT Beung Chhouk",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#St. 2011, Phum Domnak,Sangkat Phnom Penh Thmey,Khan SenSok,Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026802,
+            "latitude": 11.6039444444444,
+            "longitude": 104.930333333333,
+            "title": "PTT CHROYCHANGVA I",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#House no. N/A, Steet no. 6, Phum Keankleang,Sangkat Chroychangva,Khan Chroy Channgva",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028079,
+            "latitude": 11.5068611111111,
+            "longitude": 104.993805555555,
+            "title": "PTT THIGER Factory Road",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "# 007377, Road Tiger factory, Phum Bos Angkunh, Sangkat Prek Eng, Khan Chba Ampov ",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034689,
+            "latitude": 11.5033333333333,
+            "longitude": 104.874472222222,
+            "title": "PTT Reusey Sanh",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "on plot land No. 565, Tuol Pongro Street, Brakar Village, Sangkat Prey Sor, Khan Sen Sok, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034999,
+            "latitude": 11.6269166666666,
+            "longitude": 104.856027777777,
+            "title": "PTT Station Hanoi BLVD",
+            "description": [
+                "Amazon",
+                "7-Eleven",
+                "Otr"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#0601, street 1019, Anlong Kngan Village, Sangkat Khmuonh, Khan Sen Sok, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034862,
+            "latitude": 11.5349722222222,
+            "longitude": 104.914305555555,
+            "title": "PTT Tuol Tom Pong",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "land plot No. 175 corner street 478, I Village, Sangkat Toul Tom I, Khan Chamkarmorn, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034074,
+            "latitude": 11.4576111111111,
+            "longitude": 104.926805555555,
+            "title": "PTT Prek Ho",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "located at plot land no.687,\u00e2\u20ac\u2039 Battachi Village, Sangkat Prek Ho, Ta Khmau Municipal,Kandal Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034461,
+            "latitude": 11.4847222222222,
+            "longitude": 104.749722222222,
+            "title": "PTT Boeng Thom",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "located at plot land no. 986, Tuol Svay Village, Sangkat Boeung Thom, Khan Kamboul, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10023796,
+            "latitude": 11.5878611111111,
+            "longitude": 104.906944444444,
+            "title": "PTT Toul Sangke",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "At #04458, Concrete road, Toul Songkae village, Sangkat Toul Songkae, Russey Keo district, Phnom",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032855,
+            "latitude": 11.6468944444444,
+            "longitude": 104.862447222222,
+            "title": "PTT MAO SEAKHONG GRAND PHNOM PENH",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#19, St Betong, Lor Kambour Village, Sangkat Svay Pak, Khan Russey Keo, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10023427,
+            "latitude": 11.5306083333333,
+            "longitude": 104.930438888888,
+            "title": "PTT Kbal Tnal",
+            "description": [
+                ""
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#311 Street 93 corner with street 41, Sangkat Tonle Basak,           Khan Chomkar Mon, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031806,
+            "latitude": 11.5528611111111,
+            "longitude": 104.885027777777,
+            "title": "PTT Maeda (St 2004)",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "St, Maeda 2004 corner with st.371, Phum Trapeang Chhok, Sangkat Toeuk Thla, Khan Sen Sok, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021637,
+            "latitude": 11.5443444444444,
+            "longitude": 104.922177777777,
+            "title": "PTT Bokor",
+            "description": [
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "at #735, St. 93 corner St. 245, village 9, Sangkat Boeng Keng Korng 3,          Khan Chomkar Mon, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 618,
+            "latitude": 12.0559166666666,
+            "longitude": 105.070194444444,
+            "title": "PTT Phdao-Chum lll",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Cham",
+            "address": "National road 6, Skun village, Choktep commune, Cheung Prey district, Kompong Cham province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021912,
+            "latitude": 11.4822555555555,
+            "longitude": 104.944525,
+            "title": "PTT Ta Khmao",
+            "description": [
+                ""
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kandal",
+            "address": "National road 2, Takmao village, Sangkat Takmao, Kandal province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021709,
+            "latitude": 11.9991111111111,
+            "longitude": 105.453611111111,
+            "title": "PTT Tonle Oum I",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Kampong Cham",
+            "address": "National road 7, village Chas, Sangkat Val Vong, Kompong Cham town, Kompong Cham province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021688,
+            "latitude": 13.10675,
+            "longitude": 103.196805555555,
+            "title": "PTT O'Char",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Battambang",
+            "address": "National road 5, O\u00e2\u20ac\u2122char village, Sangkat O\u00e2\u20ac\u2122char, Khan Battombong, Battombong province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021644,
+            "latitude": 13.3754444444444,
+            "longitude": 103.835555555555,
+            "title": "PTT Bun Sary I",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Siem Reap",
+            "address": "National road 6A, Krus village, Svay Dongkom commune,            Siem Reap district, Siem Reap province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10025909,
+            "latitude": 13.3603333333333,
+            "longitude": 103.872,
+            "title": "PTT Bun Sary II",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "Street 6A, Bonteay Chas village, Sangkat Slor Kram, Siem Reap town Siem Reap province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021643,
+            "latitude": 13.0899722222222,
+            "longitude": 103.209944444444,
+            "title": "PTT TADAMBANGKRORNHUONG",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Battambang",
+            "address": "National road 5, Bek Chan village, Sangkat Preh Sdach, \nKhan Battombong, Battombong province\n",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021648,
+            "latitude": 11.59825,
+            "longitude": 104.900805555555,
+            "title": "PTT Camko City",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#42, St 598, Sangkat Toul Sangke,Khan Russey Keo, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "615",
+            "latitude": "11.5316666666666",
+            "longitude": "104.861222222222",
+            "title": "PTT Veng Sreng",
+            "description": [
+                "Amazon",
+                "7-Eleven",
+                "Otr"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#81, St. Veng Sreng, Tro Pang Tleong village, Sangkat Chom Chav, Phnom Penh",
+            "status": "24h",
+            "promotion": null,
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 10023212,
+            "latitude": 11.5978722222222,
+            "longitude": 104.869658333333,
+            "title": "PTT Hanoi (C-7)",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#1657, St 1019, Banla la it commune, Sangkat Khmouy,Khan Sensok, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10023463,
+            "latitude": 12.4956944444444,
+            "longitude": 106.025944444444,
+            "title": "PTT Kratie",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kratie",
+            "address": "#009/0217, Ou Ressey village, Kratie district, Kratie province.",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030619,
+            "latitude": 11.5539722222222,
+            "longitude": 104.871055555555,
+            "title": "PTT NORTH BRIDGE",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#552, Street Northbridge, Sangakat Obek Kaorm, Khan Sensok, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10023997,
+            "latitude": 13.6538333333333,
+            "longitude": 102.56275,
+            "title": "PTT Poi Pet 1",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Banteay Meanchey",
+            "address": "Paliley 1 village, Sangkat Poi Pet, Poi Pet town,  \nBonteay Meanchey province\n",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10025350,
+            "latitude": 11.5765,
+            "longitude": 104.891055555555,
+            "title": "PTT INTRADEVY",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "129, St 592, Corner St.317, Phum 5, Sangkat Boeungkok 2, Khan Toul Kork, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30063513,
+            "latitude": 11.5851472222222,
+            "longitude": 104.900702777777,
+            "title": "PTT Angten Toul Kork",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#120,St Pastor,Phum 4, Sangkat Chaktoumouk, Khan Doun Penh, Phnom Penh.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10025853,
+            "latitude": 11.5366388888888,
+            "longitude": 104.920638888888,
+            "title": "PTT Beoung Trabek",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#73 St. 474, Sangkat Boeng Trabek, Khan Chomkar Mon, Phnom Penh.",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10025918,
+            "latitude": 12.719,
+            "longitude": 104.887083333333,
+            "title": "PTT Kampong Thom",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kampong Thom",
+            "address": "National Road No. 06, Phum Kdey,Sangkat Prey Taho,Krung Steung Sen,KompongThom Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026283,
+            "latitude": 11.5428,
+            "longitude": 104.893644444444,
+            "title": "PTT Steuong Mean Chey",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#1452, Street Monireth (217) DomakThom Village,Sangkat Steung Mean Chey,Khan MeanChey",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030392,
+            "latitude": 11.5743333333333,
+            "longitude": 104.885705555555,
+            "title": "PTT Phnom Penh Thmey",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                "EV"
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#867, St. 1986, Tumnup Village,Sangkat Phnom Penh Thmey,Khan Sen Sok",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026452,
+            "latitude": 11.4742777777777,
+            "longitude": 104.552002777777,
+            "title": "PTT ROLANG SANGKAE",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Kampong Speu",
+            "address": "Road 4, Phum Rolang Sangkae,Sangkat Sopor Tep,Krung Chbar Morn",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026578,
+            "latitude": 11.5905472222222,
+            "longitude": 104.881333333333,
+            "title": "PTT Mong Rithy",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#4458, St.1928, Payab Village,Sangkat Phnom Penh Thmey,Khan Sen Sok",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026673,
+            "latitude": 10.6119444444444,
+            "longitude": 103.525944444444,
+            "title": "PTT SHIHANOUK VILE",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "Phum 4,Sangkat 4,Khan Phreah Sihanuk",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10026852,
+            "latitude": 11.2418333333333,
+            "longitude": 104.699138888888,
+            "title": "PTT Tram Khnar",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Speu",
+            "address": "#Road Phum AngSokunthea,Khum MohaRussei,Srok Kong Pisey",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031916,
+            "latitude": 11.5321416666666,
+            "longitude": 104.913258333333,
+            "title": "PTT  St.271",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#508, St. 271,Sangkat Beung Tompon,Khan Meanchey,Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30057218,
+            "latitude": 11.5814166666666,
+            "longitude": 104.919722222222,
+            "title": "PTT WAT PHNOM",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "# 120 St. Pasteur, Phum 4,Sangkat Chaktomok,Khan Daun Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10021647,
+            "latitude": 12.01225,
+            "longitude": 105.430222222222,
+            "title": "PTT Tonle-Aum II",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Cham",
+            "address": "Old National Road No. 7, Phum No.06 Sangkat Vel Vong",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027716,
+            "latitude": 11.6198055555555,
+            "longitude": 104.891611111111,
+            "title": "PTT St.H.E Chea Sophara",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#1-3, St. 598 Conner St 1800,Sangkat Toul Sangke,Khan Roussey Keo",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030779,
+            "latitude": 11.5113888888888,
+            "longitude": 104.752277777777,
+            "title": "PTT BEKCHAN",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "National Road 4, Phum Trapaing Krasaing, Bek Chan Commune, Ang Snoul District, Kandal Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10027422,
+            "latitude": 11.2513611111111,
+            "longitude": 105.314583333333,
+            "title": "PTT NAK LEUNG",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Prey Veng",
+            "address": "Stoeng Slout Village, Neaklerng Commence, Pearmror District, Preyveng Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032579,
+            "latitude": 11.5549444444444,
+            "longitude": 104.910333333333,
+            "title": "PTT OLYMPIC",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "# 19971 Corner Raod 199, Sangkat Olympic, Khan Chamka Morn, Phnom Penh City",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028453,
+            "latitude": 11.5884722222222,
+            "longitude": 104.858777777777,
+            "title": "PTT Rd.Samdech Chearsim",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "# 153 Road Samdach Chear Sim, Phum Chress, Sangkat Phnom Penh Thmey, Khan Sen Sok, Phnom Penh.",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028690,
+            "latitude": 11.5230277777777,
+            "longitude": 104.822083333333,
+            "title": "PTT SAMROS PREY PRING",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "No. N/A, National Road No.3, Phum Preypring KhangTboung, Sangkat Chomchao Khan Posenchey, Phnom Penh, Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028834,
+            "latitude": 10.6288222222222,
+            "longitude": 103.520233333333,
+            "title": "PTT CT",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "Village 3, Sangkat 2, Sihanoukville, Preah Sihanouk Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028725,
+            "latitude": 13.7374166666666,
+            "longitude": 106.9798,
+            "title": "PTT KIEMNY RATANAKIRI",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Ratanakiri",
+            "address": "No. 22, National Road No. 78, Phum. Phnom Svay, Sangkat Boeng Kansaeng, Khan, Banlong, Ratanakiri Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028650,
+            "latitude": 11.4628055555555,
+            "longitude": 104.520944444444,
+            "title": "PTT K.Speu City",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kampong Speu",
+            "address": "A Phum Krang Pol Tep, Sangkat Rokar Thom, Khan Chbar  Morn,   Kampong Speu  Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028689,
+            "latitude": 11.6098249999999,
+            "longitude": 104.928205555555,
+            "title": "PTT ChroyChongVa II",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "Phum Kien Khlang, Sangkat Chroychangva, Khan Chroychangva   Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028776,
+            "latitude": 11.5608333333333,
+            "longitude": 104.889561111111,
+            "title": "PTT OBEK KHAOM",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "# VII0053, Road 271, Trapeang Chhouk Village, Sangkat Teuk Thla, Khan Sen Sok, Phnom Penh, Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028779,
+            "latitude": 13.5258888888888,
+            "longitude": 105.969888888888,
+            "title": "PTT Steung Treng",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Stung Treng",
+            "address": "Phum Prek, Sangkat Stung Treng,Krung Stung Treng, Stung Treng Province, Cambodia",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029265,
+            "latitude": 13.6318055555555,
+            "longitude": 102.612194444444,
+            "title": "PTT Poi Pet(Out City)",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Banteay Meanchey",
+            "address": "Stueng Bat Village, Sangkat Kondal, Krung Poi Pet,Banteay Mean Chey ,Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029001,
+            "latitude": 11.5321944444444,
+            "longitude": 104.995027777777,
+            "title": "PTT PREK ENG",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "National Road 1, Ta Prohm Village, Sangkat Prek Eng, Khan Chbar Ampov, Phnom Penh, Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10028452,
+            "latitude": 11.5483055555555,
+            "longitude": 104.911277777777,
+            "title": "PTT Young Youth",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "Land No 313, St. 173 corner of Street 358, Phum 4, Sangkat Toul Svay Prey I, Khan Chamkamorn, Phnom Penh, Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029430,
+            "latitude": 11.4896388888888,
+            "longitude": 104.662444444444,
+            "title": "PTT Station Road 41",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Speu",
+            "address": "Phum Tro Pang Ampel, Khum Tro Pang Korng, Srok Samrong Tong, Kampong Speu Province ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029632,
+            "latitude": 11.6563888888888,
+            "longitude": 104.759722222222,
+            "title": "PTT Phnom Prasit",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "St. 151, Phum Prey Pongror, Sangkat Por Nhea Poun, Khan Prek Pnov, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029925,
+            "latitude": 11.5428333333333,
+            "longitude": 104.811694444444,
+            "title": "PTT Road Kob Srov",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "Trapeang Pou Village, Sangkat Chaom Chau, Khan Pou Senchey, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030168,
+            "latitude": 11.6764999999999,
+            "longitude": 104.882333333333,
+            "title": "PTT Vimean Chhnas Chhnas",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "Prek Ta Roth Village, Sangkat Prek Ta Sek, Khan Chrouy Chongva, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030169,
+            "latitude": 11.5825277777777,
+            "longitude": 104.846111111111,
+            "title": "PTT Krang Thnoung",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "St. 1962, Krang Angkrong Village, Sangkat Krang Thnoung, Khan Sen Sok, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030440,
+            "latitude": 13.3506388888888,
+            "longitude": 103.862944444444,
+            "title": "PTT Boun Sary 3",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "Wat Bo Village, Sangkat Sala Kamrerk, Siem Reap city, Siem Reap ",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030456,
+            "latitude": 10.6145,
+            "longitude": 104.177361111111,
+            "title": "PTT Kampot City",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kampot",
+            "address": "#100, National Road 3, Kampongbay Khangcheung Village, Sangkat Kampongbay, Kampot City, Kampot province. ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030170,
+            "latitude": 11.6502222222222,
+            "longitude": 104.857527777777,
+            "title": "PTT Rd.Win Win BLVD",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Lkamboar Village, Sangkat Svay Beak, Khan Russei Keo, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029894,
+            "latitude": 11.56325,
+            "longitude": 104.841916666666,
+            "title": "PTT Kbal Domrey",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Near Caf\u00c3\u00a9 Amazon shop, Street 105K, Sangkat Kakab I, Khan Por Senchey, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10029786,
+            "latitude": 13.5969722222222,
+            "longitude": 102.981305555555,
+            "title": "PTT BANTEAY MEANCHEY",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Banteay Meanchey",
+            "address": "Road No. 6, 1 Village, Preah Punlear District, Sereysophorn City, Banteay Meanchey Province ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030375,
+            "latitude": 11.0943055555555,
+            "longitude": 105.783277777777,
+            "title": "PTT SVAY RIENG",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Svay Rieng",
+            "address": "Svay Village,Sangkat Chek,SVAY RIENG CITY,Svay Rieng",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030951,
+            "latitude": 11.5319722222222,
+            "longitude": 104.886222222222,
+            "title": "PTT STEUNG MEANCHEY",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "St. Monireth (217), Damnak 5 Village, Sangkat Steung Meanchey 3, Khan Meanchey, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030973,
+            "latitude": 12.5296944444444,
+            "longitude": 103.9335,
+            "title": "PTT PURSAT I",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Pursat",
+            "address": "#181, National Road 5, Morn Jae Village, Prey Nhi Commune, Pursat City",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030895,
+            "latitude": 11.6380555555555,
+            "longitude": 104.883111111111,
+            "title": "PTT SVAY PAK",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Street 5, Sangkat Svay Pak, Khan Reusey Keo, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10030643,
+            "latitude": 13.0504166666666,
+            "longitude": 106.181444444444,
+            "title": "PTT OU KREANG",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kratie",
+            "address": "National Road 7, Ou Kreang Village, Ou Kreang Commune, Sombo District, Kratie",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031323,
+            "latitude": 10.5336388888888,
+            "longitude": 103.617055555555,
+            "title": "PTT REAM SHV",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "National Road 45, Ork village, Ream commune, Preynub district, Sihanoukville, near Ream roundabout",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30068426,
+            "latitude": 11.0256111111111,
+            "longitude": 104.674722222222,
+            "title": "PTT ANG TASOM",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Takeo",
+            "address": "National Road 3, Taleu village, Udomsorya commune, Tramkok district, Takeo province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031787,
+            "latitude": 10.617,
+            "longitude": 103.547416666666,
+            "title": "PTT O3",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "Phum 5, Sangkat lek 4, Sihanouk Ville City, Sihanouk Ville",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031481,
+            "latitude": 13.1063611111111,
+            "longitude": 103.166527777777,
+            "title": "PTT AU CHAR 2",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Battambang",
+            "address": "St. Anndong Chenh Village, Sangkat Au Char, Battambang",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031773,
+            "latitude": 11.5688055555555,
+            "longitude": 104.832666666666,
+            "title": "PTT MOLYKA KRANG THOUNG",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#1998, Street Betong, Group 7, Kakab Village, Sangkat Kakab 2, Khan Por Senchey, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031788,
+            "latitude": 11.2166388888888,
+            "longitude": 104.587944444444,
+            "title": "PTT Slap Laeng Road 41",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Speu",
+            "address": "Road 41, Preah Mlub Village, Pheary Meanchey Commune, Bor Seth District, Kompong Spue Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10031990,
+            "latitude": 11.25775,
+            "longitude": 104.820944444444,
+            "title": "PTT Tunle Bati",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Takeo",
+            "address": "National Road 2, Roleang Krerl Village, Trapeang Sap Commune, Bati District, Takeo Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032354,
+            "latitude": 11.5105555555555,
+            "longitude": 104.666694444444,
+            "title": "PTT road 51 right hand",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "National Road 51, Doumnak Ampil Village, Doumnak Ampil Commune, Ang Snoul District, Kandal Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032399,
+            "latitude": 11.0517222222222,
+            "longitude": 106.091694444444,
+            "title": "PTT Bavit",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Svay Rieng",
+            "address": "Trapeang Phlong Village, Sangkat Bati, Bavet City, Svay Rieng Province, Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032587,
+            "latitude": 11.7570277777777,
+            "longitude": 105.020111111111,
+            "title": "PTT KHSACH KANDAL",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "St.381,Phum Preakta Kung,Khom Preakta Mak, Srok Khsach Kandal, Kandal Provice.",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032306,
+            "latitude": 11.8982777777777,
+            "longitude": 105.673583333333,
+            "title": "PTT SOUNG",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Tboung Khmum",
+            "address": "National Road 7, Phum ChhreiBitMeas, Sangkat Soung, Krung Soung, Tboung Khmom Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032708,
+            "latitude": 11.4753611111111,
+            "longitude": 104.959722222222,
+            "title": "PTT  KOH KRABEI",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Champous Kaek Village, Sangkat Prek Thmey, Khan Chhba Ampov, Phnom Penh",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032704,
+            "latitude": 13.2668055555555,
+            "longitude": 104.089944444444,
+            "title": "PTT DOM DEK II",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "National Road No. 6, Khchas Village, Khchas Commune, Srok Sonikum, Siem Reap Province, Kingdom of Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032943,
+            "latitude": 10.6746111111111,
+            "longitude": 103.800416666666,
+            "title": "PTT Veal Renh",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "#No. National Road Number 4, Phum Bantheay Prey, Khum Andong thmor, Srok Prey Nop, Sihanouk ville.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032355,
+            "latitude": 11.5861944444444,
+            "longitude": 104.677416666666,
+            "title": "PTT Road 51 WE RISE",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kampong Speu",
+            "address": "National Road 51, Wat Phnom Village, Phnom Toch Commune, Oudong District, Kampong Spue Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032944,
+            "latitude": 11.5934722222222,
+            "longitude": 104.85125,
+            "title": "PTT Asian Hope",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Land Plot 1074, Batong Street, Sanrong Teav Village, Sangkat Krang Thnong, Khan Sen Sok, PP",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032709,
+            "latitude": 11.6815416666666,
+            "longitude": 104.921438888888,
+            "title": "PTT Road 6A Lyong Phat Bridge",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "NR 6 A, Bak Kheng Leu Village, Sangkat Bak Kheng, Khan Chroy Changvor, PP",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10032710,
+            "latitude": 11.0856388888888,
+            "longitude": 104.501138888888,
+            "title": "PTT Tropeng Andek",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Takeo",
+            "address": "Street 41, Toul Khlong Vilage, O'saray Communce, Tram Kak District, Tekeo",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30076521,
+            "latitude": 11.6169444444444,
+            "longitude": 102.984194444444,
+            "title": "PTT Dorng Tung",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Koh Kong",
+            "address": "located road 48, Chi Meal Village, Andoung Tuek Commune, Botum Sakor District, Koh Kong Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033986,
+            "latitude": 11.5000555555555,
+            "longitude": 105.068666666666,
+            "title": "PTT Phsar KorKi",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "Located at national road No. 1, Slab Ta Aon Village, Kokir Commune, \nKien Svay District, Kandal Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034008,
+            "latitude": 12.4733333333333,
+            "longitude": 104.369944444444,
+            "title": "PTT Kro Kor",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Pursat",
+            "address": "Located at national road No. 5, Kbal Domrei Village, Ansa Chambak Commune, \nKrakor District, Pursat Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034077,
+            "latitude": 11.5293888888888,
+            "longitude": 104.944111111111,
+            "title": "PTT Niroth",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "located at street 351 (Trong Morn),\u00e2\u20ac\u2039 Ta Ngov Village, Sangkat Nirouth, \nKhan Chbar Ampov, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033884,
+            "latitude": 10.6473333333333,
+            "longitude": 104.192666666666,
+            "title": "PTT KAMPOT OUT CITY",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampot",
+            "address": "located at National Road 3, Kep Thmey Village, Sangkat Boeung Touk, Bokor Municipal, \nKampot Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034109,
+            "latitude": 10.5375277777777,
+            "longitude": 104.325305555555,
+            "title": "PTT Domnak Chanour",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kep",
+            "address": "located at Plot land 1149, National Road 33, Damnak Chang\u00e2\u20ac\u2122Auer Village, Sangkat \nPrey Thom, Kep Municipal, Kep Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034007,
+            "latitude": 13.1167222222222,
+            "longitude": 103.20025,
+            "title": "PTT Sree 100",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "Located at Ou Ta Nob Village, Sangkat Kdol Doun Teav, Krong Battambang, \nBattambang Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10033836,
+            "latitude": 12.07025,
+            "longitude": 106.421222222222,
+            "title": "PTT Snoul",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kratie",
+            "address": "Located at Kbal Snuol Village, Snuol Commune, Snuol District, Kratie Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034915,
+            "latitude": 10.5725,
+            "longitude": 104.139611111111,
+            "title": "PTT Kampot Borkor",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampot",
+            "address": "located at National Road 3, Kep Thmey Village, Sangkat Boeung Touk, Bokor Municipal, \nKampot Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30077267,
+            "latitude": 13.5201944444444,
+            "longitude": 103.018694444444,
+            "title": "PTT Mongkol Borie",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Banteay Meanchey",
+            "address": "Located at Chumteav Village, Russey Kraok Commune, Mongkol Borei District, Banteay Meanchey Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034962,
+            "latitude": 12.4814166666666,
+            "longitude": 105.120583333333,
+            "title": "PTT Kompong Thmor",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Thom",
+            "address": "Trapeang Svay Village, Balang Commune, Baray District, Kampong Thom Province,",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10043893,
+            "latitude": 11.4988611111111,
+            "longitude": 105.339,
+            "title": "PTT Krung Prey Veng",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Prey Veng",
+            "address": "National Road 11, Ekream Village, Sangkat Cheung Teok, Prey Veng Municipal, Prey Veng Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035075,
+            "latitude": 11.5520277777777,
+            "longitude": 104.905583333333,
+            "title": "PTT Toul Svay Prey",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "land plot No. 287 Street 205 corner Street 364 Village 5 Sangkat Toul SvayPrey 2, Khan Boeung Keng Kang, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035074,
+            "latitude": 10.8406388888888,
+            "longitude": 104.462111111111,
+            "title": "PTT Chhuk Commune",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampot",
+            "address": "land plot 274 National Road No. 3, Chhue Teal Village, Chhouk Commune, Chhouk District, Kampot Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035079,
+            "latitude": 11.5726861111111,
+            "longitude": 104.841280555555,
+            "title": "PTT Staion Road 105K",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#484 Street 105K Troung Morn Village, Sangkat Krang Thnong, Khan Sen Sok, Phnom Penh",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034985,
+            "latitude": 13.2420833333333,
+            "longitude": 103.096861111111,
+            "title": "PTT Tmor Koul II",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "plot land No. 12, Kaksekam Village, Tapuung Commune, Thmor Kol District, Battambang Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034963,
+            "latitude": 11.6010111111111,
+            "longitude": 105.4162,
+            "title": "PTT Svay Autor",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Prey Veng",
+            "address": "plot land No. 14101001-0599 and 14101001-0600, National Road No. 8, Svay Antor 1 Village, Svay Antor Commune, Svay Antor District, Prey Veng Province",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30078128,
+            "latitude": 11.4943611111111,
+            "longitude": 104.863333333333,
+            "title": "PTT Loung Mea",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "Plot Land No. 305, Prey Sor Street, Brakar Village, Sangkat Prey Sor, Khan Dangkor, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035118,
+            "latitude": 10.5938611111111,
+            "longitude": 103.565777777777,
+            "title": "PTT O'Tress",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "Chom Noat Ream village, Bet Trang commune, Prey Nob distrct, Sihanouk Ville, Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10034777,
+            "latitude": 11.0381944444444,
+            "longitude": 106.005444444444,
+            "title": "PTT Chi Phou",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Svay Rieng",
+            "address": "Road # 1, Chrey Thom Village, Prey Angkunh District, Bavet City, Svay Rieng Province",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 30075518,
+            "latitude": 13.0958055555555,
+            "longitude": 103.197305555555,
+            "title": "PTT Battambong City",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "Road #02 Kompong Krobey Village Sangkat Svay Por, Battambang City.Battambang Provinice",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035275,
+            "latitude": 13.58925,
+            "longitude": 102.969416666666,
+            "title": "PTT BANTEAY MEANCHEY in CITY",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Banteay Meanchey",
+            "address": "National Road 5, Tarang Ball Village, Sangkat Kampong Svay, Serie Saophoan Municipal, Banteay Meanchey Province",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035465,
+            "latitude": 12.7590555555555,
+            "longitude": 103.455611111111,
+            "title": "PTT Moung Russey",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Battambang",
+            "address": "#527 National Road No.5, Kai 3 Village, Kai Commune, Moung Russey District, Battambong Province.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035495,
+            "latitude": 11.4405833333333,
+            "longitude": 104.853749999999,
+            "title": "PTT Vong Plov 20A",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "National Road No.20A, Thei Village, Sangkat Tean, Khan Dangkor, Phnom Penh, Cambodia.",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035664,
+            "latitude": 11.5188611111111,
+            "longitude": 104.889277777777,
+            "title": "PTT Sambour Meas",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "at # 15, Chamkar Doung Street (217),\u00e2\u20ac\u2039 Mol Village, Sangkat Dangkor, Khan Dangkor, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035854,
+            "latitude": 11.5667777777777,
+            "longitude": 104.824305555555,
+            "title": "PTT Kakap",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "#330, St. Be Tong, Kakap village, Sangkat Kakap Ti 2, Khan Pou Senchey, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035000,
+            "latitude": 11.5027777777777,
+            "longitude": 104.688333333333,
+            "title": "PTT ANG SNUOL",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "# National Road 4, Trapeang Reang Village, Prey Puoch Commune, Angk Snoul District, Kandal Province, Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035868,
+            "latitude": 12.2873333333333,
+            "longitude": 104.584666666666,
+            "title": "PTT PONGRO",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Kampong Chhnang",
+            "address": "#Land no 417, Street no, Toub Tbeng village, Pongro commune, Rolea Baear District, Kampong Chhnang province. ",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30080329,
+            "latitude": 11.6621388888888,
+            "longitude": 104.845166666666,
+            "title": "PTT Boeung Tamok",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "#F56, Street Fortune,  Chong Thnol Khang Kert Village, Sangkat Tuek Thla, Khan Sen Sok, Phnom Penh.",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10036085,
+            "latitude": 11.5336388888888,
+            "longitude": 104.961194444444,
+            "title": "PTT Peng Huoth The Grand Star Platinum",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "Borey Peng Huoth Boeung Snor, Street Claster, Boeung Chhouk Village, Sangkat Niroth, Khan Chbar Ampov, Phnom Penh.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035930,
+            "latitude": 11.7964166666666,
+            "longitude": 105.880611111111,
+            "title": "PTT PonheaKrek",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Tboung Khmum",
+            "address": "Kranhung Village, Veal Mlu Commune, Ponhea Krek District, Tboung Khmum Province, Cambodia.",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10035641,
+            "latitude": 10.9994722222222,
+            "longitude": 103.790916666666,
+            "title": "PTT KAMPONG SEILA",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Preah Sihanouk",
+            "address": "# National Road 4, Kirivon Village, Stoeng Chhay Commune, Kampong Seila District, Sihanouk Ville, Cambodia",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10036179,
+            "latitude": 11.5713972222222,
+            "longitude": 105.659197222222,
+            "title": "PTT Kamchay Mea",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Prey Veng",
+            "address": "Thnoul Keng Village, Smong Khang Cherng Commune, Kamchay Mea District, Prey Veng Province, Cambodia.",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30082047,
+            "latitude": 11.5437222222222,
+            "longitude": 104.961333333333,
+            "title": "PTT KOH NOREA",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "At Koh Norea, Phum Russey Sros, Sangkat Niroth, Khan Chbar Ampov, Phnom Penh. ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10037095",
+            "latitude": "11.566",
+            "longitude": "104.911305555555",
+            "title": "PTT Borey Keila",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": null,
+            "service": [
+                "Fleet card",
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Phnom Penh",
+            "address": "# 150 E0, St. 130, Phoum 1, Sangkat Phsar Kandal 2, Khan Daun Penh, Phnom Penh, Cambodia",
+            "status": "16h",
+            "promotion": null,
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": 10037152,
+            "latitude": 11.6117499999999,
+            "longitude": 104.806861111111,
+            "title": "PTT Station Kobsrob Boeung Tamok",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Phnom Penh",
+            "address": "Plot land No 379, Street Win Win Blvd, Trapeang Por Village, Sangkat Korkrokar, Khan Prek Pnov, Phnom Penh",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30082667,
+            "latitude": 11.4607222222222,
+            "longitude": 104.910055555555,
+            "title": "PTT Peng Huoth Road 50m",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#Land 449, Ring Road 2, Phum Prek Thleng, Sangkat Choeung Ek, Khan Dangkor, Phnom Penh.",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10037284,
+            "latitude": 12.5613611111111,
+            "longitude": 103.852555555555,
+            "title": "PTT Pursat II",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Pursat",
+            "address": "# Plot land No.42, National Road No.05, Krapeu Rou Village, Snam Preah Commune, Bakan District , Pursat Province, Cambodia.",
+            "status": "off fleet card",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10037327,
+            "latitude": 11.5351111111111,
+            "longitude": 104.883444444444,
+            "title": "PTT Veng Sreng Center",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "Veng Sreng Street, Trea 3 village, Sangkat Stueng Meanchey 1, Khan Meanchey, Phnom Penh, Cambodia",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 30083692,
+            "latitude": 13.6756944444444,
+            "longitude": 102.562972222222,
+            "title": "PTT Poi Pet Five Stars",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR"
+            ],
+            "province": "Banteay Meanchey",
+            "address": "#, Phum Sameakki Mean Chey, Sangkat Ou Chrov, Krong Paoy Paet,  ",
+            "status": "24h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": 10037634,
+            "latitude": 11.4270833333333,
+            "longitude": 104.97725,
+            "title": "PTT S'ang Tuol Krasang",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [
+                ""
+            ],
+            "service": [
+                "Cash",
+                "KHQR",
+                "Fleet card"
+            ],
+            "province": "Kandal",
+            "address": "Land and Building# 59, National Road 21, Phum Toul Krasang, Sangkat Roka Khpos, Krong Ta Khmao, Kandal Province.\n",
+            "status": "16h",
+            "promotion": [
+                ""
+            ],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10037836",
+            "latitude": "13.5766666666667",
+            "longitude": "103.447111111111",
+            "title": "PTT Kralanh ",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Siem Reap",
+            "address": "National Road No.06, Tachraing Village, Kralanh Commune , Kralanh District,Siem Reap Province, Cambodia",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "2.png",
+            "picture": "2.png"
+        },
+        {
+            "id": "10037871",
+            "latitude": "11.57636111",
+            "longitude": "104.8031389",
+            "title": "PTT Station Kob Srov Golf Club",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#Win-Win Blvd, Phum Trapeang Thnong, Sangkat Samraong Kraom, Khan Pou Senchey, Phnom Penh, Cambodia.",
+            "status": "24h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038283",
+            "latitude": "11.54783333",
+            "longitude": "104.8222222",
+            "title": "PTT Prey Tea",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#Plot no. 761 and Plot no.797, Street no.86K corner of street 123K, Phum Prey Tea 1, Sangkat Chaom Chau Ti 3, Khan Pou Sen Chey (Por Senchey), Phnom Penh.",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038391",
+            "latitude": "13.35430556",
+            "longitude": "103.8400556",
+            "title": "PTT STATION RING ROAD",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash",
+                "Fleet card"
+            ],
+            "province": "Siem Reap",
+            "address": "#Ring Road, Phum Svay Dankum, Sangkat Svay Dankum, Siem Reap City, Siem Reap Province",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10037958",
+            "latitude": "11.35402778",
+            "longitude": "105.0105833",
+            "title": "PTT STATION S'ANG PREAK SNANG_SOUTHEAST_KING_DRAGON",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash",
+                "Fleet card"
+            ],
+            "province": "Kandal",
+            "address": "National Road 21, Preaek Koy, Sambour, Kandal 080908, Cambodia",
+            "status": "off fleet card",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038533",
+            "latitude": "11.83652778",
+            "longitude": "104.9803889",
+            "title": "PTT Rokarkong KINGRISE CO.,LTD.",
+            "description": [
+                "Amazon",
+                "7-Eleven"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "Land plot no.229, National Road 6A, Svay Chrum Village, Preaek Dambang Commune, Mukh Kampul District,Kandal Province.",
+            "status": "24h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038564",
+            "latitude": "11.51616667",
+            "longitude": "104.8978889",
+            "title": "PTT STATION BOENG TAMAT_KONG LY LK INVESTMENT CO.,LTD.",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash",
+                "Fleet card"
+            ],
+            "province": "Phnom Penh",
+            "address": "#Land plot no. 6674, Street Boeng Ta Mat, Phum Sambour.",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038834",
+            "latitude": "12.30558333",
+            "longitude": "103.1020833",
+            "title": "PTT Veal Veng PHNOM TOMPOR RETAIL CO.,LTD_10038834",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Pursat",
+            "address": "#National Road No. 55, Corner of No. 10, Pramaoy Village, Pursat Province",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038583",
+            "latitude": "14.42688889",
+            "longitude": "103.6960556",
+            "title": "PTT O-Smach_MEANCHEY ENERGY (CAMBODIA) CO.,LDT_10038583",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Oddar Meanchey",
+            "address": "#Land plot no. 23, NR 68, Ou Smach Village, Oddar Meanchey Province",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038513",
+            "latitude": "11.45083333",
+            "longitude": "105.0636111",
+            "title": "PTT Sre Ampil Ring Road #3_META_ENERGY CO.,LTD",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kandal",
+            "address": "#2318, Street 60 Meters Ring Road 3, Preaek Doung Village, Kampong Svay Commune, Kien Svay District, Kandal Province",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038896",
+            "latitude": "11.91669444",
+            "longitude": "104.7075",
+            "title": "PTT Kampong Tralach ROYAL HM TRADING CO.,LTD.",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Kampong Chhnang",
+            "address": "#379, National Road No.5, Ou Ruessei Village, Ou Ruessei Commune,  Kampong Tralach District, Kampong Chhnang Province.",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        },
+        {
+            "id": "10038814",
+            "latitude": "10.96202778",
+            "longitude": "104.6614444",
+            "title": "PTT Bek Kus_PUTHISAK BEKKUS PETROL STATION CO., LTD.",
+            "description": [
+                "Amazon"
+            ],
+            "product": [
+                "ULG 95",
+                "ULR 91",
+                "HSD"
+            ],
+            "other_product": [],
+            "service": [
+                "KHQR",
+                "Cash"
+            ],
+            "province": "Takeo",
+            "address": "#Land plot no. 945, National Road N o.3, Srok Chek Village, Takeo Province",
+            "status": "16h",
+            "promotion": [],
+            "old_picture": "",
+            "picture": "2.png"
+        }
+    ]
+}

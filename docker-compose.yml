@@ -1,0 +1,15 @@
+services:
+  marker-api:
+    # Tells Docker to build the image from the Dockerfile inside the './backend' folder.
+    build: ./backend
+    
+    # Maps port 5001 on your computer to port 5000 in the container.
+    ports:
+      - "7000:7000"
+      
+    # Mounts your local './data' folder to the '/app/data' folder inside the container.
+    volumes:
+      - ./data:/app/data
+      
+    # A friendly name for the running container.
+    container_name: marker-api-container

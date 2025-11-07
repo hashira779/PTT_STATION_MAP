@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTT Station Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        tbody tr { transition: background-color 0.2s ease-in-out; }
+        .tag { display: inline-flex; align-items: center; background-color: #e0e7ff; color: #4338ca; padding: 4px 10px; border-radius: 9999px; font-size: 0.8rem; margin: 2px; font-weight: 500; }
+        .tag button { margin-left: 8px; background: none; border: none; cursor: pointer; color: #4f46e5; font-weight: bold; }
+        #bulk-array-checkbox-container label { display: flex; align-items: center; padding: 4px 8px; background-color: #f3f4f6; border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
+        #bulk-array-checkbox-container label:hover { background-color: #e5e7eb; }
+        #bulk-array-checkbox-container input { margin-right: 8px; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="mb-10">
+            <h1 class="text-4xl font-bold text-slate-900">Station Management Dashboard</h1>
+            <p class="text-lg text-slate-600 mt-2">A central hub for viewing and managing station data.</p>
+        </header>
+
+        <div id="analytics-panel" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h2 class="text-xl font-semibold mb-4 text-slate-800 border-b pb-3">Add New Station</h2>
+                <form id="add-marker-form" class="space-y-4 mt-4">
+                    <input required type="text" id="new-marker-id" placeholder="ID (e.g., 701)" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    <input required type="text" id="new-marker-title" placeholder="Title (e.g., PTT Station Riverside)" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    <input required type="text" id="new-marker-province" placeholder="Province (e.g., Phnom Penh)" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    <button type="submit" class="w-full bg-sky-600 text-white font-bold py-3 px-4 rounded-md hover:bg-sky-700 transition">Add Station</button>
+                </form>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h2 class="text-xl font-semibold mb-4 text-slate-800 border-b pb-3">Bulk Field Update</h2>
+                <form id="bulk-update-form" class="space-y-4 mt-4">
+                    <textarea id="bulk-ids" rows="3" placeholder="Paste station IDs here..." class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                    <div id="bulk-id-validation" class="text-xs p-2 bg-slate-50 rounded min-h-[40px]"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" id="bulk-status" placeholder="New Status (optional)" class="p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        <input type="text" id="bulk-province" placeholder="New Province (optional)" class="p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    </div>
+                    <button type="submit" class="w-full bg-amber-500 text-white font-bold py-3 px-4 rounded-md hover:bg-amber-600 transition">Apply Bulk Update</button>
+                    <div id="bulk-update-result" class="text-center text-sm font-medium mt-2 h-6"></div>
+                </form>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h2 class="text-xl font-semibold mb-4 text-slate-800 border-b pb-3">Bulk Array Update</h2>
+                <form id="bulk-array-form" class="space-y-4 mt-4">
+                    <textarea id="bulk-array-ids" rows="2" placeholder="Paste station IDs here..." class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                    <div id="bulk-array-id-validation" class="text-xs p-2 bg-slate-50 rounded min-h-[40px]"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <select id="bulk-array-field" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="service">Service</option>
+                            <option value="product">Product</option>
+                            <option value="other_product">Other Product</option>
+                            <option value="description">Description</option>
+                        </select>
+                        <select id="bulk-array-action" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="remove">Remove</option>
+                            <option value="add">Add</option>
+                        </select>
+                    </div>
+                    <div id="bulk-array-checkbox-container" class="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded-md max-h-32 overflow-y-auto">
+                        </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-md hover:bg-emerald-700 transition">Apply Array Update</button>
+                    <div id="bulk-array-result" class="text-center text-sm font-medium mt-2 h-6"></div>
+                </form>
+            </div>
+            </div>
+
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="p-6 flex flex-wrap gap-4 justify-between items-center border-b">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-xl font-semibold text-slate-800">Station Data</h2>
+                    <select id="file-selector" class="p-2 bg-slate-50 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+                </div>
+                <a id="export-button" href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition">Export</a>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-slate-600">
+                    <thead class="text-xs text-slate-700 uppercase bg-slate-50">
+                        <tr><th class="px-6 py-3">ID</th><th class="px-6 py-3">Title</th><th class="px-6 py-3">Province</th><th class="px-6 py-3">Status</th><th class="px-6 py-3 text-right">Actions</th></tr>
+                    </thead>
+                    <tbody id="marker-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- DOM Elements ---
+    const fileSelector = document.getElementById('file-selector');
+    const markerTableBody = document.getElementById('marker-table-body');
+    const analyticsPanel = document.getElementById('analytics-panel');
+    const exportButton = document.getElementById('export-button');
+    const addMarkerForm = document.getElementById('add-marker-form');
+    const bulkUpdateForm = document.getElementById('bulk-update-form');
+    const bulkUpdateResult = document.getElementById('bulk-update-result');
+    const bulkIdsTextarea = document.getElementById('bulk-ids');
+    const bulkIdValidation = document.getElementById('bulk-id-validation');
+    const bulkArrayForm = document.getElementById('bulk-array-form');
+    const bulkArrayResult = document.getElementById('bulk-array-result');
+    // *** NEW DOM ELEMENTS ***
+    const bulkArrayIdsTextarea = document.getElementById('bulk-array-ids');
+    const bulkArrayIdValidation = document.getElementById('bulk-array-id-validation');
+    const bulkArrayFieldSelect = document.getElementById('bulk-array-field');
+    const bulkArrayCheckboxContainer = document.getElementById('bulk-array-checkbox-container');
+    
+    let currentMarkers = [];
+    const API_BASE = '/api';
+
+    // --- Core Functions ---
+    const fetchAndRenderMarkers = async (fileKey) => {
+        try {
+            const response = await fetch(`${API_BASE}/markers/${fileKey}`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            currentMarkers = await response.json();
+            
+            renderMarkers(currentMarkers, fileKey);
+            calculateAndRenderStats(currentMarkers);
+            validateBulkIds();
+            validateBulkArrayIds(); // Validate for new form
+            renderCheckboxesForField(bulkArrayFieldSelect.value); // Initial checkbox render
+            
+            exportButton.href = `${API_BASE}/export/${fileKey}`;
+        } catch (error) {
+            console.error("Fetch Error:", error);
+            markerTableBody.innerHTML = `<tr><td colspan="5" class="text-center p-8 text-red-500">Error loading data.</td></tr>`;
+        }
+    };
+
+    // *** NEW FUNCTION: Render Checkboxes ***
+    const renderCheckboxesForField = (field) => {
+        if (!currentMarkers) return;
+        const uniqueValues = [...new Set(currentMarkers.flatMap(m => m[field] || []))].sort();
+        
+        if (uniqueValues.length === 0) {
+            bulkArrayCheckboxContainer.innerHTML = '<span class="text-slate-400 p-2">No items found for this field.</span>';
+            return;
+        }
+
+        bulkArrayCheckboxContainer.innerHTML = uniqueValues.map(value => `
+            <label>
+                <input type="checkbox" name="bulk-array-value" value="${value}">
+                <span class="text-sm">${value}</span>
+            </label>
+        `).join('');
+    };
+    
+    // *** NEW FUNCTION: Validate IDs for Array Form ***
+    const validateBulkArrayIds = () => {
+        const validIdSet = new Set(currentMarkers.map(m => String(m.id)));
+        const inputIds = bulkArrayIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id);
+        if (inputIds.length === 0) { bulkArrayIdValidation.innerHTML = '<span class="text-slate-400">Paste IDs...</span>'; return; }
+        const foundIds = [];
+        const notFoundIds = [];
+        inputIds.forEach(id => { validIdSet.has(id) ? foundIds.push(id) : notFoundIds.push(id); });
+        let html = '';
+        if (foundIds.length > 0) html += `<div class="text-green-600 font-semibold">Found (${foundIds.length})</div>`;
+        if (notFoundIds.length > 0) html += `<div class="text-red-600 font-semibold mt-1">Not Found (${notFoundIds.length}): ${notFoundIds.join(', ')}</div>`;
+        bulkArrayIdValidation.innerHTML = html;
+    };
+
+    // *** MODIFIED HANDLER FUNCTION ***
+    const handleBulkArrayUpdate = async (event) => {
+        event.preventDefault();
+        bulkArrayResult.textContent = 'Processing...';
+
+        const fileKey = fileSelector.value;
+        const ids = bulkArrayIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id);
+        const field = bulkArrayFieldSelect.value;
+        const action = document.getElementById('bulk-array-action').value;
+        
+        // Get values from checked boxes
+        const checkedBoxes = document.querySelectorAll('#bulk-array-checkbox-container input:checked');
+        const values = Array.from(checkedBoxes).map(cb => cb.value);
+
+        if (ids.length === 0 || values.length === 0) {
+            bulkArrayResult.textContent = 'Please provide IDs and select values.';
+            return;
+        }
+
+        const payload = { ids, field, action, values }; // 'values' is now an array
+
+        try {
+            const response = await fetch(`${API_BASE}/markers/${fileKey}/bulk_array_update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Bulk array update failed');
+
+            bulkArrayResult.innerHTML = `<span class="text-green-600">Updated ${result.updated_count} stations.</span>`;
+            setTimeout(() => bulkArrayResult.innerHTML = '', 4000);
+            bulkArrayForm.reset();
+            await fetchAndRenderMarkers(fileKey);
+
+        } catch (error) {
+            bulkArrayResult.innerHTML = `<span class="text-red-500">Error: ${error.message}</span>`;
+        }
+    };
+
+    // --- (Paste all your other existing JavaScript functions here, no changes needed) ---
+    const renderMarkers = (markers, fileKey) => { markerTableBody.innerHTML = ''; if (!markers || markers.length === 0) { markerTableBody.innerHTML = `<tr><td colspan="5" class="text-center p-8 text-slate-500">No markers found.</td></tr>`; return; } markers.forEach(marker => { const row = document.createElement('tr'); row.className = 'bg-white border-b hover:bg-slate-50'; row.id = `marker-row-${marker.id}`; row.innerHTML = `<td class="px-6 py-4 font-medium text-slate-900">${marker.id}</td><td class="px-6 py-4">${marker.title || ''}</td><td class="px-6 py-4">${marker.province || ''}</td><td class="px-6 py-4">${marker.status || ''}</td><td class="px-6 py-4 text-right"><button onclick="toggleEditMode('${fileKey}', '${marker.id}')" class="font-medium text-indigo-600 hover:text-indigo-800 mr-4">Edit</button><button onclick="handleDelete('${fileKey}', '${marker.id}')" class="font-medium text-red-600 hover:text-red-800">Delete</button></td>`; markerTableBody.appendChild(row); }); }; const removeItem = (element) => element.parentElement.remove(); const addItem = (fieldName, markerId) => { const input = document.getElementById(`add-input-${fieldName}-${markerId}`); const list = document.getElementById(`list-${fieldName}-${markerId}`); const value = input.value.trim(); if (value && list) { const newItem = document.createElement('div'); newItem.className = 'tag'; newItem.dataset.value = value; newItem.innerHTML = `<span>${value}</span><button type="button" onclick="removeItem(this)">❌</button>`; list.appendChild(newItem); input.value = ''; } }; const createArrayEditor = (fieldName, items, markerId) => { const itemsHtml = (items || []).map(item => `<div class="tag" data-value="${item}"><span>${item}</span><button type="button" onclick="removeItem(this)">❌</button></div>`).join(''); return `<div class="mb-4"><label class="font-bold capitalize text-slate-600">${fieldName.replace('_', ' ')}</label><div id="list-${fieldName}-${markerId}" class="flex flex-wrap gap-1 p-2 bg-slate-100 rounded-md min-h-[40px] mt-1">${itemsHtml}</div><div class="flex gap-2 mt-2"><input type="text" id="add-input-${fieldName}-${markerId}" class="w-full p-2 border rounded-md" placeholder="Add new..."><button type="button" onclick="addItem('${fieldName}', '${markerId}')" class="bg-blue-500 text-white px-4 rounded-md font-bold hover:bg-blue-600">+</button></div></div>`; }; const toggleEditMode = (fileKey, markerId) => { const marker = currentMarkers.find(m => String(m.id) === String(markerId)); if (!marker) return; const row = document.getElementById(`marker-row-${markerId}`); row.classList.add('bg-indigo-50'); const arrayFields = ['description', 'product', 'other_product', 'service']; const arrayEditorsHtml = arrayFields.map(field => createArrayEditor(field, marker[field], markerId)).join(''); row.innerHTML = `<td colspan="5" class="p-4"><h3 class="text-lg font-bold mb-2">Editing Station ID: ${marker.id}</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="font-bold text-slate-600">Title</label><input type="text" id="edit-title-${markerId}" value="${marker.title || ''}" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-bold text-slate-600">Province</label><input type="text" id="edit-province-${markerId}" value="${marker.province || ''}" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-bold text-slate-600">Status</label><input type="text" id="edit-status-${markerId}" value="${marker.status || ''}" class="w-full p-2 border rounded-md mt-1"></div></div><hr class="my-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">${arrayEditorsHtml}</div><div class="flex justify-end gap-4 mt-4"><button onclick="renderMarkers(currentMarkers, '${fileKey}')" class="font-medium bg-slate-200 px-4 py-2 rounded-md hover:bg-slate-300">Cancel</button><button onclick="handleSave('${fileKey}', '${marker.id}')" class="font-medium text-white bg-green-600 px-4 py-2 rounded-md hover:bg-green-700">Save</button></div></td>`; }; const handleSave = async (fileKey, markerId) => { const originalMarker = currentMarkers.find(m => String(m.id) === String(markerId)); if (!originalMarker) return; const updatedMarker = { ...originalMarker }; updatedMarker.title = document.getElementById(`edit-title-${markerId}`).value; updatedMarker.province = document.getElementById(`edit-province-${markerId}`).value; updatedMarker.status = document.getElementById(`edit-status-${markerId}`).value; const arrayFields = ['description', 'product', 'other_product', 'service']; arrayFields.forEach(field => { const listContainer = document.getElementById(`list-${field}-${markerId}`); if (listContainer) { const items = Array.from(listContainer.querySelectorAll('.tag')).map(tag => tag.dataset.value); updatedMarker[field] = items; } }); try { await fetch(`${API_BASE}/markers/${fileKey}/${markerId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updatedMarker) }); await fetchAndRenderMarkers(fileKey); } catch (error) { alert(`Error saving: ${error.message}`); } }; const handleDelete = async (fileKey, markerId) => { if (!confirm(`Are you sure you want to delete marker ID ${markerId}?`)) return; try { await fetch(`${API_BASE}/markers/${fileKey}/${markerId}`, { method: 'DELETE' }); await fetchAndRenderMarkers(fileKey); } catch (error) { alert(`Error deleting: ${error.message}`); } }; const handleAddMarker = async (event) => { event.preventDefault(); const newMarker = { id: document.getElementById('new-marker-id').value, title: document.getElementById('new-marker-title').value, province: document.getElementById('new-marker-province').value, status: "active" }; try { const response = await fetch(`${API_BASE}/markers/${fileSelector.value}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newMarker) }); if (!response.ok) { const errorData = await response.json(); throw new Error(errorData.error || 'Failed to add marker'); } addMarkerForm.reset(); await fetchAndRenderMarkers(fileSelector.value); } catch (error) { alert(`Error: ${error.message}`); } }; const handleBulkUpdate = async (event) => { event.preventDefault(); bulkUpdateResult.textContent = 'Processing...'; const fileKey = fileSelector.value; const idsToUpdate = bulkIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id); const changes = {}; const newStatus = document.getElementById('bulk-status').value.trim(); const newProvince = document.getElementById('bulk-province').value.trim(); if (newStatus) changes.status = newStatus; if (newProvince) changes.province = newProvince; if (idsToUpdate.length === 0 || Object.keys(changes).length === 0) { bulkUpdateResult.textContent = 'Please provide IDs and at least one change.'; return; } const payload = idsToUpdate.map(id => ({ id, changes })); try { const response = await fetch(`${API_BASE}/markers/${fileKey}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Bulk update failed'); bulkUpdateResult.innerHTML = `<span class="text-green-600">Updated: ${result.updated_ids.length}</span> | <span class="text-red-500">Not Found: ${result.not_found_ids.length}</span>`; bulkUpdateForm.reset(); validateBulkIds(); await fetchAndRenderMarkers(fileKey); } catch (error) { bulkUpdateResult.textContent = `Error: ${error.message}`; } }; const validateBulkIds = () => { const validIdSet = new Set(currentMarkers.map(m => String(m.id))); const inputIds = bulkIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id); if (inputIds.length === 0) { bulkIdValidation.innerHTML = '<span class="text-slate-400">Paste IDs...</span>'; return; } const foundIds = []; const notFoundIds = []; inputIds.forEach(id => { validIdSet.has(id) ? foundIds.push(id) : notFoundIds.push(id); }); let html = ''; if (foundIds.length > 0) html += `<div class="text-green-600 font-semibold">Found (${foundIds.length})</div>`; if (notFoundIds.length > 0) html += `<div class="text-red-600 font-semibold mt-1">Not Found (${notFoundIds.length}): ${notFoundIds.join(', ')}</div>`; bulkIdValidation.innerHTML = html; }; const calculateAndRenderStats = (markers) => { if (!markers) return; const countItems = (key) => markers.flatMap(m => m[key] || []).reduce((acc, item) => { acc[item] = (acc[item] || 0) + 1; return acc; }, {}); const stats = { total: markers.length, status: markers.reduce((acc, m) => { acc[m.status] = (acc[m.status] || 0) + 1; return acc; }, {}), services: countItems('service'), descriptions: countItems('description'), }; const createStatCard = (title, value, items = {}) => { let listHtml = Object.entries(items).map(([key, count]) => `<li class="flex justify-between text-xs"><span>${key || 'N/A'}</span><span class="font-bold">${count}</span></li>`).join(''); return `<div class="bg-white p-4 rounded-xl shadow-sm"><h3 class="font-semibold text-slate-500 text-sm">${title}</h3><p class="text-3xl font-bold text-slate-900">${value}</p>${listHtml ? `<ul class="mt-2 space-y-1 border-t pt-2">${listHtml}</ul>` : ''}</div>`; }; const getTopN = (obj, n) => Object.fromEntries(Object.entries(obj).sort(([, a], [, b]) => b - a).slice(0, n)); const topStatuses = getTopN(stats.status, 3); const topServices = getTopN(stats.services, 3); const topAmenities = getTopN(stats.descriptions, 3); analyticsPanel.innerHTML = createStatCard('Total Stations', stats.total) + createStatCard('Top Statuses', Object.keys(topStatuses).length, topStatuses) + createStatCard('Top Services', Object.keys(topServices).length, topServices) + createStatCard('Top Amenities', Object.keys(topAmenities).length, topAmenities); };
+
+    // --- Event Listeners ---
+    fileSelector.addEventListener('change', (e) => fetchAndRenderMarkers(e.target.value));
+    addMarkerForm.addEventListener('submit', handleAddMarker);
+    bulkUpdateForm.addEventListener('submit', handleBulkUpdate);
+    bulkArrayForm.addEventListener('submit', handleBulkArrayUpdate);
+    bulkIdsTextarea.addEventListener('input', validateBulkIds);
+    // *** NEW EVENT LISTENERS ***
+    bulkArrayIdsTextarea.addEventListener('input', validateBulkArrayIds);
+    bulkArrayFieldSelect.addEventListener('change', (e) => renderCheckboxesForField(e.target.value));
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        // Populate file selector - replace with your actual file keys if they are dynamic
+        const files = { 'default': 'Default (markers.json)', 'admin': 'Admin (markers_admin.json)', 'admin_fleet': 'Admin Fleet (markers_admin_fleet.json)' };
+        fileSelector.innerHTML = Object.entries(files).map(([key, name]) => `<option value="${key}">${name}</option>`).join('');
+        fetchAndRenderMarkers(fileSelector.value);
+    });
+</script>
+</body>
+</html>

@@ -81,13 +81,13 @@ function setMapToCurrentLocation() {
 }
 
 // Fetch data from JSON file
-fetch("https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/data/markers.json")
+fetch("https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/data/markers.json")
   .then((response) => response.json())
   .then((data) => {
     var stations = data.STATION;
     populateIconContainersAndDropdown(stations);
 
-    fetch("https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/data/promotions.json")
+    fetch("https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/data/promotions.json")
       .then((response) => response.json())
       .then((promotionData) => {
         stations.forEach((station) => {
@@ -115,7 +115,7 @@ fetch("https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/data/
           var marker = L.marker([station.latitude, station.longitude], { icon: customIcon });
 
           // Create image URL
-          var imageUrl = `https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/${station.picture}`;
+          var imageUrl = `https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/${station.picture}`;
 
           // Add click event to marker to show modal
           marker.on("click", function () {
@@ -560,26 +560,26 @@ function getItemIcon(item) {
 function getPromotionImageUrl_MARKER(item) {
   const promotionImages = {
     "promotion 1":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_1.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_1.jpg",
     "promotion 2":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_2.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_2.jpg",
     "promotion 3":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_3.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_3.jpg",
     "promotion 4":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_4.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_4.jpg",
     "promotion opening 1":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_opening_1.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_opening_1.jpg",
     "promotion opening 2":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_opening_2.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_opening_2.jpg",
     "promotion opening 3":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_opening_3.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_opening_3.jpg",
     "promotion opening 4":
-      "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/promotion/promotion_opening_4.jpg",
+      "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/promotion/promotion_opening_4.jpg",
     // Add other promotions as needed
   };
   return (
     promotionImages[item] ||
-    "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/default.png"
+    "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/default.png"
   ); // Default image if promotion not found
 }
 // Function to update modal with route information

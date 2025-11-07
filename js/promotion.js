@@ -83,17 +83,17 @@ function formatPromotionEndTime(endTime) {
 // Function to get the promotion image URL based on the item name
 function getPromotionImageUrl(item) {
     const itemImages = {
-        "promotion 1": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_1.jpg",
-        "promotion 2": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_2.jpg",
-        "promotion 3": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_3.jpg",
-        "promotion 4": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_4.jpg",
-        "promotion opening 1": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_1.jpg",
-        "promotion opening 2": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_2.jpg",
-        "promotion opening 3": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_3.jpg",
-        "promotion opening 4": "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_4.jpg",
+        "promotion 1": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_1.jpg",
+        "promotion 2": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_2.jpg",
+        "promotion 3": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_3.jpg",
+        "promotion 4": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_4.jpg",
+        "promotion opening 1": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_1.jpg",
+        "promotion opening 2": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_2.jpg",
+        "promotion opening 3": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_3.jpg",
+        "promotion opening 4": "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/promotion/promotion_opening_4.jpg",
         // Add other items as needed
     };
-    return itemImages[item] || "https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/default.png"; // Default image if item not found
+    return itemImages[item] || "https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/default.png"; // Default image if item not found
 }
 
 // Function to filter markers by promotion
@@ -209,11 +209,11 @@ function clearAllSelections() {
 document.getElementById('clearAllButton').addEventListener('click', clearAllSelections);
 
 // Fetch station and promotion data and initialize promotions
-fetch("https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/data/markers.json")
+fetch("https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/data/markers.json")
     .then(response => response.json())
     .then(data => {
         const stations = data.STATION;
-        fetch("https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/data/promotions.json")
+        fetch("https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/data/promotions.json")
             .then(response => response.json())
             .then(promotionData => {
                 const promotions = promotionData.PROMOTIONS;

@@ -85,7 +85,7 @@ function findNearbyStations(currentLocation, stations, maxDistance = 10) {
 document.getElementById("nearbyStationsBtn").addEventListener("click", function () {
     getCurrentLocation()
         .then((currentLocation) => {
-            fetch("https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/data/markers.json")
+            fetch("https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/data/markers.json")
                 .then((response) => response.json())
                 .then((data) => {
                     const stations = data.STATION;
@@ -136,7 +136,7 @@ document.getElementById("nearbyStationsBtn").addEventListener("click", function 
                             listItem.innerHTML = `
                             <div class="d-flex align-items-start">
                               <div>
-                                <img src="https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/${station.picture}" alt="${station.title}" class="img-thumbnail me-3" style="width: 100px; height: 100px; object-fit: cover;">
+                                <img src="https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/${station.picture}" alt="${station.title}" class="img-thumbnail me-3" style="width: 100px; height: 100px; object-fit: cover;">
                                 <div class="d-flex flex-column align-items-start gap-1 mt-2">
                                   <div class="badge ${statusInfo.badgeClass} text-white small">
                                     <i class="fas ${statusInfo.iconClass} me-1"></i> ${statusInfo.displayText}
@@ -186,7 +186,7 @@ document.getElementById("nearbyStationsBtn").addEventListener("click", function 
                                 const markerData = allMarkers.find((m) => parseFloat(m.data.latitude) === parseFloat(station.latitude) && parseFloat(m.data.longitude) === parseFloat(station.longitude));
                                 if (markerData) {
                                     markerData.marker.openPopup(); // Open the marker popup
-                                    showMarkerModal(station, `https://raw.githubusercontent.com/Ratana-tep/PTT_STATION_MAP/master/pictures/${station.picture}`); // Show the marker modal
+                                    showMarkerModal(station, `https://raw.githubusercontent.com/hashira779/PTT_STATION_MAP/master/pictures/${station.picture}`); // Show the marker modal
                                     // Get route information and update modal
                                     getCurrentLocation()
                                         .then((currentLocation) => {

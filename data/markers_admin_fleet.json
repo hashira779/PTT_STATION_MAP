@@ -208,7 +208,7 @@
             ],
             "province": "Kampong Speu",
             "address": "National Road No4, Phumi 6, Khom Traeng Troyeung, Srok Phnom Srouch, Kampong Speu Province, Cambodia.",
-            "status": "24h",
+            "status": "off fleet card",
             "promotion": null,
             "old_picture": "2.png",
             "picture": "2.png"
@@ -299,7 +299,7 @@
             ],
             "province": "Kampong Chhnang",
             "address": "National R. 5, Phum Toul Khsach, Khum Chrey Bak, Srok Rolea Pa Ear, Kanpong Chhnang province ",
-            "status": "24h",
+            "status": "off fleet card",
             "promotion": [
                 ""
             ],

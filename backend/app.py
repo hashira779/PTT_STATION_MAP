@@ -6,7 +6,8 @@ from flask import Flask, request, jsonify, render_template, send_file
 
 app = Flask(__name__)
 
-DATA_DIR = 'data'
+# Get the parent directory (project root) and point to the data folder there
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data')
 FILE_MAPPING = {
     'default': 'markers.json',
     'admin': 'markers_admin.json',

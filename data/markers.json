@@ -187,33 +187,6 @@
             "picture": "2.png"
         },
         {
-            "id": "609",
-            "latitude": "11.20863889",
-            "longitude": "104.1078056",
-            "title": "PTT Station Pich Nil",
-            "description": [
-                "Amazon",
-                "7-Eleven"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": null,
-            "service": [
-                "Fleet card",
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Kampong Speu",
-            "address": "National Road No4, Phumi 6, Khom Traeng Troyeung, Srok Phnom Srouch, Kampong Speu Province, Cambodia.",
-            "status": "24h",
-            "promotion": null,
-            "old_picture": "2.png",
-            "picture": "2.png"
-        },
-        {
             "id": 610,
             "latitude": 11.4876277777777,
             "longitude": 104.816497222222,
@@ -268,37 +241,6 @@
             ],
             "province": "Takeo",
             "address": "Poum 3, Sangkat Rokar Knung,Krung DounKeo, Takeo Province",
-            "status": "24h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png"
-        },
-        {
-            "id": 612,
-            "latitude": 12.2197222222222,
-            "longitude": 104.668166666666,
-            "title": "PTT Station Kampong Chhnang",
-            "description": [
-                "Amazon",
-                "7-Eleven"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Fleet card",
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Kampong Chhnang",
-            "address": "National R. 5, Phum Toul Khsach, Khum Chrey Bak, Srok Rolea Pa Ear, Kanpong Chhnang province ",
             "status": "24h",
             "promotion": [
                 ""

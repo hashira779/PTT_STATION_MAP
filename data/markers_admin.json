@@ -124,36 +124,36 @@
             "picture": "2.png"
         },
         {
-            "id": 606,
-            "latitude": 13.3689138888888,
-            "longitude": 103.846791666666,
-            "title": "PTT Staton Siem Reap",
+            "address": "National road No. 6, Phum Sala Kanseng, Sangkat No.2, Siem Reap Province, Kingdom of Cambodia ",
             "description": [
                 "Amazon",
                 "7-Eleven"
             ],
+            "id": 606,
+            "latitude": 13.3689138888888,
+            "longitude": 103.846791666666,
+            "old_picture": "",
+            "other_product": [
+                "Onion",
+                "EV"
+            ],
+            "picture": "2.png",
             "product": [
                 "ULG 95",
                 "ULR 91",
                 "HSD"
             ],
-            "other_product": [
-                "Onion",
-                "EV"
+            "promotion": [
+                ""
             ],
+            "province": "Siem Reap",
             "service": [
                 "Fleet card",
                 "KHQR",
                 "Cash"
             ],
-            "province": "Siem Reap",
-            "address": "National road No. 6, Phum Sala Kanseng, Sangkat No.2, Siem Reap Province, Kingdom of Cambodia ",
-            "status": "brand change",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png"
+            "status": "16",
+            "title": "PTT Staton Siem Reap"
         },
         {
             "id": 608,
@@ -187,31 +187,31 @@
             "picture": "2.png"
         },
         {
-            "id": "609",
-            "latitude": "11.20863889",
-            "longitude": "104.1078056",
-            "title": "PTT Station Pich Nil",
+            "address": "National Road No4, Phumi 6, Khom Traeng Troyeung, Srok Phnom Srouch, Kampong Speu Province, Cambodia.",
             "description": [
                 "Amazon",
                 "7-Eleven"
             ],
+            "id": "609",
+            "latitude": "11.20863889",
+            "longitude": "104.1078056",
+            "old_picture": "2.png",
+            "other_product": [],
+            "picture": "2.png",
             "product": [
                 "ULG 95",
                 "ULR 91",
                 "HSD"
             ],
-            "other_product": null,
+            "promotion": null,
+            "province": "Kampong Speu",
             "service": [
                 "Fleet card",
                 "KHQR",
                 "Cash"
             ],
-            "province": "Kampong Speu",
-            "address": "National Road No4, Phumi 6, Khom Traeng Troyeung, Srok Phnom Srouch, Kampong Speu Province, Cambodia.",
-            "status": "change brand",
-            "promotion": null,
-            "old_picture": "2.png",
-            "picture": "2.png"
+            "status": "brand change",
+            "title": "PTT Station Pich Nil"
         },
         {
             "id": 610,

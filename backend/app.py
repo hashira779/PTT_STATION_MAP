@@ -119,5 +119,39 @@ def update_marker(file_key, marker_id): update_data = request.get_json(); data, 
 @app.route('/api/markers/<string:file_key>/<string:marker_id>', methods=['DELETE'])
 def delete_marker(file_key, marker_id): data, error = read_json_file(file_key); original_count = len(data['STATION']); data['STATION'] = [m for m in data['STATION'] if str(m.get('id')) != str(marker_id)]; success, write_error = write_json_file(file_key, data); return jsonify({"message": "Deleted"}) if len(data['STATION']) < original_count else jsonify({"error": "Not Found"})
 
+@app.route('/api/markers/<string:file_key>/bulk_delete', methods=['POST'])
+def bulk_delete_markers(file_key):
+    req_data = request.get_json()
+    ids_to_delete = req_data.get('ids', [])
+
+    if not ids_to_delete:
+        return jsonify({"error": "No IDs provided."}), 400
+
+    data, error = read_json_file(file_key)
+    if error:
+        return jsonify({"error": error}), 500
+
+    id_set = set(str(id) for id in ids_to_delete)
+    original_count = len(data['STATION'])
+
+    # Find which IDs actually exist
+    existing_ids = set(str(s.get('id')) for s in data['STATION'])
+    deleted_ids = [id for id in ids_to_delete if str(id) in existing_ids]
+    not_found_ids = [id for id in ids_to_delete if str(id) not in existing_ids]
+
+    # Remove stations with matching IDs
+    data['STATION'] = [m for m in data['STATION'] if str(m.get('id')) not in id_set]
+
+    success, write_error = write_json_file(file_key, data)
+    if not success:
+        return jsonify({"error": f"Write failed: {write_error}"}), 500
+
+    return jsonify({
+        "message": f"Deleted {len(deleted_ids)} station(s).",
+        "deleted_count": len(deleted_ids),
+        "deleted_ids": deleted_ids,
+        "not_found_ids": not_found_ids
+    })
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7000, debug=True)

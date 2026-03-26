@@ -25,12 +25,12 @@
             ],
             "province": "Phnom Penh",
             "address": "Russian Federation Blvd (St.110), Sangkat Srah Chak, Khan Doun Penh, Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 603,
@@ -56,14 +56,14 @@
             ],
             "province": "Preah Sihanouk",
             "address": "National Road No. 4, Sangkat 1, Khan Mittapheap, Sihanouk Province, Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 604,
@@ -89,14 +89,14 @@
             ],
             "province": "Siem Reap",
             "address": "National Road No. 6, Sangkat Chreav, Khan Siem Reap, Siem Reap Province, Kingdom of Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": "605",
@@ -124,12 +124,12 @@
             ],
             "province": "Phnom Penh",
             "address": "National Road No. 1 (Phnom Penh-Vietnam), Sangkat Niruth, Khan Chbar Ampov, Phnom Penh, Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 606,
@@ -156,14 +156,14 @@
             ],
             "province": "Siem Reap",
             "address": "National road No. 6, Phum Sala Kanseng, Sangkat No.2, Siem Reap Province, Kingdom of Cambodia ",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 608,
@@ -189,14 +189,14 @@
             ],
             "province": "Kampong Cham",
             "address": "National Road No. 6 Phum Chheur Teal, Khum Phdao Chum, Srok Cherng Prey, Kampong Cham Province, Kingdom of Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 610,
@@ -222,14 +222,14 @@
             ],
             "province": "Phnom Penh",
             "address": "National road No.3, Phum Prey Key, Sangkat Pleung Chhess Rotes, Khan Posen Chey, Phnom Penh, Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 611,
@@ -255,14 +255,14 @@
             ],
             "province": "Takeo",
             "address": "Poum 3, Sangkat Rokar Knung,Krung DounKeo, Takeo Province",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 613,
@@ -288,14 +288,14 @@
             ],
             "province": "Phnom Penh",
             "address": "National Road 5, Doung Village, Sangkat Por Nhea Leu, Khan Prek Phnov, Phnom Penh",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 614,
@@ -321,14 +321,14 @@
             ],
             "province": "Kampong Cham",
             "address": "National Road No. 6 Phum Chheur Teal, Khum Phdao Chum, Srok Cherng Prey, Kampong Cham Province, Kingdom of Cambodia",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 617,
@@ -354,14 +354,14 @@
             ],
             "province": "Phnom Penh",
             "address": "#811 Rd.PreySor, Sangkat PreySor,Khan Dongkor Phnom Penh",
-            "status": "24h",
+            "status": "",
             "promotion": [
                 ""
             ],
             "old_picture": "",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 10029691,
@@ -1413,12 +1413,12 @@
             ],
             "province": "Phnom Penh",
             "address": "#81, St. Veng Sreng, Tro Pang Tleong village, Sangkat Chom Chav, Phnom Penh",
-            "status": "24h",
+            "status": "",
             "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
             "schedule_group_code": "COCO",
-            "schedule_key": ""
+            "schedule_key": "16h"
         },
         {
             "id": 10023212,

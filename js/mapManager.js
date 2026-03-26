@@ -194,7 +194,96 @@ var MapManager = (function () {
       "#myLocationBtn.loc-following{" +
         "background-color:#3b82f6 !important;border:2px solid #1d4ed8 !important;" +
       "}" +
-      "#myLocationBtn.loc-following i{color:#fff !important;}";
+      "#myLocationBtn.loc-following i{color:#fff !important;}" +
+
+      /* ── EV Station Pluz Marker ──────────────────────── */
+
+      /* Wrapper */
+      ".ev-marker-wrap{" +
+        "position:relative;width:58px;height:52px;" +
+        "display:flex;flex-direction:column;align-items:center;" +
+        "animation:ev-drop-in .4s cubic-bezier(.22,1.15,.64,1) both;" +
+      "}" +
+      "@keyframes ev-drop-in{" +
+        "0%{opacity:0;transform:translateY(-28px) scale(.3);}" +
+        "100%{opacity:1;transform:translateY(0) scale(1);}" +
+      "}" +
+
+      /* Ripple rings */
+      ".ev-ripple-ring{" +
+        "position:absolute;top:16px;left:50%;width:38px;height:38px;" +
+        "margin-left:-19px;margin-top:-19px;border-radius:50%;" +
+        "border:2px solid rgba(51,195,240,.4);" +
+        "animation:ev-ripple 2.8s ease-out infinite;pointer-events:none;z-index:0;" +
+      "}" +
+      ".ev-ripple-ring:nth-child(2){animation-delay:1.4s;border-color:rgba(26,60,158,.25);}" +
+      "@keyframes ev-ripple{" +
+        "0%{transform:scale(.45);opacity:.7;}" +
+        "100%{transform:scale(3);opacity:0;}" +
+      "}" +
+
+      /* Pin — exact 1.73:1 ratio matching logo */
+      ".ev-pin-body{" +
+        "position:relative;z-index:2;" +
+        "width:52px;height:30px;" +
+        "background:#fff;" +
+        "border-radius:8px;" +
+        "border:2px solid #33C3F0;" +
+        "box-shadow:0 2px 8px rgba(51,195,240,.35),0 0 0 3px rgba(51,195,240,.07);" +
+        "overflow:hidden;" +
+        "animation:ev-glow 3s ease-in-out infinite;" +
+      "}" +
+      "@keyframes ev-glow{" +
+        "0%,100%{border-color:#33C3F0;box-shadow:0 2px 8px rgba(51,195,240,.35),0 0 0 3px rgba(51,195,240,.07);}" +
+        "50%{border-color:#0EA5E9;box-shadow:0 2px 16px rgba(51,195,240,.5),0 0 0 5px rgba(51,195,240,.1);}" +
+      "}" +
+
+      /* Logo — 100% fill, no gaps */
+      ".ev-logo-img{" +
+        "display:block;width:100%;height:100%;object-fit:fill;" +
+      "}" +
+
+      /* Tail arrow */
+      ".ev-pin-tail{" +
+        "width:0;height:0;z-index:1;" +
+        "border-left:8px solid transparent;border-right:8px solid transparent;" +
+        "border-top:10px solid #33C3F0;" +
+        "margin-top:-1px;" +
+        "filter:drop-shadow(0 2px 2px rgba(0,0,0,.1));" +
+        "animation:ev-tail-c 3s ease-in-out infinite;" +
+      "}" +
+      "@keyframes ev-tail-c{" +
+        "0%,100%{border-top-color:#33C3F0;}" +
+        "50%{border-top-color:#0EA5E9;}" +
+      "}" +
+
+      /* Promo dot */
+      ".ev-promo-dot{" +
+        "position:absolute;top:-4px;right:-4px;width:12px;height:12px;z-index:5;" +
+        "background:#ff1744;border-radius:50%;border:2px solid #fff;" +
+        "animation:ev-promo-ping 1.5s ease-out infinite;" +
+      "}" +
+      "@keyframes ev-promo-ping{" +
+        "0%{box-shadow:0 0 0 0 rgba(255,23,68,.5);}" +
+        "70%{box-shadow:0 0 0 6px rgba(255,23,68,0);}" +
+        "100%{box-shadow:0 0 0 0 rgba(255,23,68,0);}" +
+      "}" +
+
+      /* Shadow */
+      ".ev-ground-shadow{" +
+        "width:16px;height:4px;border-radius:50%;margin-top:1px;" +
+        "background:radial-gradient(ellipse,rgba(0,0,0,.15),transparent 70%);" +
+        "z-index:0;" +
+      "}" +
+
+      /* Closed */
+      ".ev-marker-closed .ev-pin-body{" +
+        "background:#f5f5f5;border-color:#bdbdbd;" +
+        "box-shadow:0 2px 6px rgba(0,0,0,.1);animation:none;" +
+      "}" +
+      ".ev-marker-closed .ev-pin-tail{border-top-color:#bdbdbd;animation:none;}" +
+      ".ev-marker-closed .ev-ripple-ring{display:none;}" +
+      ".ev-marker-closed .ev-logo-img{filter:grayscale(1) opacity(.4);}";
 
     document.head.appendChild(style);
   }
@@ -290,16 +379,22 @@ var MapManager = (function () {
             marker.options.icon &&
             marker.options.icon.options &&
             marker.options.icon.options.html &&
-            marker.options.icon.options.html.indexOf("red-dot") !== -1
+            (marker.options.icon.options.html.indexOf("red-dot") !== -1 ||
+             marker.options.icon.options.html.indexOf("ev-promo-dot") !== -1)
           );
         });
+
+        var evPage = isEVPage();
+        var clusterBg = evPage
+          ? "background:linear-gradient(135deg,#33C3F0,#1a3c9e);box-shadow:0 2px 12px rgba(51,195,240,.45);"
+          : "background: rgba(0, 27, 255, 0.8);";
 
         var clusterHtml =
           '<div class="cluster-icon-container" style="position: relative;">' +
           (hasPromotions
-            ? '<div class="red-dot animate" style="position:absolute;top:0;right:0;"></div>'
+            ? '<div class="' + (evPage ? 'ev-promo-dot' : 'red-dot animate') + '" style="position:absolute;top:0;right:0;' + (evPage ? '' : 'width:12px;height:12px;background-color:red;border-radius:50%;border:2px solid white;') + '"></div>'
             : "") +
-          '<div class="cluster-number" style="background: rgba(0, 27, 255, 0.8); border-radius: 50%; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">' +
+          '<div class="cluster-number" style="' + clusterBg + ' border-radius: 50%; color: white; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-weight:700; font-size:13px;">' +
           cluster.getChildCount() +
           "</div></div>";
 
@@ -457,7 +552,60 @@ var MapManager = (function () {
   }
 
   // ── Station markers ───────────────────────────────────────
+
+  /** Detect if current page is an EV-filtered page */
+  function isEVPage() {
+    var cfg = window.PTT_PAGE_CONFIG;
+    return cfg && cfg.autoSelectFilter && cfg.autoSelectFilter.item === "EV";
+  }
+
+  /** Check if station has EV charger */
+  function stationHasEV(station) {
+    if (!station) return false;
+    var op = station.other_product;
+    if (Array.isArray(op)) {
+      return op.some(function (v) { return v && v.toUpperCase() === "EV"; });
+    }
+    return typeof op === "string" && op.toUpperCase() === "EV";
+  }
+
+  /** Create animated EV Station Pluz marker icon (2026 brand style) */
+  function createEVStationIcon(station) {
+    var isOpen = PTT_UTILS.isStationOpen(station);
+    var hasPromotions = station.promotions && station.promotions.length > 0;
+    var logoSrc = PTT_CONFIG.IMAGE_BASE_URL + 'ev_marker.png';
+
+    var html =
+      '<div class="ev-marker-wrap' + (isOpen ? '' : ' ev-marker-closed') + '">' +
+        // 2 subtle ripple rings behind
+        '<div class="ev-ripple-ring"></div>' +
+        '<div class="ev-ripple-ring"></div>' +
+        // White card pin with logo
+        '<div class="ev-pin-body">' +
+          '<img class="ev-logo-img" src="' + logoSrc + '" alt="EV" />' +
+          (hasPromotions ? '<div class="ev-promo-dot"></div>' : '') +
+        '</div>' +
+        // Pointer arrow
+        '<div class="ev-pin-tail"></div>' +
+        // Ground shadow
+        '<div class="ev-ground-shadow"></div>' +
+      '</div>';
+
+    return L.divIcon({
+      html: html,
+      className: "",
+      iconSize: [58, 52],
+      iconAnchor: [29, 48],
+      popupAnchor: [0, -44],
+    });
+  }
+
   function createStationIcon(station) {
+    // Use animated EV marker on EV pages for stations with EV charger
+    if (isEVPage() && stationHasEV(station)) {
+      return createEVStationIcon(station);
+    }
+
     var iconUrl = PTT_UTILS.getIconUrl(station);
     var hasPromotions = station.promotions && station.promotions.length > 0;
 

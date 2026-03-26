@@ -363,11 +363,10 @@ var MapManager = (function () {
   function init() {
     injectTrackingCSS();
 
-    map = L.map("map").setView(PTT_CONFIG.MAP_CENTER, PTT_CONFIG.MAP_ZOOM);
+    map = L.map("map", { attributionControl: false, zoomControl: false }).setView(PTT_CONFIG.MAP_CENTER, PTT_CONFIG.MAP_ZOOM);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      attribution: "",
     }).addTo(map);
 
     markers = L.markerClusterGroup({

@@ -11,7 +11,7 @@ var OilPriceManager = (function () {
 
   var API_URL = "https://apioilprice.orsptt.space/api/oil-prices";
   var PROXY_URL = "/api/oil-prices"; // backend proxy (same-origin, no CORS)
-  var REFRESH_INTERVAL = 5 * 60 * 1000; // refresh every 5 min
+  var REFRESH_INTERVAL = 10 * 1000; // auto refresh every 10 sec
   var refreshTimer = null;
   var widgetEl = null;
   var isCollapsed = false;
@@ -19,9 +19,9 @@ var OilPriceManager = (function () {
 
   // Fuel display config — order, colors, icons
   var FUEL_CONFIG = {
-    "ULR 91": { color: "#E53935", gradient: "linear-gradient(135deg,#FF5252,#D32F2F)", icon: "fa-gas-pump", label: "ULR 91" },
-    "ULG 95": { color: "#43A047", gradient: "linear-gradient(135deg,#66BB6A,#2E7D32)", icon: "fa-gas-pump", label: "ULG 95" },
-    "HSD":    { color: "#1E88E5", gradient: "linear-gradient(135deg,#42A5F5,#1565C0)", icon: "fa-gas-pump", label: "HSD" },
+    "ULR 91": { color: "#E53935", gradient: "linear-gradient(135deg,#FF5252,#D32F2F)", icon: "fa-gas-pump", label: "សាំង ធម្មតា" },
+    "ULG 95": { color: "#43A047", gradient: "linear-gradient(135deg,#66BB6A,#2E7D32)", icon: "fa-gas-pump", label: "សាំង ស៊ុមពែរ" },
+    "HSD":    { color: "#1E88E5", gradient: "linear-gradient(135deg,#42A5F5,#1565C0)", icon: "fa-gas-pump", label: "ម៉ាស៊ូត" },
   };
 
   // ── CSS ────────────────────────────────────────────────────
@@ -179,7 +179,6 @@ var OilPriceManager = (function () {
 
     var prices = data.prices || {};
     var updatedAt = data.updated_at || "";
-    var updatedBy = data.updated_by || "";
 
     // Format update time
     var timeStr = "";

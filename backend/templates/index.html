@@ -9,90 +9,229 @@
         tbody tr { transition: background-color 0.2s ease-in-out; }
         .tag { display: inline-flex; align-items: center; background-color: #e0e7ff; color: #4338ca; padding: 4px 10px; border-radius: 9999px; font-size: 0.8rem; margin: 2px; font-weight: 500; }
         .tag button { margin-left: 8px; background: none; border: none; cursor: pointer; color: #4f46e5; font-weight: bold; }
-        #bulk-array-checkbox-container label { display: flex; align-items: center; padding: 4px 8px; background-color: #f3f4f6; border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
-        #bulk-array-checkbox-container label:hover { background-color: #e5e7eb; }
-        #bulk-array-checkbox-container input { margin-right: 8px; }
+        .panel { background: white; padding: 1.25rem; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        #edit-modal, #delete-modal { backdrop-filter: blur(4px); }
+        #toast { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        select, input[type="text"], input[type="time"], textarea { transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+        select:focus, input[type="text"]:focus, input[type="time"]:focus, textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .row-checkbox { cursor: pointer; accent-color: #6366f1; }
+        .stat-card { background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1rem; }
+        .stat-card h4 { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 0.35rem; }
+        .stat-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+        .stat-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; }
+        .stat-pill:hover { filter: brightness(0.95); }
+        .stat-pill .pill-count { font-weight: 800; }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800">
-
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <header class="mb-10">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+        <header>
             <h1 class="text-4xl font-bold text-slate-900">Station Management Dashboard</h1>
-            <p class="text-lg text-slate-600 mt-2">A central hub for viewing and managing station data.</p>
+            <p class="text-lg text-slate-600 mt-2">Manage stations, flexible operating schedules, and optional shared group defaults like COCO / DODO.</p>
         </header>
 
-        <div id="analytics-panel" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
+        <div id="analytics-panel" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h2 class="text-xl font-semibold mb-4 text-slate-800 border-b pb-3">Add New Station</h2>
-                <form id="add-marker-form" class="space-y-4 mt-4">
-                    <input required type="text" id="new-marker-id" placeholder="ID (e.g., 701)" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
-                    <input required type="text" id="new-marker-title" placeholder="Title (e.g., PTT Station Riverside)" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
-                    <input required type="text" id="new-marker-province" placeholder="Province (e.g., Phnom Penh)" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div class="panel space-y-4">
+                <h2 class="text-xl font-semibold border-b pb-3">Add New Station</h2>
+                <form id="add-marker-form" class="space-y-3">
+                    <input required type="text" id="new-marker-id" placeholder="ID (e.g., 701)" class="w-full p-3 bg-slate-50 border rounded-md">
+                    <input required type="text" id="new-marker-title" placeholder="Title" class="w-full p-3 bg-slate-50 border rounded-md">
+                    <input required type="text" id="new-marker-province" placeholder="Province" class="w-full p-3 bg-slate-50 border rounded-md">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <select id="new-marker-status" class="w-full p-3 bg-slate-50 border rounded-md"></select>
+                        <select id="new-marker-schedule-key" class="w-full p-3 bg-slate-50 border rounded-md"></select>
+                        <input type="text" id="new-marker-schedule-group" placeholder="Group code (e.g. COCO)" class="w-full p-3 bg-slate-50 border rounded-md uppercase">
+                    </div>
                     <button type="submit" class="w-full bg-sky-600 text-white font-bold py-3 px-4 rounded-md hover:bg-sky-700 transition">Add Station</button>
                 </form>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h2 class="text-xl font-semibold mb-4 text-slate-800 border-b pb-3">Bulk Field Update</h2>
-                <form id="bulk-update-form" class="space-y-4 mt-4">
-                    <textarea id="bulk-ids" rows="3" placeholder="Paste station IDs here..." class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+
+            <div class="panel space-y-4">
+                <h2 class="text-xl font-semibold border-b pb-3">Bulk Field Update</h2>
+                <form id="bulk-update-form" class="space-y-3">
+                    <textarea id="bulk-ids" rows="3" placeholder="Paste station IDs here..." class="w-full p-3 bg-slate-50 border rounded-md"></textarea>
                     <div id="bulk-id-validation" class="text-xs p-2 bg-slate-50 rounded min-h-[40px]"></div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input type="text" id="bulk-status" placeholder="New Status (optional)" class="p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
-                        <input type="text" id="bulk-province" placeholder="New Province (optional)" class="p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <select id="bulk-status" class="p-3 bg-slate-50 border rounded-md"></select>
+                        <select id="bulk-schedule-key" class="p-3 bg-slate-50 border rounded-md"></select>
+                        <input type="text" id="bulk-province" placeholder="New province" class="p-3 bg-slate-50 border rounded-md">
+                        <input type="text" id="bulk-schedule-group" placeholder="New group code (COCO)" class="p-3 bg-slate-50 border rounded-md uppercase">
                     </div>
                     <button type="submit" class="w-full bg-amber-500 text-white font-bold py-3 px-4 rounded-md hover:bg-amber-600 transition">Apply Bulk Update</button>
                     <div id="bulk-update-result" class="text-center text-sm font-medium mt-2 h-6"></div>
                 </form>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h2 class="text-xl font-semibold mb-4 text-slate-800 border-b pb-3">Bulk Array Update</h2>
-                <form id="bulk-array-form" class="space-y-4 mt-4">
-                    <textarea id="bulk-array-ids" rows="2" placeholder="Paste station IDs here..." class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+
+            <div class="panel space-y-4">
+                <h2 class="text-xl font-semibold border-b pb-3">Bulk Array Update</h2>
+                <form id="bulk-array-form" class="space-y-3">
+                    <textarea id="bulk-array-ids" rows="2" placeholder="Paste station IDs here..." class="w-full p-3 bg-slate-50 border rounded-md"></textarea>
                     <div id="bulk-array-id-validation" class="text-xs p-2 bg-slate-50 rounded min-h-[40px]"></div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <select id="bulk-array-field" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <div class="grid grid-cols-2 gap-3">
+                        <select id="bulk-array-field" class="w-full p-3 bg-slate-50 border rounded-md">
                             <option value="service">Service</option>
                             <option value="product">Product</option>
                             <option value="other_product">Other Product</option>
                             <option value="description">Description</option>
                         </select>
-                        <select id="bulk-array-action" class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <select id="bulk-array-action" class="w-full p-3 bg-slate-50 border rounded-md">
                             <option value="remove">Remove</option>
                             <option value="add">Add</option>
                         </select>
                     </div>
-                    <div id="bulk-array-checkbox-container" class="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded-md max-h-32 overflow-y-auto">
-                        </div>
+                    <div id="bulk-array-checkbox-container" class="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded-md max-h-32 overflow-y-auto"></div>
                     <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-md hover:bg-emerald-700 transition">Apply Array Update</button>
                     <div id="bulk-array-result" class="text-center text-sm font-medium mt-2 h-6"></div>
                 </form>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h2 class="text-xl font-semibold mb-4 text-red-600 border-b pb-3">Bulk Delete Stations</h2>
-                <form id="bulk-delete-form" class="space-y-4 mt-4">
-                    <textarea id="bulk-delete-ids" rows="3" placeholder="Paste station IDs to delete here..." class="w-full p-3 bg-slate-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
-                    <div id="bulk-delete-id-validation" class="text-xs p-2 bg-slate-50 rounded min-h-[40px]"></div>
-                    <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-md hover:bg-red-700 transition">🗑️ Delete Stations</button>
-                    <div id="bulk-delete-result" class="text-center text-sm font-medium mt-2 h-6"></div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div class="panel space-y-4">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <h2 class="text-xl font-semibold">Schedule Definitions</h2>
+                    <span class="text-sm text-slate-500">Create / edit / delete hour templates</span>
+                </div>
+                <form id="schedule-form" class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+                    <input id="schedule-key" placeholder="Key (16h)" class="p-3 bg-slate-50 border rounded-md uppercase">
+                    <input id="schedule-label" placeholder="Label" class="p-3 bg-slate-50 border rounded-md md:col-span-2">
+                    <div>
+                        <label class="text-xs text-slate-500">Open</label>
+                        <input id="schedule-open" type="time" class="w-full p-3 bg-slate-50 border rounded-md">
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-500">Close</label>
+                        <input id="schedule-close" type="time" class="w-full p-3 bg-slate-50 border rounded-md">
+                    </div>
+                    <label class="flex items-center gap-2 p-3 bg-slate-50 border rounded-md">
+                        <input id="schedule-is24h" type="checkbox">
+                        <span class="text-sm">24h</span>
+                    </label>
+                    <button type="submit" class="md:col-span-6 bg-indigo-600 text-white font-bold py-3 rounded-md hover:bg-indigo-700">Save Schedule</button>
                 </form>
-            </div>
+                <div id="schedule-form-result" class="text-sm font-medium min-h-[24px]"></div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 text-slate-700 uppercase text-xs">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Key</th>
+                                <th class="px-4 py-3 text-left">Label</th>
+                                <th class="px-4 py-3 text-left">Hours</th>
+                                <th class="px-4 py-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-table-body"></tbody>
+                    </table>
+                </div>
             </div>
 
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="p-6 flex flex-wrap gap-4 justify-between items-center border-b">
-                <div class="flex items-center gap-4">
-                    <h2 class="text-xl font-semibold text-slate-800">Station Data</h2>
-                    <select id="file-selector" class="p-2 bg-slate-50 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+            <div class="panel space-y-4">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <h2 class="text-xl font-semibold">Schedule Groups</h2>
+                    <span class="text-sm text-slate-500">Optional default schedule. Use quick buttons for fast switching, or the form for full edit.</span>
                 </div>
-                <a id="export-button" href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition">Export</a>
+                <form id="group-form" class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+                    <input id="group-code" placeholder="Code (COCO)" class="p-3 bg-slate-50 border rounded-md uppercase">
+                    <input id="group-name" placeholder="Name" class="p-3 bg-slate-50 border rounded-md">
+                    <select id="group-schedule-key" class="p-3 bg-slate-50 border rounded-md"></select>
+                    <button type="submit" class="bg-violet-600 text-white font-bold py-3 rounded-md hover:bg-violet-700">Save Group</button>
+                </form>
+                <div id="group-form-result" class="text-sm font-medium min-h-[24px]"></div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 text-slate-700 uppercase text-xs">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Code</th>
+                                <th class="px-4 py-3 text-left">Name</th>
+                                <th class="px-4 py-3 text-left">Schedule</th>
+                                <th class="px-4 py-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="group-table-body"></tbody>
+                    </table>
+                </div>
             </div>
-            <div class="overflow-x-auto">
+        </div>
+
+        <div class="panel space-y-4">
+            <h2 class="text-xl font-semibold text-red-600 border-b pb-3">Bulk Delete Stations</h2>
+            <form id="bulk-delete-form" class="space-y-3">
+                <textarea id="bulk-delete-ids" rows="3" placeholder="Paste station IDs to delete here..." class="w-full p-3 bg-slate-50 border rounded-md"></textarea>
+                <div id="bulk-delete-id-validation" class="text-xs p-2 bg-slate-50 rounded min-h-[40px]"></div>
+                <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-md hover:bg-red-700 transition">Delete Stations</button>
+                <div id="bulk-delete-result" class="text-center text-sm font-medium mt-2 h-6"></div>
+            </form>
+        </div>
+
+        <div class="panel overflow-hidden space-y-4">
+            <div class="p-2 flex flex-wrap gap-4 justify-between items-center border-b">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-xl font-semibold">Station Data</h2>
+                    <select id="file-selector" class="p-2 bg-slate-50 border rounded-md shadow-sm"></select>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="table-summary" class="text-sm text-slate-500"></span>
+                    <a id="export-button" href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition">Export</a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 px-2">
+                <input id="station-search" type="text" placeholder="Search by ID, title, province, address..." class="xl:col-span-2 p-3 bg-slate-50 border rounded-md">
+                <select id="filter-province" class="p-3 bg-slate-50 border rounded-md"></select>
+                <select id="filter-group" class="p-3 bg-slate-50 border rounded-md"></select>
+                <div class="grid grid-cols-2 gap-3">
+                    <select id="filter-special-status" class="p-3 bg-slate-50 border rounded-md"></select>
+                    <select id="filter-effective-schedule" class="p-3 bg-slate-50 border rounded-md"></select>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 px-2">
+                <select id="filter-service" class="p-3 bg-slate-50 border rounded-md"></select>
+                <select id="filter-description" class="p-3 bg-slate-50 border rounded-md"></select>
+                <select id="filter-product" class="p-3 bg-slate-50 border rounded-md"></select>
+                <select id="filter-other-product" class="p-3 bg-slate-50 border rounded-md"></select>
+            </div>
+
+            <div id="filter-stats-panel" class="px-2"></div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 px-2">
+                <div id="selection-toolbar" class="hidden flex-wrap items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-sm text-indigo-700">
+                    <span id="selection-count" class="font-semibold">0 selected</span>
+                    <span class="border-l border-indigo-200 h-6 mx-1"></span>
+                    <span class="text-xs font-medium text-indigo-400">Quick Group:</span>
+                    <button id="set-selected-coco" type="button" class="rounded-md bg-violet-600 px-3 py-1.5 font-medium text-white hover:bg-violet-700">Set COCO</button>
+                    <button id="set-selected-dodo" type="button" class="rounded-md bg-amber-500 px-3 py-1.5 font-medium text-white hover:bg-amber-600">Set DODO</button>
+                    <button id="clear-selected-group" type="button" class="rounded-md bg-white px-3 py-1.5 font-medium border hover:bg-slate-100">Clear Group</button>
+                    <span class="border-l border-indigo-200 h-6 mx-1"></span>
+                    <button id="use-selected-bulk-update" type="button" class="rounded-md bg-white px-3 py-1.5 font-medium border hover:bg-indigo-100">Use in Bulk Update</button>
+                    <button id="use-selected-bulk-array" type="button" class="rounded-md bg-white px-3 py-1.5 font-medium border hover:bg-indigo-100">Use in Array Update</button>
+                    <button id="delete-selected-button" type="button" class="rounded-md bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700">Delete Selected</button>
+                    <button id="clear-selection-button" type="button" class="rounded-md bg-slate-200 px-3 py-1.5 font-medium hover:bg-slate-300">Clear</button>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                    <button id="select-visible-button" type="button" class="rounded-md bg-slate-100 px-3 py-1.5 font-medium hover:bg-slate-200">Select Visible</button>
+                    <button id="reset-filters-button" type="button" class="rounded-md bg-slate-100 px-3 py-1.5 font-medium hover:bg-slate-200">Reset Filters</button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
                 <table class="w-full text-sm text-left text-slate-600">
                     <thead class="text-xs text-slate-700 uppercase bg-slate-50">
-                        <tr><th class="px-6 py-3">ID</th><th class="px-6 py-3">Title</th><th class="px-6 py-3">Province</th><th class="px-6 py-3">Status</th><th class="px-6 py-3 text-right">Actions</th></tr>
+                        <tr>
+                            <th class="px-4 py-3 w-12"><input id="select-all-visible" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-600"></th>
+                            <th class="px-4 py-3">ID</th>
+                            <th class="px-4 py-3">Title</th>
+                            <th class="px-4 py-3">Province</th>
+                            <th class="px-4 py-3">Special Status</th>
+                            <th class="px-4 py-3">Station Schedule</th>
+                            <th class="px-4 py-3">Group</th>
+                            <th class="px-4 py-3">Effective Schedule</th>
+                            <th class="px-4 py-3 text-right">Actions</th>
+                        </tr>
                     </thead>
                     <tbody id="marker-table-body"></tbody>
                 </table>
@@ -100,203 +239,892 @@
         </div>
     </div>
 
+    <div id="toast" class="hidden fixed top-4 right-4 z-50 min-w-[280px] rounded-xl border px-4 py-3 shadow-lg"></div>
+
+    <div id="edit-modal" class="hidden fixed inset-0 z-40 items-center justify-center bg-slate-900/60 p-4">
+        <div class="w-full max-w-5xl rounded-2xl bg-white shadow-2xl max-h-[90vh] overflow-hidden">
+            <div class="flex items-center justify-between border-b px-6 py-4">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">Edit Station</h3>
+                    <p id="edit-modal-subtitle" class="text-sm text-slate-500"></p>
+                </div>
+                <button id="close-edit-modal" type="button" class="rounded-md bg-slate-100 px-3 py-2 text-slate-600 hover:bg-slate-200">Close</button>
+            </div>
+            <div class="max-h-[calc(90vh-140px)] overflow-y-auto px-6 py-5 space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                    <div>
+                        <label class="text-sm font-semibold text-slate-600">Title</label>
+                        <input id="modal-edit-title" type="text" class="mt-1 w-full rounded-md border bg-slate-50 p-3">
+                    </div>
+                    <div>
+                        <label class="text-sm font-semibold text-slate-600">Province</label>
+                        <input id="modal-edit-province" type="text" class="mt-1 w-full rounded-md border bg-slate-50 p-3">
+                    </div>
+                    <div>
+                        <label class="text-sm font-semibold text-slate-600">Special Status</label>
+                        <select id="modal-edit-status" class="mt-1 w-full rounded-md border bg-slate-50 p-3"></select>
+                    </div>
+                    <div>
+                        <label class="text-sm font-semibold text-slate-600">Station Schedule</label>
+                        <select id="modal-edit-schedule-key" class="mt-1 w-full rounded-md border bg-slate-50 p-3"></select>
+                    </div>
+                    <div>
+                        <label class="text-sm font-semibold text-slate-600">Schedule Group</label>
+                        <select id="modal-edit-group" class="mt-1 w-full rounded-md border bg-slate-50 p-3"></select>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Station Details</h4>
+                    <div id="modal-array-editors" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+                </div>
+            </div>
+            <div class="flex items-center justify-end gap-3 border-t px-6 py-4 bg-slate-50">
+                <button id="cancel-edit-modal" type="button" class="rounded-md bg-slate-200 px-4 py-2 font-medium text-slate-700 hover:bg-slate-300">Cancel</button>
+                <button id="save-edit-modal" type="button" class="rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal" class="hidden fixed inset-0 z-40 items-center justify-center bg-slate-900/60 p-4">
+        <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl overflow-hidden">
+            <div class="border-b px-6 py-4">
+                <h3 class="text-xl font-bold text-slate-900">Confirm Delete</h3>
+                <p id="delete-modal-message" class="mt-2 text-sm text-slate-500"></p>
+            </div>
+            <div class="flex items-center justify-end gap-3 px-6 py-4 bg-slate-50">
+                <button id="cancel-delete-modal" type="button" class="rounded-md bg-slate-200 px-4 py-2 font-medium text-slate-700 hover:bg-slate-300">Cancel</button>
+                <button id="confirm-delete-modal" type="button" class="rounded-md bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-700">Delete</button>
+            </div>
+        </div>
+    </div>
+
 <script>
-    // --- DOM Elements ---
-    const fileSelector = document.getElementById('file-selector');
-    const markerTableBody = document.getElementById('marker-table-body');
-    const analyticsPanel = document.getElementById('analytics-panel');
-    const exportButton = document.getElementById('export-button');
-    const addMarkerForm = document.getElementById('add-marker-form');
-    const bulkUpdateForm = document.getElementById('bulk-update-form');
-    const bulkUpdateResult = document.getElementById('bulk-update-result');
-    const bulkIdsTextarea = document.getElementById('bulk-ids');
-    const bulkIdValidation = document.getElementById('bulk-id-validation');
-    const bulkArrayForm = document.getElementById('bulk-array-form');
-    const bulkArrayResult = document.getElementById('bulk-array-result');
-    // *** NEW DOM ELEMENTS ***
-    const bulkArrayIdsTextarea = document.getElementById('bulk-array-ids');
-    const bulkArrayIdValidation = document.getElementById('bulk-array-id-validation');
-    const bulkArrayFieldSelect = document.getElementById('bulk-array-field');
-    const bulkArrayCheckboxContainer = document.getElementById('bulk-array-checkbox-container');
-    // *** BULK DELETE DOM ELEMENTS ***
-    const bulkDeleteForm = document.getElementById('bulk-delete-form');
-    const bulkDeleteIdsTextarea = document.getElementById('bulk-delete-ids');
-    const bulkDeleteIdValidation = document.getElementById('bulk-delete-id-validation');
-    const bulkDeleteResult = document.getElementById('bulk-delete-result');
+const API_BASE = '/api';
+const ARRAY_FIELDS = ['description', 'product', 'other_product', 'service'];
 
-    let currentMarkers = [];
-    const API_BASE = '/api';
+/* ── DOM references ── */
+const fileSelector = document.getElementById('file-selector');
+const markerTableBody = document.getElementById('marker-table-body');
+const analyticsPanel = document.getElementById('analytics-panel');
+const exportButton = document.getElementById('export-button');
+const addMarkerForm = document.getElementById('add-marker-form');
+const bulkUpdateForm = document.getElementById('bulk-update-form');
+const bulkUpdateResult = document.getElementById('bulk-update-result');
+const bulkIdsTextarea = document.getElementById('bulk-ids');
+const bulkIdValidation = document.getElementById('bulk-id-validation');
+const bulkArrayForm = document.getElementById('bulk-array-form');
+const bulkArrayResult = document.getElementById('bulk-array-result');
+const bulkArrayIdsTextarea = document.getElementById('bulk-array-ids');
+const bulkArrayIdValidation = document.getElementById('bulk-array-id-validation');
+const bulkArrayFieldSelect = document.getElementById('bulk-array-field');
+const bulkArrayCheckboxContainer = document.getElementById('bulk-array-checkbox-container');
+const bulkDeleteForm = document.getElementById('bulk-delete-form');
+const bulkDeleteIdsTextarea = document.getElementById('bulk-delete-ids');
+const bulkDeleteIdValidation = document.getElementById('bulk-delete-id-validation');
+const bulkDeleteResult = document.getElementById('bulk-delete-result');
+const scheduleForm = document.getElementById('schedule-form');
+const scheduleTableBody = document.getElementById('schedule-table-body');
+const scheduleFormResult = document.getElementById('schedule-form-result');
+const groupForm = document.getElementById('group-form');
+const groupTableBody = document.getElementById('group-table-body');
+const groupFormResult = document.getElementById('group-form-result');
+const groupScheduleKeySelect = document.getElementById('group-schedule-key');
+const newMarkerStatusSelect = document.getElementById('new-marker-status');
+const newMarkerScheduleKeySelect = document.getElementById('new-marker-schedule-key');
+const bulkStatusSelect = document.getElementById('bulk-status');
+const bulkScheduleKeySelect = document.getElementById('bulk-schedule-key');
 
-    // --- Core Functions ---
-    const fetchAndRenderMarkers = async (fileKey) => {
-        try {
-            const response = await fetch(`${API_BASE}/markers/${fileKey}`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            currentMarkers = await response.json();
-            
-            renderMarkers(currentMarkers, fileKey);
-            calculateAndRenderStats(currentMarkers);
-            validateBulkIds();
-            validateBulkArrayIds(); // Validate for new form
-            validateBulkDeleteIds(); // Validate for delete form
-            renderCheckboxesForField(bulkArrayFieldSelect.value); // Initial checkbox render
-            
-            exportButton.href = `${API_BASE}/export/${fileKey}`;
-        } catch (error) {
-            console.error("Fetch Error:", error);
-            markerTableBody.innerHTML = `<tr><td colspan="5" class="text-center p-8 text-red-500">Error loading data.</td></tr>`;
-        }
-    };
+/* ── Modal references ── */
+const editModal = document.getElementById('edit-modal');
+const editModalSubtitle = document.getElementById('edit-modal-subtitle');
+const modalEditTitle = document.getElementById('modal-edit-title');
+const modalEditProvince = document.getElementById('modal-edit-province');
+const modalEditStatus = document.getElementById('modal-edit-status');
+const modalEditScheduleKey = document.getElementById('modal-edit-schedule-key');
+const modalEditGroup = document.getElementById('modal-edit-group');
+const modalArrayEditors = document.getElementById('modal-array-editors');
+const closeEditModalBtn = document.getElementById('close-edit-modal');
+const cancelEditModalBtn = document.getElementById('cancel-edit-modal');
+const saveEditModalBtn = document.getElementById('save-edit-modal');
+const deleteModal = document.getElementById('delete-modal');
+const deleteModalMessage = document.getElementById('delete-modal-message');
+const cancelDeleteModalBtn = document.getElementById('cancel-delete-modal');
+const confirmDeleteModalBtn = document.getElementById('confirm-delete-modal');
 
-    // *** NEW FUNCTION: Render Checkboxes ***
-    const renderCheckboxesForField = (field) => {
-        if (!currentMarkers) return;
-        const uniqueValues = [...new Set(currentMarkers.flatMap(m => m[field] || []))].sort();
-        
-        if (uniqueValues.length === 0) {
-            bulkArrayCheckboxContainer.innerHTML = '<span class="text-slate-400 p-2">No items found for this field.</span>';
-            return;
-        }
+/* ── Filter references ── */
+const stationSearch = document.getElementById('station-search');
+const filterProvince = document.getElementById('filter-province');
+const filterGroup = document.getElementById('filter-group');
+const filterSpecialStatus = document.getElementById('filter-special-status');
+const filterEffectiveSchedule = document.getElementById('filter-effective-schedule');
+const filterService = document.getElementById('filter-service');
+const filterDescription = document.getElementById('filter-description');
+const filterProduct = document.getElementById('filter-product');
+const filterOtherProduct = document.getElementById('filter-other-product');
+const filterStatsPanel = document.getElementById('filter-stats-panel');
+const tableSummary = document.getElementById('table-summary');
 
-        bulkArrayCheckboxContainer.innerHTML = uniqueValues.map(value => `
-            <label>
-                <input type="checkbox" name="bulk-array-value" value="${value}">
-                <span class="text-sm">${value}</span>
-            </label>
-        `).join('');
-    };
-    
-    // *** NEW FUNCTION: Validate IDs for Array Form ***
-    const validateBulkArrayIds = () => {
-        const validIdSet = new Set(currentMarkers.map(m => String(m.id)));
-        const inputIds = bulkArrayIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id);
-        if (inputIds.length === 0) { bulkArrayIdValidation.innerHTML = '<span class="text-slate-400">Paste IDs...</span>'; return; }
-        const foundIds = [];
-        const notFoundIds = [];
-        inputIds.forEach(id => { validIdSet.has(id) ? foundIds.push(id) : notFoundIds.push(id); });
-        let html = '';
-        if (foundIds.length > 0) html += `<div class="text-green-600 font-semibold">Found (${foundIds.length})</div>`;
-        if (notFoundIds.length > 0) html += `<div class="text-red-600 font-semibold mt-1">Not Found (${notFoundIds.length}): ${notFoundIds.join(', ')}</div>`;
-        bulkArrayIdValidation.innerHTML = html;
-    };
+/* ── Selection references ── */
+const selectAllCheckbox = document.getElementById('select-all-visible');
+const selectionToolbar = document.getElementById('selection-toolbar');
+const selectionCount = document.getElementById('selection-count');
+const useSelectedBulkUpdate = document.getElementById('use-selected-bulk-update');
+const useSelectedBulkArray = document.getElementById('use-selected-bulk-array');
+const deleteSelectedButton = document.getElementById('delete-selected-button');
+const clearSelectionButton = document.getElementById('clear-selection-button');
+const selectVisibleButton = document.getElementById('select-visible-button');
+const resetFiltersButton = document.getElementById('reset-filters-button');
+const setSelectedCocoBtn = document.getElementById('set-selected-coco');
+const setSelectedDodoBtn = document.getElementById('set-selected-dodo');
+const clearSelectedGroupBtn = document.getElementById('clear-selected-group');
+const toastEl = document.getElementById('toast');
 
-    // *** MODIFIED HANDLER FUNCTION ***
-    const handleBulkArrayUpdate = async (event) => {
-        event.preventDefault();
-        bulkArrayResult.textContent = 'Processing...';
+const SPECIAL_STATUS_OPTIONS = [
+    { value: 'under construct', label: 'Under Construction' },
+    { value: 'brand change', label: 'Brand Change' },
+    { value: 'off fleet card', label: 'Off Fleet Card' },
+];
 
-        const fileKey = fileSelector.value;
-        const ids = bulkArrayIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id);
-        const field = bulkArrayFieldSelect.value;
-        const action = document.getElementById('bulk-array-action').value;
-        
-        // Get values from checked boxes
-        const checkedBoxes = document.querySelectorAll('#bulk-array-checkbox-container input:checked');
-        const values = Array.from(checkedBoxes).map(cb => cb.value);
+/* ── State ── */
+let currentMarkers = [];
+let filteredMarkers = [];
+let currentScheduleConfig = { default_schedule_key: '', schedules: {}, groups: [] };
+let selectedIds = new Set();
+let pendingDeleteInfo = null;
+let currentEditInfo = null;
 
-        if (ids.length === 0 || values.length === 0) {
-            bulkArrayResult.textContent = 'Please provide IDs and select values.';
-            return;
-        }
+/* ══════════════════════════ TOAST ══════════════════════════ */
+function showToast(message, type = 'success') {
+    const colors = { success: 'bg-green-50 border-green-300 text-green-800', error: 'bg-red-50 border-red-300 text-red-800', info: 'bg-blue-50 border-blue-300 text-blue-800' };
+    toastEl.className = `fixed top-4 right-4 z-50 min-w-[280px] rounded-xl border px-4 py-3 shadow-lg ${colors[type] || colors.info}`;
+    toastEl.textContent = message;
+    toastEl.classList.remove('hidden');
+    clearTimeout(toastEl._timer);
+    toastEl._timer = setTimeout(() => toastEl.classList.add('hidden'), 3000);
+}
 
-        const payload = { ids, field, action, values }; // 'values' is now an array
+/* ══════════════════════════ UTILITIES ══════════════════════════ */
+function normalizeId(v) { return String(v ?? '').trim(); }
+function normalizeScheduleKey(v) { const r = String(v ?? '').trim(); return ({ '16': '16h', '24': '24h' })[r.toLowerCase()] || r; }
+function formatTime(h, m) { const p = h >= 12 ? 'PM' : 'AM'; return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${p}`; }
+function getScheduleByKey(k) { return currentScheduleConfig.schedules[normalizeScheduleKey(k)] || null; }
 
-        try {
-            const response = await fetch(`${API_BASE}/markers/${fileKey}/bulk_array_update`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.error || 'Bulk array update failed');
+function getDefaultScheduleKey() {
+    const c = normalizeScheduleKey(currentScheduleConfig.default_schedule_key || '');
+    if (c && getScheduleByKey(c)) return c;
+    return Object.keys(currentScheduleConfig.schedules)[0] || '16h';
+}
 
-            bulkArrayResult.innerHTML = `<span class="text-green-600">Updated ${result.updated_count} stations.</span>`;
-            setTimeout(() => bulkArrayResult.innerHTML = '', 4000);
-            bulkArrayForm.reset();
-            await fetchAndRenderMarkers(fileKey);
+function isSpecialStatus(v) { return SPECIAL_STATUS_OPTIONS.some(o => o.value === normalizeScheduleKey(v).toLowerCase()); }
 
-        } catch (error) {
-            bulkArrayResult.innerHTML = `<span class="text-red-500">Error: ${error.message}</span>`;
-        }
-    };
+function getStationScheduleKey(marker) {
+    const ek = normalizeScheduleKey(marker.schedule_key || '');
+    if (getScheduleByKey(ek)) return ek;
+    const lk = normalizeScheduleKey(marker.status || '');
+    if (getScheduleByKey(lk)) return lk;
+    return '';
+}
 
-    // *** BULK DELETE: Validate IDs ***
-    const validateBulkDeleteIds = () => {
-        const validIdSet = new Set(currentMarkers.map(m => String(m.id)));
-        const inputIds = bulkDeleteIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id);
-        if (inputIds.length === 0) { bulkDeleteIdValidation.innerHTML = '<span class="text-slate-400">Paste IDs to delete...</span>'; return; }
-        const foundIds = [];
-        const notFoundIds = [];
-        inputIds.forEach(id => { validIdSet.has(id) ? foundIds.push(id) : notFoundIds.push(id); });
-        let html = '';
-        if (foundIds.length > 0) html += `<div class="text-green-600 font-semibold">Found (${foundIds.length}): Will be deleted</div>`;
-        if (notFoundIds.length > 0) html += `<div class="text-red-600 font-semibold mt-1">Not Found (${notFoundIds.length}): ${notFoundIds.join(', ')}</div>`;
-        bulkDeleteIdValidation.innerHTML = html;
-    };
+function getGroupByCode(code) {
+    const n = normalizeId(code).toUpperCase();
+    return currentScheduleConfig.groups.find(g => g.code === n) || null;
+}
 
-    // *** BULK DELETE: Handler Function ***
-    const handleBulkDelete = async (event) => {
-        event.preventDefault();
+function resolveEffectiveScheduleKey(marker) {
+    const s = normalizeScheduleKey(marker.status || '');
+    if (isSpecialStatus(s)) return s;
+    const sk = getStationScheduleKey(marker);
+    if (getScheduleByKey(sk)) return sk;
+    const g = getGroupByCode(marker.schedule_group_code);
+    if (g && getScheduleByKey(g.schedule_key)) return g.schedule_key;
+    return getDefaultScheduleKey();
+}
 
-        const ids = bulkDeleteIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id);
+function describeEffectiveSchedule(marker) {
+    const k = resolveEffectiveScheduleKey(marker);
+    const s = getScheduleByKey(k);
+    if (!s) return k || 'N/A';
+    if (s.is24h) return `${s.key} · 24h`;
+    return `${s.key} · ${formatTime(s.openHour, s.openMinute)} - ${formatTime(s.closeHour, s.closeMinute)}`;
+}
 
-        if (ids.length === 0) {
-            bulkDeleteResult.innerHTML = '<span class="text-red-500">Please provide IDs to delete.</span>';
-            return;
-        }
+function describeStationSchedule(marker) {
+    const k = getStationScheduleKey(marker);
+    if (!k) return 'Inherited';
+    return describeEffectiveSchedule({ schedule_key: k, status: '', schedule_group_code: '' });
+}
 
-        // Confirm deletion
-        if (!confirm(`Are you sure you want to delete ${ids.length} station(s)?\n\nIDs: ${ids.join(', ')}\n\nThis action cannot be undone!`)) {
-            return;
-        }
+function describeSpecialStatus(marker) {
+    const s = normalizeScheduleKey(marker.status || '').toLowerCase();
+    if (!isSpecialStatus(s)) return '';
+    const m = SPECIAL_STATUS_OPTIONS.find(o => o.value === s);
+    return m ? m.label : s;
+}
 
-        bulkDeleteResult.textContent = 'Deleting...';
-        const fileKey = fileSelector.value;
+/* ══════════════════════════ BUILD OPTIONS ══════════════════════════ */
+function buildStatusOptions(cfg) {
+    const o = [];
+    if (cfg.includeKeep) o.push('<option value="__KEEP__">Keep current special status</option>');
+    o.push(`<option value="${cfg.includeKeep || cfg.includeClear ? '__CLEAR__' : ''}">${cfg.noneLabel}</option>`);
+    SPECIAL_STATUS_OPTIONS.forEach(opt => o.push(`<option value="${opt.value}">${opt.label}</option>`));
+    return o.join('');
+}
 
-        try {
-            const response = await fetch(`${API_BASE}/markers/${fileKey}/bulk_delete`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ids })
-            });
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.error || 'Bulk delete failed');
+function buildScheduleOptions(cfg) {
+    const o = [];
+    if (cfg.includeKeep) o.push('<option value="__KEEP__">Keep current station schedule</option>');
+    o.push(`<option value="${cfg.includeKeep || cfg.includeClear ? '__CLEAR__' : ''}">${cfg.noneLabel}</option>`);
+    Object.values(currentScheduleConfig.schedules).sort((a, b) => a.key.localeCompare(b.key))
+        .forEach(s => o.push(`<option value="${s.key}">${s.key} — ${s.label}</option>`));
+    return o.join('');
+}
 
-            let resultHtml = `<span class="text-green-600">Deleted: ${result.deleted_count}</span>`;
-            if (result.not_found_ids && result.not_found_ids.length > 0) {
-                resultHtml += ` | <span class="text-red-500">Not Found: ${result.not_found_ids.length}</span>`;
-            }
-            bulkDeleteResult.innerHTML = resultHtml;
-            setTimeout(() => bulkDeleteResult.innerHTML = '', 5000);
-            bulkDeleteForm.reset();
-            await fetchAndRenderMarkers(fileKey);
+function getQuickGroupScheduleKeys() { return ['24h', '16h'].filter(k => getScheduleByKey(k)); }
 
-        } catch (error) {
-            bulkDeleteResult.innerHTML = `<span class="text-red-500">Error: ${error.message}</span>`;
-        }
-    };
+function buildGroupQuickActions(group) {
+    const activeKey = normalizeScheduleKey(group.schedule_key || '');
+    const quickButtons = getQuickGroupScheduleKeys().map(k => {
+        const active = activeKey === k;
+        return `<button type="button" onclick="quickUpdateGroupSchedule('${group.code}','${k}')" class="px-3 py-1 rounded-full text-xs font-semibold transition ${active ? 'bg-violet-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">${k}</button>`;
+    }).join('');
+    const allOpts = ['<option value="">Clear default</option>'].concat(
+        Object.values(currentScheduleConfig.schedules).sort((a, b) => a.key.localeCompare(b.key))
+            .map(s => `<option value="${s.key}">${s.key} — ${s.label}</option>`)
+    ).join('');
+    return `<div class="flex flex-wrap items-center justify-end gap-2">${quickButtons}
+        <select class="p-2 border rounded-md bg-slate-50 text-xs" onchange="if(this.value!=='__NOOP__'){quickUpdateGroupSchedule('${group.code}',this.value);this.value='__NOOP__';}">
+            <option value="__NOOP__">More...</option>${allOpts}</select></div>`;
+}
 
-    // --- (Paste all your other existing JavaScript functions here, no changes needed) ---
-    const renderMarkers = (markers, fileKey) => { markerTableBody.innerHTML = ''; if (!markers || markers.length === 0) { markerTableBody.innerHTML = `<tr><td colspan="5" class="text-center p-8 text-slate-500">No markers found.</td></tr>`; return; } markers.forEach(marker => { const row = document.createElement('tr'); row.className = 'bg-white border-b hover:bg-slate-50'; row.id = `marker-row-${marker.id}`; row.innerHTML = `<td class="px-6 py-4 font-medium text-slate-900">${marker.id}</td><td class="px-6 py-4">${marker.title || ''}</td><td class="px-6 py-4">${marker.province || ''}</td><td class="px-6 py-4">${marker.status || ''}</td><td class="px-6 py-4 text-right"><button onclick="toggleEditMode('${fileKey}', '${marker.id}')" class="font-medium text-indigo-600 hover:text-indigo-800 mr-4">Edit</button><button onclick="handleDelete('${fileKey}', '${marker.id}')" class="font-medium text-red-600 hover:text-red-800">Delete</button></td>`; markerTableBody.appendChild(row); }); }; const removeItem = (element) => element.parentElement.remove(); const addItem = (fieldName, markerId) => { const input = document.getElementById(`add-input-${fieldName}-${markerId}`); const list = document.getElementById(`list-${fieldName}-${markerId}`); const value = input.value.trim(); if (value && list) { const newItem = document.createElement('div'); newItem.className = 'tag'; newItem.dataset.value = value; newItem.innerHTML = `<span>${value}</span><button type="button" onclick="removeItem(this)">❌</button>`; list.appendChild(newItem); input.value = ''; } }; const createArrayEditor = (fieldName, items, markerId) => { const itemsHtml = (items || []).map(item => `<div class="tag" data-value="${item}"><span>${item}</span><button type="button" onclick="removeItem(this)">❌</button></div>`).join(''); return `<div class="mb-4"><label class="font-bold capitalize text-slate-600">${fieldName.replace('_', ' ')}</label><div id="list-${fieldName}-${markerId}" class="flex flex-wrap gap-1 p-2 bg-slate-100 rounded-md min-h-[40px] mt-1">${itemsHtml}</div><div class="flex gap-2 mt-2"><input type="text" id="add-input-${fieldName}-${markerId}" class="w-full p-2 border rounded-md" placeholder="Add new..."><button type="button" onclick="addItem('${fieldName}', '${markerId}')" class="bg-blue-500 text-white px-4 rounded-md font-bold hover:bg-blue-600">+</button></div></div>`; }; const toggleEditMode = (fileKey, markerId) => { const marker = currentMarkers.find(m => String(m.id) === String(markerId)); if (!marker) return; const row = document.getElementById(`marker-row-${markerId}`); row.classList.add('bg-indigo-50'); const arrayFields = ['description', 'product', 'other_product', 'service']; const arrayEditorsHtml = arrayFields.map(field => createArrayEditor(field, marker[field], markerId)).join(''); row.innerHTML = `<td colspan="5" class="p-4"><h3 class="text-lg font-bold mb-2">Editing Station ID: ${marker.id}</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="font-bold text-slate-600">Title</label><input type="text" id="edit-title-${markerId}" value="${marker.title || ''}" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-bold text-slate-600">Province</label><input type="text" id="edit-province-${markerId}" value="${marker.province || ''}" class="w-full p-2 border rounded-md mt-1"></div><div><label class="font-bold text-slate-600">Status</label><input type="text" id="edit-status-${markerId}" value="${marker.status || ''}" class="w-full p-2 border rounded-md mt-1"></div></div><hr class="my-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">${arrayEditorsHtml}</div><div class="flex justify-end gap-4 mt-4"><button onclick="renderMarkers(currentMarkers, '${fileKey}')" class="font-medium bg-slate-200 px-4 py-2 rounded-md hover:bg-slate-300">Cancel</button><button onclick="handleSave('${fileKey}', '${marker.id}')" class="font-medium text-white bg-green-600 px-4 py-2 rounded-md hover:bg-green-700">Save</button></div></td>`; }; const handleSave = async (fileKey, markerId) => { const originalMarker = currentMarkers.find(m => String(m.id) === String(markerId)); if (!originalMarker) return; const updatedMarker = { ...originalMarker }; updatedMarker.title = document.getElementById(`edit-title-${markerId}`).value; updatedMarker.province = document.getElementById(`edit-province-${markerId}`).value; updatedMarker.status = document.getElementById(`edit-status-${markerId}`).value; const arrayFields = ['description', 'product', 'other_product', 'service']; arrayFields.forEach(field => { const listContainer = document.getElementById(`list-${field}-${markerId}`); if (listContainer) { const items = Array.from(listContainer.querySelectorAll('.tag')).map(tag => tag.dataset.value); updatedMarker[field] = items; } }); try { await fetch(`${API_BASE}/markers/${fileKey}/${markerId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updatedMarker) }); await fetchAndRenderMarkers(fileKey); } catch (error) { alert(`Error saving: ${error.message}`); } }; const handleDelete = async (fileKey, markerId) => { if (!confirm(`Are you sure you want to delete marker ID ${markerId}?`)) return; try { await fetch(`${API_BASE}/markers/${fileKey}/${markerId}`, { method: 'DELETE' }); await fetchAndRenderMarkers(fileKey); } catch (error) { alert(`Error deleting: ${error.message}`); } }; const handleAddMarker = async (event) => { event.preventDefault(); const newMarker = { id: document.getElementById('new-marker-id').value, title: document.getElementById('new-marker-title').value, province: document.getElementById('new-marker-province').value, status: "active" }; try { const response = await fetch(`${API_BASE}/markers/${fileSelector.value}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newMarker) }); if (!response.ok) { const errorData = await response.json(); throw new Error(errorData.error || 'Failed to add marker'); } addMarkerForm.reset(); await fetchAndRenderMarkers(fileSelector.value); } catch (error) { alert(`Error: ${error.message}`); } }; const handleBulkUpdate = async (event) => { event.preventDefault(); bulkUpdateResult.textContent = 'Processing...'; const fileKey = fileSelector.value; const idsToUpdate = bulkIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id); const changes = {}; const newStatus = document.getElementById('bulk-status').value.trim(); const newProvince = document.getElementById('bulk-province').value.trim(); if (newStatus) changes.status = newStatus; if (newProvince) changes.province = newProvince; if (idsToUpdate.length === 0 || Object.keys(changes).length === 0) { bulkUpdateResult.textContent = 'Please provide IDs and at least one change.'; return; } const payload = idsToUpdate.map(id => ({ id, changes })); try { const response = await fetch(`${API_BASE}/markers/${fileKey}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Bulk update failed'); bulkUpdateResult.innerHTML = `<span class="text-green-600">Updated: ${result.updated_ids.length}</span> | <span class="text-red-500">Not Found: ${result.not_found_ids.length}</span>`; bulkUpdateForm.reset(); validateBulkIds(); await fetchAndRenderMarkers(fileKey); } catch (error) { bulkUpdateResult.textContent = `Error: ${error.message}`; } }; const validateBulkIds = () => { const validIdSet = new Set(currentMarkers.map(m => String(m.id))); const inputIds = bulkIdsTextarea.value.split(/\s+|,|\n/).map(id => id.trim()).filter(id => id); if (inputIds.length === 0) { bulkIdValidation.innerHTML = '<span class="text-slate-400">Paste IDs...</span>'; return; } const foundIds = []; const notFoundIds = []; inputIds.forEach(id => { validIdSet.has(id) ? foundIds.push(id) : notFoundIds.push(id); }); let html = ''; if (foundIds.length > 0) html += `<div class="text-green-600 font-semibold">Found (${foundIds.length})</div>`; if (notFoundIds.length > 0) html += `<div class="text-red-600 font-semibold mt-1">Not Found (${notFoundIds.length}): ${notFoundIds.join(', ')}</div>`; bulkIdValidation.innerHTML = html; }; const calculateAndRenderStats = (markers) => { if (!markers) return; const countItems = (key) => markers.flatMap(m => m[key] || []).reduce((acc, item) => { acc[item] = (acc[item] || 0) + 1; return acc; }, {}); const stats = { total: markers.length, status: markers.reduce((acc, m) => { acc[m.status] = (acc[m.status] || 0) + 1; return acc; }, {}), services: countItems('service'), descriptions: countItems('description'), }; const createStatCard = (title, value, items = {}) => { let listHtml = Object.entries(items).map(([key, count]) => `<li class="flex justify-between text-xs"><span>${key || 'N/A'}</span><span class="font-bold">${count}</span></li>`).join(''); return `<div class="bg-white p-4 rounded-xl shadow-sm"><h3 class="font-semibold text-slate-500 text-sm">${title}</h3><p class="text-3xl font-bold text-slate-900">${value}</p>${listHtml ? `<ul class="mt-2 space-y-1 border-t pt-2">${listHtml}</ul>` : ''}</div>`; }; const getTopN = (obj, n) => Object.fromEntries(Object.entries(obj).sort(([, a], [, b]) => b - a).slice(0, n)); const topStatuses = getTopN(stats.status, 3); const topServices = getTopN(stats.services, 3); const topAmenities = getTopN(stats.descriptions, 3); analyticsPanel.innerHTML = createStatCard('Total Stations', stats.total) + createStatCard('Top Statuses', Object.keys(topStatuses).length, topStatuses) + createStatCard('Top Services', Object.keys(topServices).length, topServices) + createStatCard('Top Amenities', Object.keys(topAmenities).length, topAmenities); };
+function createTagHtml(value) {
+    return `<div class="tag" data-value="${value}"><span>${value}</span><button type="button" onclick="removeItem(this)">✕</button></div>`;
+}
 
-    // --- Event Listeners ---
-    fileSelector.addEventListener('change', (e) => fetchAndRenderMarkers(e.target.value));
-    addMarkerForm.addEventListener('submit', handleAddMarker);
-    bulkUpdateForm.addEventListener('submit', handleBulkUpdate);
-    bulkArrayForm.addEventListener('submit', handleBulkArrayUpdate);
-    bulkDeleteForm.addEventListener('submit', handleBulkDelete);
-    bulkIdsTextarea.addEventListener('input', validateBulkIds);
-    // *** NEW EVENT LISTENERS ***
-    bulkArrayIdsTextarea.addEventListener('input', validateBulkArrayIds);
-    bulkArrayFieldSelect.addEventListener('change', (e) => renderCheckboxesForField(e.target.value));
-    bulkDeleteIdsTextarea.addEventListener('input', validateBulkDeleteIds);
+/* ══════════════════════════ FETCH & RENDER ══════════════════════════ */
+async function fetchScheduleConfig() {
+    const r = await fetch(`${API_BASE}/schedule-config`);
+    if (!r.ok) throw new Error('Failed to load schedule config');
+    currentScheduleConfig = await r.json();
+    renderSchedules();
+    renderGroups();
+    populateScheduleDropdowns();
+}
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Populate file selector - replace with your actual file keys if they are dynamic
-        const files = { 'default': 'Default (markers.json)', 'admin': 'Admin (markers_admin.json)', 'admin_fleet': 'Admin Fleet (markers_admin_fleet.json)' };
-        fileSelector.innerHTML = Object.entries(files).map(([key, name]) => `<option value="${key}">${name}</option>`).join('');
-        fetchAndRenderMarkers(fileSelector.value);
+async function fetchAndRenderMarkers(fileKey) {
+    const r = await fetch(`${API_BASE}/markers/${fileKey}`);
+    if (!r.ok) throw new Error(`HTTP error ${r.status}`);
+    currentMarkers = await r.json();
+    populateFilterDropdowns();
+    applyFilters();
+    calculateAndRenderStats(currentMarkers);
+    validateBulkIds();
+    validateBulkArrayIds();
+    validateBulkDeleteIds();
+    renderCheckboxesForField(bulkArrayFieldSelect.value);
+    exportButton.href = `${API_BASE}/export/${fileKey}`;
+}
+
+function populateScheduleDropdowns() {
+    const gv = groupScheduleKeySelect.value, nv = newMarkerScheduleKeySelect.value, bv = bulkScheduleKeySelect.value;
+    groupScheduleKeySelect.innerHTML = buildScheduleOptions({ noneLabel: 'No group default schedule' });
+    newMarkerStatusSelect.innerHTML = buildStatusOptions({ noneLabel: 'No special status' });
+    newMarkerScheduleKeySelect.innerHTML = buildScheduleOptions({ noneLabel: 'Use group/default schedule' });
+    bulkStatusSelect.innerHTML = buildStatusOptions({ includeKeep: true, includeClear: true, noneLabel: 'Clear special status' });
+    bulkScheduleKeySelect.innerHTML = buildScheduleOptions({ includeKeep: true, includeClear: true, noneLabel: 'Clear station schedule (use group/default)' });
+    if (gv) groupScheduleKeySelect.value = gv;
+    if (nv) newMarkerScheduleKeySelect.value = nv;
+    if (bv) bulkScheduleKeySelect.value = bv;
+}
+
+function renderSchedules() {
+    const list = Object.values(currentScheduleConfig.schedules).sort((a, b) => a.key.localeCompare(b.key));
+    scheduleTableBody.innerHTML = list.length ? list.map(s => {
+        const hrs = s.is24h ? '24h' : `${formatTime(s.openHour, s.openMinute)} - ${formatTime(s.closeHour, s.closeMinute)}`;
+        return `<tr class="border-b bg-white"><td class="px-4 py-3 font-semibold">${s.key}</td><td class="px-4 py-3">${s.label}</td><td class="px-4 py-3">${hrs}</td>
+            <td class="px-4 py-3 text-right space-x-2"><button class="text-indigo-600 font-medium" onclick="editSchedule('${s.key}')">Edit</button><button class="text-red-600 font-medium" onclick="deleteSchedule('${s.key}')">Delete</button></td></tr>`;
+    }).join('') : '<tr><td colspan="4" class="px-4 py-4 text-slate-500">No schedules found.</td></tr>';
+}
+
+function renderGroups() {
+    const list = [...currentScheduleConfig.groups].sort((a, b) => a.code.localeCompare(b.code));
+    groupTableBody.innerHTML = list.length ? list.map(g => `<tr class="border-b bg-white">
+        <td class="px-4 py-3 font-semibold">${g.code}</td><td class="px-4 py-3">${g.name}</td><td class="px-4 py-3">${g.schedule_key || 'No default'}</td>
+        <td class="px-4 py-3 text-right space-x-2">${buildGroupQuickActions(g)}
+            <button class="text-indigo-600 font-medium" onclick="editGroup('${g.code}')">Edit</button>
+            <button class="text-red-600 font-medium" onclick="deleteGroup('${g.code}')">Delete</button></td></tr>`).join('')
+        : '<tr><td colspan="4" class="px-4 py-4 text-slate-500">No groups found.</td></tr>';
+}
+
+function renderMarkers(markers) {
+    const fk = fileSelector.value;
+    filteredMarkers = markers;
+    tableSummary.textContent = `Showing ${markers.length} of ${currentMarkers.length} stations`;
+    if (!markers.length) {
+        markerTableBody.innerHTML = '<tr><td colspan="9" class="text-center p-8 text-slate-500">No stations match your filters.</td></tr>';
+        updateSelectionUI();
+        return;
+    }
+    markerTableBody.innerHTML = markers.map(m => {
+        const eff = describeEffectiveSchedule(m);
+        const stSch = describeStationSchedule(m);
+        const spSt = describeSpecialStatus(m);
+        const chk = selectedIds.has(normalizeId(m.id));
+        return `<tr class="bg-white border-b hover:bg-slate-50 transition-colors ${chk ? '!bg-indigo-50' : ''}" id="marker-row-${m.id}">
+            <td class="px-4 py-3 w-12"><input type="checkbox" class="row-checkbox h-4 w-4 rounded border-slate-300" data-id="${m.id}" ${chk ? 'checked' : ''}></td>
+            <td class="px-4 py-3 font-medium text-slate-900">${m.id}</td>
+            <td class="px-4 py-3">${m.title || ''}</td>
+            <td class="px-4 py-3">${m.province || ''}</td>
+            <td class="px-4 py-3">${spSt ? `<span class="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">${spSt}</span>` : ''}</td>
+            <td class="px-4 py-3"><span class="text-xs">${stSch}</span></td>
+            <td class="px-4 py-3">
+                <div class="flex items-center gap-1">
+                    ${m.schedule_group_code ? `<span class="inline-flex items-center rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-800">${m.schedule_group_code}</span>` : '<span class="text-slate-300 text-xs">—</span>'}
+                    <div class="inline-flex rounded-md shadow-sm ml-1" role="group">
+                        <button onclick="quickSetGroup('${fk}','${m.id}','COCO')" title="Set COCO" class="px-1.5 py-0.5 text-[10px] font-bold rounded-l-md border transition ${m.schedule_group_code === 'COCO' ? 'bg-violet-600 text-white border-violet-600' : 'bg-white text-violet-600 border-violet-300 hover:bg-violet-50'}">C</button>
+                        <button onclick="quickSetGroup('${fk}','${m.id}','DODO')" title="Set DODO" class="px-1.5 py-0.5 text-[10px] font-bold border-t border-b transition ${m.schedule_group_code === 'DODO' ? 'bg-amber-500 text-white border-amber-500' : 'bg-white text-amber-600 border-amber-300 hover:bg-amber-50'}">D</button>
+                        <button onclick="quickSetGroup('${fk}','${m.id}','')" title="Clear Group" class="px-1.5 py-0.5 text-[10px] font-bold rounded-r-md border transition ${!m.schedule_group_code ? 'bg-slate-300 text-white border-slate-300' : 'bg-white text-slate-400 border-slate-300 hover:bg-slate-50'}">✕</button>
+                    </div>
+                </div>
+            </td>
+            <td class="px-4 py-3"><span class="inline-flex items-center rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-medium text-sky-800">${eff}</span></td>
+            <td class="px-4 py-3 text-right whitespace-nowrap">
+                <button onclick="openEditModal('${fk}','${m.id}')" class="inline-flex items-center gap-1 rounded-md bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 transition mr-1">✏️ Edit</button>
+                <button onclick="openDeleteModal('${fk}','${m.id}')" class="inline-flex items-center gap-1 rounded-md bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100 transition">🗑 Delete</button>
+            </td></tr>`;
+    }).join('');
+    updateSelectionUI();
+}
+
+/* ══════════════════════════ FILTERS ══════════════════════════ */
+function populateFilterDropdowns() {
+    const provinces = [...new Set(currentMarkers.map(m => m.province).filter(Boolean))].sort();
+    const groups = [...new Set(currentMarkers.map(m => m.schedule_group_code).filter(Boolean))].sort();
+    const effScheds = [...new Set(currentMarkers.map(m => resolveEffectiveScheduleKey(m)).filter(Boolean))].sort();
+    const services = [...new Set(currentMarkers.flatMap(m => m.service || []).filter(Boolean))].sort();
+    const descriptions = [...new Set(currentMarkers.flatMap(m => m.description || []).filter(Boolean))].sort();
+    const products = [...new Set(currentMarkers.flatMap(m => m.product || []).filter(Boolean))].sort();
+    const otherProducts = [...new Set(currentMarkers.flatMap(m => m.other_product || []).filter(Boolean))].sort();
+    const sp = filterProvince.value, sg = filterGroup.value, ss = filterSpecialStatus.value, se = filterEffectiveSchedule.value;
+    const sv = filterService.value, dv = filterDescription.value, pv = filterProduct.value, op = filterOtherProduct.value;
+    filterProvince.innerHTML = '<option value="">All Provinces</option>' + provinces.map(p => `<option value="${p}">${p}</option>`).join('');
+    filterGroup.innerHTML = '<option value="">All Groups</option><option value="__NONE__">No Group</option>' + groups.map(g => `<option value="${g}">${g}</option>`).join('');
+    filterSpecialStatus.innerHTML = '<option value="">All Statuses</option><option value="__NONE__">No Special Status</option>' + SPECIAL_STATUS_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+    filterEffectiveSchedule.innerHTML = '<option value="">All Schedules</option>' + effScheds.map(s => `<option value="${s}">${s}</option>`).join('');
+    filterService.innerHTML = '<option value="">All Services</option>' + services.map(s => `<option value="${s}">${s}</option>`).join('');
+    filterDescription.innerHTML = '<option value="">All Shops</option>' + descriptions.map(d => `<option value="${d}">${d}</option>`).join('');
+    filterProduct.innerHTML = '<option value="">All Products</option>' + products.map(p => `<option value="${p}">${p}</option>`).join('');
+    filterOtherProduct.innerHTML = '<option value="">All Other Products</option>' + otherProducts.map(o => `<option value="${o}">${o}</option>`).join('');
+    filterProvince.value = sp; filterGroup.value = sg; filterSpecialStatus.value = ss; filterEffectiveSchedule.value = se;
+    filterService.value = sv; filterDescription.value = dv; filterProduct.value = pv; filterOtherProduct.value = op;
+}
+
+function applyFilters() {
+    const search = (stationSearch.value || '').toLowerCase().trim();
+    const province = filterProvince.value;
+    const group = filterGroup.value;
+    const status = filterSpecialStatus.value;
+    const schedule = filterEffectiveSchedule.value;
+    const service = filterService.value;
+    const description = filterDescription.value;
+    const product = filterProduct.value;
+    const otherProduct = filterOtherProduct.value;
+    let results = currentMarkers;
+    if (search) results = results.filter(m =>
+        normalizeId(m.id).toLowerCase().includes(search) ||
+        (m.title || '').toLowerCase().includes(search) ||
+        (m.province || '').toLowerCase().includes(search) ||
+        (m.address || '').toLowerCase().includes(search) ||
+        (m.product || []).some(p => p.toLowerCase().includes(search)) ||
+        (m.service || []).some(s => s.toLowerCase().includes(search))
+    );
+    if (province) results = results.filter(m => m.province === province);
+    if (group === '__NONE__') results = results.filter(m => !m.schedule_group_code);
+    else if (group) results = results.filter(m => m.schedule_group_code === group);
+    if (status === '__NONE__') results = results.filter(m => !isSpecialStatus(m.status || ''));
+    else if (status) results = results.filter(m => normalizeScheduleKey(m.status || '').toLowerCase() === status);
+    if (schedule) results = results.filter(m => resolveEffectiveScheduleKey(m) === schedule);
+    if (service) results = results.filter(m => (m.service || []).includes(service));
+    if (description) results = results.filter(m => (m.description || []).includes(description));
+    if (product) results = results.filter(m => (m.product || []).includes(product));
+    if (otherProduct) results = results.filter(m => (m.other_product || []).includes(otherProduct));
+    renderMarkers(results);
+}
+
+/* ══════════════════════════ SELECTION ══════════════════════════ */
+function updateSelectionUI() {
+    const cnt = selectedIds.size;
+    selectionCount.textContent = `${cnt} selected`;
+    if (cnt > 0) { selectionToolbar.classList.remove('hidden'); selectionToolbar.classList.add('flex'); }
+    else { selectionToolbar.classList.add('hidden'); selectionToolbar.classList.remove('flex'); }
+    const boxes = markerTableBody.querySelectorAll('.row-checkbox');
+    const checked = markerTableBody.querySelectorAll('.row-checkbox:checked');
+    selectAllCheckbox.checked = boxes.length > 0 && checked.length === boxes.length;
+    selectAllCheckbox.indeterminate = checked.length > 0 && checked.length < boxes.length;
+}
+
+function handleRowCheckboxChange(e) {
+    const id = e.target.dataset.id;
+    if (e.target.checked) { selectedIds.add(id); e.target.closest('tr').classList.add('!bg-indigo-50'); }
+    else { selectedIds.delete(id); e.target.closest('tr').classList.remove('!bg-indigo-50'); }
+    updateSelectionUI();
+}
+
+function toggleSelectAllVisible() {
+    const boxes = markerTableBody.querySelectorAll('.row-checkbox');
+    const allChecked = Array.from(boxes).every(cb => cb.checked);
+    boxes.forEach(cb => {
+        cb.checked = !allChecked;
+        const id = cb.dataset.id;
+        if (!allChecked) { selectedIds.add(id); cb.closest('tr').classList.add('!bg-indigo-50'); }
+        else { selectedIds.delete(id); cb.closest('tr').classList.remove('!bg-indigo-50'); }
     });
+    updateSelectionUI();
+}
+
+function clearSelection() {
+    selectedIds.clear();
+    markerTableBody.querySelectorAll('.row-checkbox').forEach(cb => { cb.checked = false; cb.closest('tr').classList.remove('!bg-indigo-50'); });
+    updateSelectionUI();
+}
+
+/* ══════════════════════════ EDIT MODAL ══════════════════════════ */
+function openEditModal(fileKey, markerId) {
+    const marker = currentMarkers.find(m => normalizeId(m.id) === normalizeId(markerId));
+    if (!marker) return;
+    currentEditInfo = { fileKey, markerId: normalizeId(markerId) };
+    editModalSubtitle.textContent = `Station ID: ${marker.id} — ${marker.title || 'Untitled'}`;
+    modalEditTitle.value = marker.title || '';
+    modalEditProvince.value = marker.province || '';
+    modalEditStatus.innerHTML = buildStatusOptions({ noneLabel: 'No special status' });
+    modalEditStatus.value = isSpecialStatus(marker.status || '') ? normalizeScheduleKey(marker.status || '').toLowerCase() : '';
+    modalEditScheduleKey.innerHTML = buildScheduleOptions({ noneLabel: 'Use group/default schedule' });
+    modalEditScheduleKey.value = getStationScheduleKey(marker);
+    modalEditGroup.innerHTML = ['<option value="">No Group</option>'].concat(
+        currentScheduleConfig.groups.sort((a, b) => a.code.localeCompare(b.code))
+            .map(g => `<option value="${g.code}" ${g.code === (marker.schedule_group_code || '') ? 'selected' : ''}>${g.code} — ${g.name}</option>`)
+    ).join('');
+    modalArrayEditors.innerHTML = ARRAY_FIELDS.map(f => createModalArrayEditor(f, marker[f])).join('');
+    editModal.classList.remove('hidden');
+    editModal.classList.add('flex');
+    modalEditTitle.focus();
+}
+
+function createModalArrayEditor(fieldName, items) {
+    const html = (items || []).map(createTagHtml).join('');
+    return `<div class="rounded-lg border bg-white p-4">
+        <label class="text-sm font-bold uppercase tracking-wide text-slate-500">${fieldName.replace('_', ' ')}</label>
+        <div id="modal-list-${fieldName}" class="flex flex-wrap gap-1 p-2 bg-slate-50 rounded-md min-h-[40px] mt-2">${html}</div>
+        <div class="flex gap-2 mt-2">
+            <input type="text" id="modal-add-input-${fieldName}" class="w-full p-2 border rounded-md text-sm" placeholder="Add new ${fieldName.replace('_', ' ')}..."
+                onkeydown="if(event.key==='Enter'){event.preventDefault();addModalItem('${fieldName}');}">
+            <button type="button" onclick="addModalItem('${fieldName}')" class="bg-indigo-500 text-white px-3 rounded-md font-bold hover:bg-indigo-600 text-sm">+</button>
+        </div></div>`;
+}
+
+function addModalItem(fieldName) {
+    const input = document.getElementById(`modal-add-input-${fieldName}`);
+    const list = document.getElementById(`modal-list-${fieldName}`);
+    const v = input.value.trim();
+    if (!v || !list) return;
+    list.insertAdjacentHTML('beforeend', createTagHtml(v));
+    input.value = '';
+}
+
+function closeEditModal() {
+    editModal.classList.add('hidden');
+    editModal.classList.remove('flex');
+    currentEditInfo = null;
+}
+
+async function saveFromEditModal() {
+    if (!currentEditInfo) return;
+    const { fileKey, markerId } = currentEditInfo;
+    const orig = currentMarkers.find(m => normalizeId(m.id) === normalizeId(markerId));
+    if (!orig) return;
+    const updated = { ...orig };
+    updated.title = modalEditTitle.value.trim();
+    updated.province = modalEditProvince.value.trim();
+    updated.status = modalEditStatus.value.trim();
+    updated.schedule_key = modalEditScheduleKey.value.trim();
+    updated.schedule_group_code = modalEditGroup.value.trim();
+    ARRAY_FIELDS.forEach(f => {
+        const el = document.getElementById(`modal-list-${f}`);
+        updated[f] = el ? Array.from(el.querySelectorAll('.tag')).map(t => t.dataset.value) : [];
+    });
+    try {
+        const r = await fetch(`${API_BASE}/markers/${fileKey}/${markerId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updated) });
+        const res = await r.json();
+        if (!r.ok) throw new Error(res.error || 'Failed to save');
+        closeEditModal();
+        showToast(`Station ${markerId} updated successfully`);
+        await fetchAll();
+    } catch (e) { showToast(e.message, 'error'); }
+}
+
+/* ══════════════════════════ DELETE MODAL ══════════════════════════ */
+function openDeleteModal(fileKey, markerId) {
+    const marker = currentMarkers.find(m => normalizeId(m.id) === normalizeId(markerId));
+    pendingDeleteInfo = { fileKey, markerId, isBulk: false };
+    deleteModalMessage.innerHTML = `Are you sure you want to delete station <strong>${markerId}</strong>${marker?.title ? ` (${marker.title})` : ''}? This action cannot be undone.`;
+    deleteModal.classList.remove('hidden');
+    deleteModal.classList.add('flex');
+}
+
+function closeDeleteModal() {
+    deleteModal.classList.add('hidden');
+    deleteModal.classList.remove('flex');
+    pendingDeleteInfo = null;
+}
+
+async function confirmFromDeleteModal() {
+    if (!pendingDeleteInfo) return;
+    try {
+        if (pendingDeleteInfo.type === 'schedule') {
+            const r = await fetch(`${API_BASE}/schedule-config/schedules/${pendingDeleteInfo.key}`, { method: 'DELETE' });
+            const res = await r.json();
+            if (!r.ok) throw new Error(res.error || 'Delete schedule failed');
+            showToast(`Schedule ${pendingDeleteInfo.key} deleted`);
+        } else if (pendingDeleteInfo.type === 'group') {
+            const r = await fetch(`${API_BASE}/schedule-config/groups/${pendingDeleteInfo.code}`, { method: 'DELETE' });
+            const res = await r.json();
+            if (!r.ok) throw new Error(res.error || 'Delete group failed');
+            showToast(`Group ${pendingDeleteInfo.code} deleted`);
+        } else if (pendingDeleteInfo.isBulk) {
+            const ids = pendingDeleteInfo.markerIds;
+            const r = await fetch(`${API_BASE}/markers/${pendingDeleteInfo.fileKey}/bulk_delete`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids }) });
+            const res = await r.json();
+            if (!r.ok) throw new Error(res.error || 'Bulk delete failed');
+            showToast(`Deleted ${res.deleted_count} station(s)`);
+            if (pendingDeleteInfo.source === 'selection') selectedIds.clear();
+            if (pendingDeleteInfo.source === 'form') { bulkDeleteForm.reset(); bulkDeleteResult.innerHTML = `<span class="text-green-600">Deleted ${res.deleted_count} station(s)</span>`; }
+        } else {
+            const { fileKey, markerId } = pendingDeleteInfo;
+            const r = await fetch(`${API_BASE}/markers/${fileKey}/${markerId}`, { method: 'DELETE' });
+            const res = await r.json();
+            if (!r.ok) throw new Error(res.error || 'Delete failed');
+            showToast(`Station ${markerId} deleted`);
+        }
+        closeDeleteModal();
+        await fetchAll();
+    } catch (e) { showToast(e.message, 'error'); }
+}
+
+/* ══════════════════════════ QUICK GROUP ASSIGNMENT ══════════════════════════ */
+async function _quickSetGroup(fileKey, stationId, groupCode) {
+    const r = await fetch(`${API_BASE}/markers/${fileKey}/bulk_group_update`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: [stationId], group_code: groupCode })
+    });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Failed to set group');
+    showToast(`Station ${stationId} → ${groupCode || 'No Group'}`);
+    await fetchAll();
+}
+
+async function _quickSetGroupBulk(groupCode) {
+    const ids = Array.from(selectedIds);
+    if (!ids.length) { showToast('No stations selected', 'error'); return; }
+    const r = await fetch(`${API_BASE}/markers/${fileSelector.value}/bulk_group_update`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids, group_code: groupCode })
+    });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Bulk group update failed');
+    showToast(`${res.updated_count} station(s) → ${groupCode || 'No Group'}`);
+    await fetchAll();
+}
+
+/* ══════════════════════════ ARRAY HELPERS ══════════════════════════ */
+function removeItem(el) { el.parentElement.remove(); }
+
+function addItem(fieldName, markerId) {
+    const input = document.getElementById(`add-input-${fieldName}-${markerId}`);
+    const list = document.getElementById(`list-${fieldName}-${markerId}`);
+    const v = input.value.trim();
+    if (!v || !list) return;
+    list.insertAdjacentHTML('beforeend', createTagHtml(v));
+    input.value = '';
+}
+
+function renderCheckboxesForField(field) {
+    const vals = [...new Set(currentMarkers.flatMap(m => m[field] || []))].filter(Boolean).sort();
+    bulkArrayCheckboxContainer.innerHTML = vals.length
+        ? vals.map(v => `<label class="flex items-center p-2 bg-slate-100 rounded-md hover:bg-slate-200 transition cursor-pointer"><input type="checkbox" value="${v}" class="mr-2 accent-indigo-600"> <span class="text-sm">${v}</span></label>`).join('')
+        : '<span class="text-slate-400 p-2">No items found for this field.</span>';
+}
+
+/* ══════════════════════════ VALIDATION ══════════════════════════ */
+function validateIds(textarea, outputEl, emptyMsg) {
+    const valid = new Set(currentMarkers.map(m => normalizeId(m.id)));
+    const ids = textarea.value.split(/\s+|,|\n/).map(s => s.trim()).filter(Boolean);
+    if (!ids.length) { outputEl.innerHTML = `<span class="text-slate-400">${emptyMsg}</span>`; return; }
+    const found = [], missing = [];
+    ids.forEach(id => (valid.has(id) ? found : missing).push(id));
+    outputEl.innerHTML = `${found.length ? `<div class="text-green-600 font-semibold">Found (${found.length})</div>` : ''}${missing.length ? `<div class="text-red-600 font-semibold mt-1">Not Found (${missing.length}): ${missing.join(', ')}</div>` : ''}`;
+}
+function validateBulkIds() { validateIds(bulkIdsTextarea, bulkIdValidation, 'Paste IDs...'); }
+function validateBulkArrayIds() { validateIds(bulkArrayIdsTextarea, bulkArrayIdValidation, 'Paste IDs...'); }
+function validateBulkDeleteIds() { validateIds(bulkDeleteIdsTextarea, bulkDeleteIdValidation, 'Paste IDs to delete...'); }
+
+/* ══════════════════════════ STATS ══════════════════════════ */
+function calculateAndRenderStats(markers) {
+    const byStatus = markers.reduce((a, m) => { const k = resolveEffectiveScheduleKey(m) || 'N/A'; a[k] = (a[k] || 0) + 1; return a; }, {});
+    const byGroup = markers.reduce((a, m) => { const k = m.schedule_group_code || 'NO GROUP'; a[k] = (a[k] || 0) + 1; return a; }, {});
+    const card = (t, v, d) => `<div class="panel"><h3 class="text-sm text-slate-500">${t}</h3><p class="text-3xl font-bold text-slate-900">${v}</p>${d ? `<div class="mt-2 text-xs text-slate-500">${d}</div>` : ''}</div>`;
+    analyticsPanel.innerHTML = [
+        card('Total Stations', markers.length),
+        card('Schedule Templates', Object.keys(currentScheduleConfig.schedules).length),
+        card('Groups', Object.keys(byGroup).length),
+        card('Top Effective Status', Object.entries(byStatus).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A', Object.entries(byStatus).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => `${k}: ${v}`).join(' · '))
+    ].join('');
+}
+
+/* ══════════════════════════ API HANDLERS ══════════════════════════ */
+async function handleAddMarker(event) {
+    event.preventDefault();
+    const payload = {
+        id: document.getElementById('new-marker-id').value.trim(),
+        title: document.getElementById('new-marker-title').value.trim(),
+        province: document.getElementById('new-marker-province').value.trim(),
+        status: newMarkerStatusSelect.value.trim(),
+        schedule_key: newMarkerScheduleKeySelect.value.trim(),
+        schedule_group_code: document.getElementById('new-marker-schedule-group').value.trim().toUpperCase(),
+    };
+    const r = await fetch(`${API_BASE}/markers/${fileSelector.value}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Failed to add marker');
+    addMarkerForm.reset();
+    showToast(`Station ${payload.id} added successfully`);
+    await fetchAll();
+}
+
+async function handleBulkUpdate(event) {
+    event.preventDefault();
+    bulkUpdateResult.textContent = 'Processing...';
+    const ids = bulkIdsTextarea.value.split(/\s+|,|\n/).map(v => v.trim()).filter(Boolean);
+    const changes = {};
+    const status = bulkStatusSelect.value.trim(), sk = bulkScheduleKeySelect.value.trim();
+    const province = document.getElementById('bulk-province').value.trim();
+    const gc = document.getElementById('bulk-schedule-group').value.trim().toUpperCase();
+    if (status && status !== '__KEEP__') changes.status = status === '__CLEAR__' ? '' : status;
+    if (sk && sk !== '__KEEP__') changes.schedule_key = sk === '__CLEAR__' ? '' : sk;
+    if (province) changes.province = province;
+    if (document.getElementById('bulk-schedule-group').value.trim()) changes.schedule_group_code = gc;
+    if (!ids.length || !Object.keys(changes).length) { bulkUpdateResult.innerHTML = '<span class="text-red-500">Please provide IDs and at least one change.</span>'; return; }
+    const r = await fetch(`${API_BASE}/markers/${fileSelector.value}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(ids.map(id => ({ id, changes }))) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Bulk update failed');
+    bulkUpdateResult.innerHTML = `<span class="text-green-600">Updated ${res.updated_ids.length} station(s)</span>`;
+    bulkUpdateForm.reset();
+    showToast(`Updated ${res.updated_ids.length} station(s)`);
+    await fetchAll();
+}
+
+async function handleBulkArrayUpdate(event) {
+    event.preventDefault();
+    const ids = bulkArrayIdsTextarea.value.split(/\s+|,|\n/).map(v => v.trim()).filter(Boolean);
+    const values = Array.from(document.querySelectorAll('#bulk-array-checkbox-container input:checked')).map(b => b.value);
+    if (!ids.length || !values.length) { bulkArrayResult.innerHTML = '<span class="text-red-500">Please provide IDs and select values.</span>'; return; }
+    const r = await fetch(`${API_BASE}/markers/${fileSelector.value}/bulk_array_update`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids, field: bulkArrayFieldSelect.value, action: document.getElementById('bulk-array-action').value, values }) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Bulk array update failed');
+    bulkArrayResult.innerHTML = `<span class="text-green-600">Updated ${res.updated_count} station(s)</span>`;
+    bulkArrayForm.reset();
+    showToast(`Updated ${res.updated_count} station(s)`);
+    await fetchAll();
+}
+
+async function handleBulkDelete(event) {
+    event.preventDefault();
+    const ids = bulkDeleteIdsTextarea.value.split(/\s+|,|\n/).map(v => v.trim()).filter(Boolean);
+    if (!ids.length) { bulkDeleteResult.innerHTML = '<span class="text-red-500">Please provide IDs to delete.</span>'; return; }
+    pendingDeleteInfo = { fileKey: fileSelector.value, markerIds: ids, isBulk: true, source: 'form' };
+    deleteModalMessage.innerHTML = `Are you sure you want to delete <strong>${ids.length}</strong> station(s)?<br><span class="text-xs text-slate-400 mt-1 block">${ids.join(', ')}</span>`;
+    deleteModal.classList.remove('hidden');
+    deleteModal.classList.add('flex');
+}
+
+/* ══════════════════════════ SCHEDULE / GROUP MGMT ══════════════════════════ */
+async function handleScheduleSubmit(event) {
+    event.preventDefault();
+    const payload = {
+        key: document.getElementById('schedule-key').value.trim(),
+        label: document.getElementById('schedule-label').value.trim(),
+        is24h: document.getElementById('schedule-is24h').checked,
+        ...timeInputToParts(document.getElementById('schedule-open').value, 'open'),
+        ...timeInputToParts(document.getElementById('schedule-close').value, 'close'),
+    };
+    if (!payload.key) { scheduleFormResult.innerHTML = '<span class="text-red-500">Schedule key is required.</span>'; return; }
+    const isEdit = scheduleForm.dataset.mode === 'edit';
+    const targetKey = scheduleForm.dataset.editKey || payload.key;
+    const r = await fetch(`${API_BASE}/schedule-config/schedules${isEdit ? `/${targetKey}` : ''}`, { method: isEdit ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Schedule save failed');
+    scheduleForm.reset(); delete scheduleForm.dataset.mode; delete scheduleForm.dataset.editKey;
+    scheduleFormResult.innerHTML = `<span class="text-green-600">Saved schedule ${res.key}</span>`;
+    showToast(`Schedule ${res.key} saved`);
+    await fetchAll();
+}
+
+async function handleGroupSubmit(event) {
+    event.preventDefault();
+    const payload = {
+        code: document.getElementById('group-code').value.trim().toUpperCase(),
+        name: document.getElementById('group-name').value.trim(),
+        schedule_key: document.getElementById('group-schedule-key').value,
+    };
+    if (!payload.code) { groupFormResult.innerHTML = '<span class="text-red-500">Group code is required.</span>'; return; }
+    const isEdit = groupForm.dataset.mode === 'edit';
+    const targetCode = groupForm.dataset.editCode || payload.code;
+    const r = await fetch(`${API_BASE}/schedule-config/groups${isEdit ? `/${targetCode}` : ''}`, { method: isEdit ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Group save failed');
+    groupForm.reset(); delete groupForm.dataset.mode; delete groupForm.dataset.editCode;
+    groupFormResult.innerHTML = `<span class="text-green-600">Saved group ${res.code}</span>`;
+    showToast(`Group ${res.code} saved`);
+    await fetchAll();
+}
+
+function timeInputToParts(value, prefix) {
+    if (!value) return prefix === 'open' ? { openHour: 0, openMinute: 0 } : { closeHour: 0, closeMinute: 0 };
+    const [h, m] = value.split(':').map(Number);
+    return prefix === 'open' ? { openHour: h, openMinute: m } : { closeHour: h, closeMinute: m };
+}
+
+function editSchedule(key) {
+    const s = currentScheduleConfig.schedules[key];
+    if (!s) return;
+    document.getElementById('schedule-key').value = s.key;
+    document.getElementById('schedule-label').value = s.label;
+    document.getElementById('schedule-is24h').checked = !!s.is24h;
+    document.getElementById('schedule-open').value = `${String(s.openHour).padStart(2, '0')}:${String(s.openMinute).padStart(2, '0')}`;
+    document.getElementById('schedule-close').value = `${String(s.closeHour).padStart(2, '0')}:${String(s.closeMinute).padStart(2, '0')}`;
+    scheduleForm.dataset.mode = 'edit';
+    scheduleForm.dataset.editKey = s.key;
+    scheduleForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function _deleteSchedule(key) {
+    pendingDeleteInfo = { type: 'schedule', key };
+    deleteModalMessage.innerHTML = `Are you sure you want to delete schedule <strong>${key}</strong>?`;
+    deleteModal.classList.remove('hidden');
+    deleteModal.classList.add('flex');
+}
+
+function _editGroup(code) {
+    const g = getGroupByCode(code);
+    if (!g) return;
+    document.getElementById('group-code').value = g.code;
+    document.getElementById('group-name').value = g.name;
+    document.getElementById('group-schedule-key').value = g.schedule_key;
+    groupForm.dataset.mode = 'edit';
+    groupForm.dataset.editCode = g.code;
+    groupForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function _deleteGroup(code) {
+    pendingDeleteInfo = { type: 'group', code };
+    deleteModalMessage.innerHTML = `Are you sure you want to delete group <strong>${code}</strong>? Assigned stations will be cleared.`;
+    deleteModal.classList.remove('hidden');
+    deleteModal.classList.add('flex');
+}
+
+async function _quickUpdateGroupSchedule(code, scheduleKey) {
+    const r = await fetch(`${API_BASE}/schedule-config/groups/${code}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ schedule_key: scheduleKey }) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || 'Quick group update failed');
+    groupFormResult.innerHTML = `<span class="text-green-600">Updated ${code} → ${res.schedule_key || 'No default'}</span>`;
+    showToast(`Group ${code} → ${scheduleKey}`);
+    await fetchAll();
+}
+
+async function fetchAll() {
+    await fetchScheduleConfig();
+    await fetchAndRenderMarkers(fileSelector.value);
+}
+
+/* ══════════════════════════ GLOBAL EXPOSE (no recursion) ══════════════════════════ */
+window.addItem = addItem;
+window.removeItem = removeItem;
+window.addModalItem = addModalItem;
+window.openEditModal = openEditModal;
+window.openDeleteModal = openDeleteModal;
+window.editSchedule = editSchedule;
+window.deleteSchedule = function(key) { _deleteSchedule(key); };
+window.editGroup = function(code) { _editGroup(code); };
+window.deleteGroup = function(code) { _deleteGroup(code); };
+window.quickUpdateGroupSchedule = async function(code, sk) { try { await _quickUpdateGroupSchedule(code, sk); } catch(e) { showToast(e.message, 'error'); } };
+window.quickSetGroup = async function(fk, id, gc) { try { await _quickSetGroup(fk, id, gc); } catch(e) { showToast(e.message, 'error'); } };
+
+/* ══════════════════════════ EVENT LISTENERS ══════════════════════════ */
+fileSelector.addEventListener('change', () => fetchAndRenderMarkers(fileSelector.value));
+addMarkerForm.addEventListener('submit', async e => { try { await handleAddMarker(e); } catch(err) { showToast(err.message, 'error'); } });
+bulkUpdateForm.addEventListener('submit', async e => { try { await handleBulkUpdate(e); } catch(err) { bulkUpdateResult.innerHTML = `<span class="text-red-500">${err.message}</span>`; } });
+bulkArrayForm.addEventListener('submit', async e => { try { await handleBulkArrayUpdate(e); } catch(err) { bulkArrayResult.innerHTML = `<span class="text-red-500">${err.message}</span>`; } });
+bulkDeleteForm.addEventListener('submit', async e => { try { await handleBulkDelete(e); } catch(err) { bulkDeleteResult.innerHTML = `<span class="text-red-500">${err.message}</span>`; } });
+scheduleForm.addEventListener('submit', async e => { try { await handleScheduleSubmit(e); } catch(err) { scheduleFormResult.innerHTML = `<span class="text-red-500">${err.message}</span>`; } });
+groupForm.addEventListener('submit', async e => { try { await handleGroupSubmit(e); } catch(err) { groupFormResult.innerHTML = `<span class="text-red-500">${err.message}</span>`; } });
+bulkIdsTextarea.addEventListener('input', validateBulkIds);
+bulkArrayIdsTextarea.addEventListener('input', validateBulkArrayIds);
+bulkDeleteIdsTextarea.addEventListener('input', validateBulkDeleteIds);
+bulkArrayFieldSelect.addEventListener('change', () => renderCheckboxesForField(bulkArrayFieldSelect.value));
+
+/* Filters */
+stationSearch.addEventListener('input', applyFilters);
+filterProvince.addEventListener('change', applyFilters);
+filterGroup.addEventListener('change', applyFilters);
+filterSpecialStatus.addEventListener('change', applyFilters);
+filterEffectiveSchedule.addEventListener('change', applyFilters);
+filterService.addEventListener('change', applyFilters);
+filterDescription.addEventListener('change', applyFilters);
+filterProduct.addEventListener('change', applyFilters);
+filterOtherProduct.addEventListener('change', applyFilters);
+resetFiltersButton.addEventListener('click', () => { stationSearch.value = ''; filterProvince.value = ''; filterGroup.value = ''; filterSpecialStatus.value = ''; filterEffectiveSchedule.value = ''; filterService.value = ''; filterDescription.value = ''; filterProduct.value = ''; filterOtherProduct.value = ''; applyFilters(); });
+
+/* Selection */
+selectAllCheckbox.addEventListener('change', toggleSelectAllVisible);
+selectVisibleButton.addEventListener('click', () => { markerTableBody.querySelectorAll('.row-checkbox').forEach(cb => { cb.checked = true; selectedIds.add(cb.dataset.id); cb.closest('tr').classList.add('!bg-indigo-50'); }); updateSelectionUI(); });
+clearSelectionButton.addEventListener('click', clearSelection);
+useSelectedBulkUpdate.addEventListener('click', () => { bulkIdsTextarea.value = Array.from(selectedIds).join(', '); validateBulkIds(); bulkIdsTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' }); showToast(`${selectedIds.size} IDs pasted into Bulk Update`, 'info'); });
+useSelectedBulkArray.addEventListener('click', () => { bulkArrayIdsTextarea.value = Array.from(selectedIds).join(', '); validateBulkArrayIds(); bulkArrayIdsTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' }); showToast(`${selectedIds.size} IDs pasted into Array Update`, 'info'); });
+setSelectedCocoBtn.addEventListener('click', async () => { try { await _quickSetGroupBulk('COCO'); } catch(e) { showToast(e.message, 'error'); } });
+setSelectedDodoBtn.addEventListener('click', async () => { try { await _quickSetGroupBulk('DODO'); } catch(e) { showToast(e.message, 'error'); } });
+clearSelectedGroupBtn.addEventListener('click', async () => { try { await _quickSetGroupBulk(''); } catch(e) { showToast(e.message, 'error'); } });
+deleteSelectedButton.addEventListener('click', () => {
+    const ids = Array.from(selectedIds);
+    if (!ids.length) return;
+    pendingDeleteInfo = { fileKey: fileSelector.value, markerIds: ids, isBulk: true, source: 'selection' };
+    deleteModalMessage.innerHTML = `Delete <strong>${ids.length}</strong> selected station(s)?<br><span class="text-xs text-slate-400 mt-1 block">${ids.join(', ')}</span>`;
+    deleteModal.classList.remove('hidden'); deleteModal.classList.add('flex');
+});
+markerTableBody.addEventListener('change', e => { if (e.target.classList.contains('row-checkbox')) handleRowCheckboxChange(e); });
+
+/* Edit Modal */
+closeEditModalBtn.addEventListener('click', closeEditModal);
+cancelEditModalBtn.addEventListener('click', closeEditModal);
+saveEditModalBtn.addEventListener('click', saveFromEditModal);
+editModal.addEventListener('click', e => { if (e.target === editModal) closeEditModal(); });
+
+/* Delete Modal */
+cancelDeleteModalBtn.addEventListener('click', closeDeleteModal);
+confirmDeleteModalBtn.addEventListener('click', confirmFromDeleteModal);
+deleteModal.addEventListener('click', e => { if (e.target === deleteModal) closeDeleteModal(); });
+
+/* Keyboard */
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        if (!editModal.classList.contains('hidden')) closeEditModal();
+        if (!deleteModal.classList.contains('hidden')) closeDeleteModal();
+    }
+});
+
+/* Init */
+document.addEventListener('DOMContentLoaded', async () => {
+    const files = { 'default': 'Default (markers.json)', 'admin': 'Admin (markers_admin.json)', 'admin_fleet': 'Admin Fleet (markers_admin_fleet.json)' };
+    fileSelector.innerHTML = Object.entries(files).map(([k, n]) => `<option value="${k}">${n}</option>`).join('');
+    try { await fetchAll(); } catch (e) { markerTableBody.innerHTML = `<tr><td colspan="9" class="text-center p-8 text-red-500">${e.message}</td></tr>`; }
+});
 </script>
 </body>
 </html>

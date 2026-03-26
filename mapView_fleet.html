@@ -23,7 +23,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.1/MarkerCluster.Default.css"
     />
-    <link rel="stylesheet" href="./css/currentStyle.css" />
+    <!-- styles injected by mapManager.js -->
     <!-- Font Awesome for Icons -->
     <link
       rel="stylesheet"
@@ -1250,9 +1250,21 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Leaflet.markercluster JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.1/leaflet.markercluster.js"></script>
-    <script src="./js/map_fleet.js"></script>
-    <script src="./js/filter.js"></script>
-    <script src="./js/nearly.js"></script>
-    <script src="./js/promotion.js"></script>
+    <script>
+      window.PTT_PAGE_CONFIG = {
+        dataUrl: "markers.json",
+        autoSelectFilter: { container: "service-icons", item: "Fleet card" },
+        showStatusFilter: false,
+      };
+    </script>
+    <script src="./js/config.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/routeService.js"></script>
+    <script src="./js/mapManager.js"></script>
+    <script src="./js/modalRenderer.js"></script>
+    <script src="./js/filterManager.js"></script>
+    <script src="./js/nearbyManager.js"></script>
+    <script src="./js/promotionManager.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>

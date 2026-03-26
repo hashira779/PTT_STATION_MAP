@@ -28,7 +28,9 @@
             "status": "24h",
             "promotion": [],
             "old_picture": "2.png",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 603,
@@ -59,7 +61,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 604,
@@ -90,7 +94,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": "605",
@@ -119,9 +125,11 @@
             "province": "Phnom Penh",
             "address": "National Road No. 1 (Phnom Penh-Vietnam), Sangkat Niruth, Khan Chbar Ampov, Phnom Penh, Cambodia",
             "status": "24h",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 606,
@@ -153,7 +161,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 608,
@@ -184,7 +194,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 610,
@@ -215,7 +227,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 611,
@@ -246,7 +260,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 613,
@@ -277,7 +293,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 614,
@@ -308,7 +326,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 617,
@@ -339,7 +359,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 10029691,
@@ -369,7 +391,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032353,
@@ -399,7 +423,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033821,
@@ -428,7 +454,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030896,
@@ -459,7 +487,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032705,
@@ -489,7 +519,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030505,
@@ -519,7 +551,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031826,
@@ -549,7 +583,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027087,
@@ -579,7 +615,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026213,
@@ -609,7 +647,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033146,
@@ -639,7 +679,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027790,
@@ -668,7 +710,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029893,
@@ -697,7 +741,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030247,
@@ -728,7 +774,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030894,
@@ -759,7 +807,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032197,
@@ -789,7 +839,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025835,
@@ -819,7 +871,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027224,
@@ -849,7 +903,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028079,
@@ -879,7 +935,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034999,
@@ -911,7 +969,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034074,
@@ -936,13 +996,15 @@
                 "Cash"
             ],
             "province": "Kandal",
-            "address": "located at plot land no.687,\u00e2\u20ac\u2039 Battachi Village, Sangkat Prek Ho, Ta Khmau Municipal,Kandal Province",
+            "address": "located at plot land no.687,â€‹ Battachi Village, Sangkat Prek Ho, Ta Khmau Municipal,Kandal Province",
             "status": "24h",
             "promotion": [
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034461,
@@ -972,7 +1034,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032855,
@@ -1003,7 +1067,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023427,
@@ -1032,7 +1098,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031806,
@@ -1061,7 +1129,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021637,
@@ -1090,7 +1160,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 618,
@@ -1120,7 +1192,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021912,
@@ -1149,7 +1223,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021709,
@@ -1180,7 +1256,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021688,
@@ -1204,13 +1282,15 @@
                 "Fleet card"
             ],
             "province": "Battambang",
-            "address": "National road 5, O\u00e2\u20ac\u2122char village, Sangkat O\u00e2\u20ac\u2122char, Khan Battombong, Battombong province",
+            "address": "National road 5, Oâ€™char village, Sangkat Oâ€™char, Khan Battombong, Battombong province",
             "status": "16h",
             "promotion": [
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021644,
@@ -1240,7 +1320,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025909,
@@ -1270,7 +1352,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021648,
@@ -1300,7 +1384,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "615",
@@ -1328,9 +1414,11 @@
             "province": "Phnom Penh",
             "address": "#81, St. Veng Sreng, Tro Pang Tleong village, Sangkat Chom Chav, Phnom Penh",
             "status": "24h",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 10023212,
@@ -1359,7 +1447,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030619,
@@ -1389,7 +1479,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023997,
@@ -1419,7 +1511,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025350,
@@ -1449,7 +1543,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30063513,
@@ -1479,7 +1575,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025853,
@@ -1508,7 +1606,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025918,
@@ -1537,7 +1637,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026283,
@@ -1567,7 +1669,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030392,
@@ -1598,7 +1702,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026452,
@@ -1629,7 +1735,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026578,
@@ -1658,7 +1766,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30057218,
@@ -1688,7 +1798,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021647,
@@ -1718,7 +1830,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030779,
@@ -1749,7 +1863,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027422,
@@ -1778,7 +1894,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028690,
@@ -1807,7 +1925,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028834,
@@ -1837,7 +1957,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028725,
@@ -1867,7 +1989,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028650,
@@ -1897,7 +2021,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029265,
@@ -1928,7 +2054,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029001,
@@ -1957,7 +2085,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028452,
@@ -1986,7 +2116,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029430,
@@ -2017,7 +2149,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029632,
@@ -2046,7 +2180,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030168,
@@ -2076,7 +2212,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030440,
@@ -2106,7 +2244,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030456,
@@ -2136,7 +2276,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029786,
@@ -2166,7 +2308,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030375,
@@ -2195,7 +2339,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30068426,
@@ -2226,7 +2372,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031481,
@@ -2256,7 +2404,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031773,
@@ -2285,7 +2435,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032306,
@@ -2316,7 +2468,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032704,
@@ -2346,7 +2500,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032944,
@@ -2376,7 +2532,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032709,
@@ -2407,7 +2565,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033986,
@@ -2438,7 +2598,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033884,
@@ -2469,7 +2631,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034109,
@@ -2492,13 +2656,15 @@
                 "KHQR"
             ],
             "province": "Kep",
-            "address": "located at Plot land 1149, National Road 33, Damnak Chang\u00e2\u20ac\u2122Auer Village, Sangkat \nPrey Thom, Kep Municipal, Kep Province",
+            "address": "located at Plot land 1149, National Road 33, Damnak Changâ€™Auer Village, Sangkat \nPrey Thom, Kep Municipal, Kep Province",
             "status": "16h",
             "promotion": [
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034915,
@@ -2528,7 +2694,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30077267,
@@ -2558,7 +2726,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035075,
@@ -2587,7 +2757,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035079,
@@ -2617,7 +2789,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30078128,
@@ -2646,7 +2820,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30075518,
@@ -2677,7 +2853,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035664,
@@ -2700,13 +2878,15 @@
                 "KHQR"
             ],
             "province": "Phnom Penh",
-            "address": "at # 15, Chamkar Doung Street (217),\u00e2\u20ac\u2039 Mol Village, Sangkat Dangkor, Khan Dangkor, Phnom Penh",
+            "address": "at # 15, Chamkar Doung Street (217),â€‹ Mol Village, Sangkat Dangkor, Khan Dangkor, Phnom Penh",
             "status": "16h",
             "promotion": [
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035854,
@@ -2736,7 +2916,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035000,
@@ -2767,7 +2949,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035868,
@@ -2796,7 +2980,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30080329,
@@ -2825,7 +3011,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10036085,
@@ -2856,7 +3044,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035641,
@@ -2886,7 +3076,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10036179,
@@ -2915,7 +3107,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30082047,
@@ -2946,7 +3140,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037095",
@@ -2961,7 +3157,7 @@
                 "ULR 91",
                 "HSD"
             ],
-            "other_product": null,
+            "other_product": [],
             "service": [
                 "Fleet card",
                 "KHQR",
@@ -2970,9 +3166,11 @@
             "province": "Phnom Penh",
             "address": "# 150 E0, St. 130, Phoum 1, Sangkat Phsar Kandal 2, Khan Daun Penh, Phnom Penh, Cambodia",
             "status": "16h",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30082667,
@@ -3003,7 +3201,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10037327,
@@ -3034,7 +3234,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30083692,
@@ -3063,7 +3265,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10037634,
@@ -3092,7 +3296,9 @@
                 ""
             ],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037836",
@@ -3117,7 +3323,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "2.png",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037871",
@@ -3144,7 +3352,9 @@
             "status": "24h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038283",
@@ -3170,7 +3380,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038391",
@@ -3196,7 +3408,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038564",
@@ -3221,7 +3435,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038834",
@@ -3246,7 +3462,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038583",
@@ -3271,7 +3489,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038513",
@@ -3296,7 +3516,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038896",
@@ -3321,7 +3543,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038814",
@@ -3346,7 +3570,9 @@
             "status": "16h",
             "promotion": [],
             "old_picture": "",
-            "picture": "2.png"
+            "picture": "2.png",
+            "schedule_group_code": "",
+            "schedule_key": ""
         }
     ]
 }

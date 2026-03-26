@@ -1,0 +1,30 @@
+{
+    "default_schedule_key": "16h",
+    "schedules": {
+        "24h": {
+            "key": "24h",
+            "label": "Open 24h",
+            "is24h": true,
+            "openHour": 0,
+            "openMinute": 0,
+            "closeHour": 0,
+            "closeMinute": 0
+        },
+        "16h": {
+            "key": "16h",
+            "label": "Open 5:00 AM - 9:00 PM",
+            "is24h": false,
+            "openHour": 5,
+            "openMinute": 0,
+            "closeHour": 21,
+            "closeMinute": 30
+        }
+    },
+    "groups": [
+        {
+            "code": "COCO",
+            "name": "COCO",
+            "schedule_key": "16h"
+        }
+    ]
+}

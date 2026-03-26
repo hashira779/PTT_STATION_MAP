@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./pictures/logo2_padded_180x180.png">
 <link rel="apple-touch-icon" sizes="167x167" href="./pictures/logo2_padded_167x167.png">
 <link rel="apple-touch-icon" sizes="152x152" href="./pictures/logo2_padded_152x152.png">
-<link rel="apple-touch-icon" sizes="120x120" href="./pictures/logo2_padded_120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="./pictures/logo2_padded_144x144.png">
 <link rel="apple-touch-icon" sizes="76x76" href="./pictures/logo2_padded_76x76.png">
 <link rel="icon" href="./pictures/logo.png" type="image/png" sizes="10x30">
     <!-- Custom CSS -->
@@ -299,7 +299,7 @@
             }
             
             100% {
-              left: 0px;
+              left: 0;
             }
           
           }
@@ -339,7 +339,7 @@
     </div>
 
     
-    <div class="container"style="margin-top: 80px;">
+    <div class="container" style="margin-top: 80px;">
         <span class="text1">Finding</span>
         <span class="text2">Found</span>
    </div>
@@ -368,7 +368,9 @@
         admin_fleet: 'map_fleet.html',
         admin:'map.html'
 			};
-			
+
+      const tabletPaths = desktopPaths;
+
 			
 			// Determine which path set to use
 			let pathSet;

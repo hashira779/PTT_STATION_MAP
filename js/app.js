@@ -13,6 +13,7 @@
     _bindLocationButton();
     _bindLifecycleEvents();
     NearbyManager.init();
+    OilPriceManager.init();
     _loadStations();
   }
 

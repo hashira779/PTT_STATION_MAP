@@ -3,9 +3,12 @@ import json
 import os
 
 import pandas as pd
+import requests as http_requests
 from flask import Flask, jsonify, render_template, request, send_file
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
@@ -716,6 +719,19 @@ def bulk_delete_markers(file_key):
             "not_found_ids": not_found_ids,
         }
     )
+
+
+# ── Oil Price Proxy ──────────────────────────────────────────
+OIL_PRICE_API = "https://apioilprice.orsptt.space/api/oil-prices"
+
+@app.route("/api/oil-prices", methods=["GET"])
+def proxy_oil_prices():
+    """Proxy the external oil-price API to avoid CORS issues."""
+    try:
+        resp = http_requests.get(OIL_PRICE_API, timeout=10)
+        return jsonify(resp.json()), resp.status_code
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 502
 
 
 if __name__ == "__main__":

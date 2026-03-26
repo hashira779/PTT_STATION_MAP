@@ -2,7 +2,7 @@
  * ============================================================
  *  PTT Station Map — Modal Renderer
  *  Renders the station-detail modal and image-preview modal.
- *  Modern Tailwind CSS UI with glassmorphism design.
+ *  Modern UI — big popup, small perfect labels.
  *  Depends on: config.js, utils.js, routeService.js
  * ============================================================
  */
@@ -18,9 +18,9 @@ var ModalRenderer = (function () {
       .map(function (p) {
         var icon = PTT_UTILS.getProductIcon(p);
         return (
-          '<div class="info product-item">' +
-          '<img src="' + icon + '" class="product-icon round reviewable-image" alt="' + p + '" data-image="' + icon + '" /> ' +
-          '<span class="text-sm text-gray-600">' + p + '</span>' +
+          '<div class="mr-item">' +
+          '<img src="' + icon + '" class="mr-icon mr-round reviewable-image" alt="' + p + '" data-image="' + icon + '" />' +
+          '<span class="mr-label">' + p + '</span>' +
           "</div>"
         );
       })
@@ -30,9 +30,9 @@ var ModalRenderer = (function () {
       .map(function (p) {
         var icon = PTT_UTILS.getProductIcon(p);
         return (
-          '<div class="info product-item">' +
-          '<img src="' + icon + '" class="product-icon full reviewable-image" alt="' + p + '" data-image="' + icon + '" /> ' +
-          '<span class="text-sm text-gray-600">' + p + '</span>' +
+          '<div class="mr-item">' +
+          '<img src="' + icon + '" class="mr-icon mr-full reviewable-image" alt="' + p + '" data-image="' + icon + '" />' +
+          '<span class="mr-label">' + p + '</span>' +
           "</div>"
         );
       })
@@ -42,9 +42,9 @@ var ModalRenderer = (function () {
       .map(function (s) {
         var icon = PTT_UTILS.getItemIcon(s);
         return (
-          '<div class="info payment-item">' +
-          '<img src="' + icon + '" class="payment-icon full reviewable-image" alt="' + s + '" data-image="' + icon + '" /> ' +
-          '<span class="text-sm text-gray-600">' + s + '</span>' +
+          '<div class="mr-item">' +
+          '<img src="' + icon + '" class="mr-icon mr-full reviewable-image" alt="' + s + '" data-image="' + icon + '" />' +
+          '<span class="mr-label">' + s + '</span>' +
           "</div>"
         );
       })
@@ -54,9 +54,9 @@ var ModalRenderer = (function () {
       .map(function (d) {
         var icon = PTT_UTILS.getItemIcon(d);
         return (
-          '<div class="info service-item">' +
-          '<img src="' + icon + '" class="service-icon full reviewable-image" alt="' + d + '" data-image="' + icon + '" /> ' +
-          '<span class="text-sm text-gray-600">' + d + '</span>' +
+          '<div class="mr-item">' +
+          '<img src="' + icon + '" class="mr-icon mr-full reviewable-image" alt="' + d + '" data-image="' + icon + '" />' +
+          '<span class="mr-label">' + d + '</span>' +
           "</div>"
         );
       })
@@ -68,46 +68,41 @@ var ModalRenderer = (function () {
             .map(function (promo) {
               var pImg = PTT_UTILS.getPromotionImageUrl(promo.promotion_id);
               return (
-                '<div class="flex items-center gap-3 p-2 rounded-xl bg-amber-50/60 mb-2">' +
-                '<img src="' + pImg + '" class="w-12 h-12 rounded-lg object-cover reviewable-image shadow-sm" alt="' + promo.promotion_id + '" data-image="' + pImg + '" />' +
-                '<div class="flex-1 min-w-0"><p class="text-sm font-semibold text-gray-800 truncate promotion-label" data-promotion="' + promo.description + '">' + promo.description + '</p></div>' +
+                '<div class="mr-promo-card">' +
+                '<img src="' + pImg + '" class="mr-promo-img reviewable-image" alt="' + promo.promotion_id + '" data-image="' + pImg + '" />' +
+                '<div class="mr-promo-info"><p class="mr-promo-text promotion-label" data-promotion="' + promo.description + '">' + promo.description + '</p></div>' +
                 "</div>"
               );
             })
             .join("")
-        : '<p class="text-sm text-gray-400 italic">No promotions available.</p>';
+        : '<p class="mr-empty">No promotions available.</p>';
 
     body.innerHTML =
-      '<div class="station-details">' +
-      // Station image
-      '  <div class="relative overflow-hidden rounded-2xl mb-4">' +
-      '    <img src="' + imageUrl + '" alt="' + station.title + '" class="w-full h-48 object-cover reviewable-image cursor-pointer hover:scale-105 transition-transform duration-300" data-image="' + imageUrl + '" />' +
+      '<div class="mr-station">' +
+      // Hero image
+      '  <div class="mr-hero">' +
+      '    <img src="' + imageUrl + '" alt="' + station.title + '" class="mr-hero-img reviewable-image" data-image="' + imageUrl + '" />' +
+      '    <div class="mr-hero-overlay"></div>' +
       '  </div>' +
-      // Station title
-      '  <div class="text-center mb-3">' +
-      '    <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">' + station.title + '</h3>' +
+      // Title
+      '  <div class="mr-title-section">' +
+      '    <h3 class="mr-title">' + station.title + '</h3>' +
+      '    <div class="mr-address"><i class="fas fa-map-marker-alt"></i><span>' + station.address + '</span></div>' +
       '  </div>' +
-      // Address
-      '  <div class="flex items-start gap-2 mb-3 px-1">' +
-      '    <i class="fas fa-map-marker-alt text-red-500 mt-0.5 text-sm flex-shrink-0"></i>' +
-      '    <span class="text-sm text-gray-500 leading-snug">' + station.address + '</span>' +
-      '  </div>' +
-      // Separator
-      '  <div class="separator"></div>' +
       // Route info
-      '  <div id="route-info" class="flex justify-center gap-2 mb-3 flex-wrap"></div>' +
-      // Separator
-      '  <div class="separator"></div>' +
+      '  <div id="route-info" class="mr-route-info"></div>' +
+      // Divider
+      '  <div class="mr-divider"></div>' +
       // Tabs
       _buildTabs() +
-      '  <div class="tab-content mt-2">' +
-      _tabPane("promotion", "Promotion", '<div class="promotion-row flex flex-col gap-1">' + promotionHtml + "</div>", true) +
+      '  <div class="tab-content mt-1">' +
+      _tabPane("promotion", "Promotion", '<div class="mr-grid-col">' + promotionHtml + "</div>", true) +
       _tabPane("products", "Products",
-        '<div class="product-row">' + productHtml + "</div>" +
-        (otherProductHtml ? '<div class="separator"></div><h5 class="text-sm font-bold text-slate-700 mb-2">Other Products</h5><div class="product-row">' + otherProductHtml + "</div>" : "")
+        '<div class="mr-grid">' + productHtml + "</div>" +
+        (otherProductHtml ? '<div class="mr-divider"></div><h5 class="mr-section-label">Other Products</h5><div class="mr-grid">' + otherProductHtml + "</div>" : "")
       ) +
-      _tabPane("payment", "Payment Methods", '<div class="description-row">' + paymentHtml + "</div>") +
-      _tabPane("services", "Services", '<div class="service-row">' + servicesHtml + "</div>") +
+      _tabPane("payment", "Payment Methods", '<div class="mr-grid">' + paymentHtml + "</div>") +
+      _tabPane("services", "Services", '<div class="mr-grid">' + servicesHtml + "</div>") +
       "  </div>" +
       // Actions
       _buildActions(station) +
@@ -134,10 +129,10 @@ var ModalRenderer = (function () {
 
   function _buildTabs() {
     var tabs = [
-      { id: "promotion", label: "🎁 Promotion", active: true },
+      { id: "promotion", label: "🎁 Promo", active: true },
       { id: "products", label: "⛽ Products" },
-      { id: "payment", label: "💳 Payment" },
-      { id: "services", label: "🔧 Services" },
+      { id: "payment", label: "💳 Pay" },
+      { id: "services", label: "🔧 Service" },
     ];
     var html = '<div class="nav-tabs-container"><ul class="nav nav-tabs flex-nowrap" id="myTab" role="tablist">';
     tabs.forEach(function (t) {
@@ -154,7 +149,7 @@ var ModalRenderer = (function () {
     return (
       '<div class="tab-pane fade' + (active ? " show active" : "") + '" id="' + id + '" role="tabpanel" aria-labelledby="' + id + '-tab">' +
       '<div class="scrollable-content">' +
-      '<h5 class="text-sm font-bold text-slate-700 mb-2">' + heading + "</h5>" +
+      '<h5 class="mr-section-label">' + heading + "</h5>" +
       content +
       "</div></div>"
     );
@@ -162,10 +157,10 @@ var ModalRenderer = (function () {
 
   function _buildActions(station) {
     return (
-      '<div class="flex justify-center items-center gap-6 mt-4 mb-2">' +
-      '<div class="icon-background" onclick="shareLocation(' + station.latitude + "," + station.longitude + ')" title="Share"><i class="fas fa-share-alt share-icon"></i></div>' +
-      '<button class="go-button pulse" onclick="openGoogleMaps(' + station.latitude + "," + station.longitude + ')" title="Navigate">GO</button>' +
-      '<div class="icon-background" title="Navigate"><i class="fas fa-location-arrow navigate-icon"></i></div>' +
+      '<div class="mr-actions">' +
+      '<div class="mr-action-btn" onclick="shareLocation(' + station.latitude + "," + station.longitude + ')" title="Share"><i class="fas fa-share-alt"></i></div>' +
+      '<button class="mr-go-btn" onclick="openGoogleMaps(' + station.latitude + "," + station.longitude + ')" title="Navigate">GO</button>' +
+      '<div class="mr-action-btn" title="Navigate"><i class="fas fa-location-arrow"></i></div>' +
       "</div>"
     );
   }
@@ -177,9 +172,9 @@ var ModalRenderer = (function () {
     if (!el) return;
     var s = PTT_UTILS.getStatusInfo(status);
     el.innerHTML =
-      '<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white shadow-sm"><i class="fas fa-clock"></i> ' + travelTime + "</span>" +
-      '<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white shadow-sm"><i class="fas fa-location-arrow"></i> ≈ ' + distance + "</span>" +
-      '<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ' + s.badgeClass + ' text-white shadow-sm"><i class="fas ' + s.iconClass + '"></i> ' + s.displayText + "</span>";
+      '<span class="mr-badge mr-badge-blue"><i class="fas fa-clock"></i>' + travelTime + "</span>" +
+      '<span class="mr-badge mr-badge-blue"><i class="fas fa-location-arrow"></i>≈ ' + distance + "</span>" +
+      '<span class="mr-badge ' + s.badgeClass + '"><i class="fas ' + s.iconClass + '"></i>' + s.displayText + "</span>";
   }
 
   // ── Image Preview ──────────────────────────────────────────

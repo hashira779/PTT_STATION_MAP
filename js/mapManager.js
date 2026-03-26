@@ -370,56 +370,11 @@ var MapManager = (function () {
 
   // ── GPS signal badge ──────────────────────────────────────
   function createGPSBadge() {
-    if (gpsSignalElement) return;
-
-    gpsSignalElement = document.createElement("div");
-    gpsSignalElement.id = "gps-signal-badge";
-    gpsSignalElement.innerHTML =
-      '<div class="gps-bars">' +
-        '<div class="bar"></div>' +
-        '<div class="bar"></div>' +
-        '<div class="bar"></div>' +
-      "</div>" +
-      '<span class="gps-text">GPS</span>' +
-      '<div class="gps-accuracy-dot"></div>';
-
-    document.body.appendChild(gpsSignalElement);
+    return;
   }
 
   function updateGPSBadge(state, location) {
-    if (!gpsSignalElement) return;
-
-    gpsSignalElement.className = "gps-" + state;
-    var bars = gpsSignalElement.querySelectorAll(".bar");
-    var textEl = gpsSignalElement.querySelector(".gps-text");
-
-    switch (state) {
-      case "active":
-        gpsSignalElement.classList.add("show");
-        var acc = location && location.accuracy ? Math.round(location.accuracy) : "—";
-        bars[0].classList.add("on");
-        bars[1].classList.toggle("on", acc < 100);
-        bars[2].classList.toggle("on", acc < 30);
-        textEl.textContent = "GPS ±" + acc + "m";
-        break;
-      case "searching":
-        gpsSignalElement.classList.add("show");
-        bars[0].classList.remove("on");
-        bars[1].classList.remove("on");
-        bars[2].classList.remove("on");
-        textEl.textContent = "Searching…";
-        break;
-      case "error":
-        gpsSignalElement.classList.add("show");
-        bars[0].classList.remove("on");
-        bars[1].classList.remove("on");
-        bars[2].classList.remove("on");
-        textEl.textContent = "GPS Lost";
-        break;
-      default:
-        gpsSignalElement.classList.remove("show");
-        break;
-    }
+    return;
   }
 
   function updateLocationButton(state) {

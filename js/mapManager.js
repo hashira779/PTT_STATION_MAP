@@ -23,6 +23,11 @@ var MapManager = (function () {
   var gpsSignalElement = null;
   var cssInjected = false;
 
+  // ── Compass heading state ─────────────────────────────────
+  var currentHeading = null;          // degrees 0-360, null if unknown
+  var compassEnabled = false;
+  var headingConeElement = null;      // reference to DOM cone inside blue dot
+
   // ── Smooth animation state ────────────────────────────────
   var animFrameId = null;
   var animStartTime = 0;
@@ -139,6 +144,18 @@ var MapManager = (function () {
         "100%{transform:scale(3);opacity:0;}" +
       "}" +
 
+      /* ── Compass heading cone (Google Maps style) ────── */
+      ".gm-heading-cone{" +
+        "position:absolute;top:50%;left:50%;" +
+        "width:60px;height:60px;" +
+        "margin-left:-30px;margin-top:-30px;" +
+        "pointer-events:none;z-index:0;" +
+        "transition:transform .15s linear,opacity .3s;" +
+        "opacity:0;" +
+      "}" +
+      ".gm-heading-cone.active{opacity:1;}" +
+      ".gm-heading-cone svg{width:100%;height:100%;}" +
+
       /* ── GPS signal badge ─────────────────────────────── */
       "#gps-signal-badge{" +
         "position:fixed;bottom:16px;left:16px;z-index:1000;" +
@@ -195,6 +212,12 @@ var MapManager = (function () {
         "background-color:#3b82f6 !important;border:2px solid #1d4ed8 !important;" +
       "}" +
       "#myLocationBtn.loc-following i{color:#fff !important;}" +
+
+      /* ── Compass / Recenter button states ────────────── */
+      "#recenterBtn.compass-active{" +
+        "background-color:#dbeafe !important;border:2px solid #6366f1 !important;" +
+      "}" +
+      "#recenterBtn.compass-active i{color:#4f46e5 !important;}" +
 
       /* ── EV Station Pluz Marker ──────────────────────── */
 
@@ -466,6 +489,9 @@ var MapManager = (function () {
       var blueDotIcon = L.divIcon({
         html:
           '<div class="gm-blue-dot-outer">' +
+            '<div class="gm-heading-cone" id="gm-heading-cone">' +
+              '<svg viewBox="0 0 100 100"><path d="M50 50 L30 0 Q50 8 70 0 Z" fill="rgba(66,133,244,0.28)" /></svg>' +
+            '</div>' +
             '<div class="gm-blue-dot-ring"></div>' +
             '<div class="gm-blue-dot-core"></div>' +
           "</div>",
@@ -479,6 +505,15 @@ var MapManager = (function () {
         zIndexOffset: 1000,
         interactive: false,
       }).addTo(map);
+
+      // Cache the heading cone element
+      setTimeout(function () {
+        headingConeElement = document.getElementById("gm-heading-cone");
+        if (headingConeElement && compassEnabled && currentHeading !== null) {
+          headingConeElement.classList.add("active");
+          headingConeElement.style.transform = "rotate(" + currentHeading + "deg)";
+        }
+      }, 50);
 
       // First fix — snap, don't animate
       applyPosition(lat, lng, accuracy);
@@ -668,7 +703,11 @@ var MapManager = (function () {
         return entry.marker;
       })
     );
-    map.fitBounds(group.getBounds());
+    map.flyToBounds(group.getBounds(), {
+      animate: true,
+      duration: PTT_CONFIG.FLY_DURATION,
+      padding: [30, 30],
+    });
   }
 
   function focusMarkers(markerList) {
@@ -751,6 +790,94 @@ var MapManager = (function () {
       });
   }
 
+  // ── Compass Heading ──────────────────────────────────────
+  function _onDeviceOrientation(e) {
+    var heading = null;
+
+    // iOS uses webkitCompassHeading (degrees from north)
+    if (typeof e.webkitCompassHeading === "number") {
+      heading = e.webkitCompassHeading;
+    }
+    // Android/Chrome: alpha is degrees, but relative — use absolute if available
+    else if (typeof e.alpha === "number") {
+      heading = (360 - e.alpha) % 360;
+    }
+
+    if (heading === null || isNaN(heading)) return;
+
+    currentHeading = Math.round(heading);
+
+    // Update the cone rotation
+    if (headingConeElement) {
+      headingConeElement.style.transform = "rotate(" + currentHeading + "deg)";
+      if (!headingConeElement.classList.contains("active")) {
+        headingConeElement.classList.add("active");
+      }
+    }
+
+    // Update recenter button icon rotation
+    var recenterIcon = document.querySelector("#recenterBtn i");
+    if (recenterIcon) {
+      recenterIcon.style.transition = "transform .15s linear";
+      recenterIcon.style.transform = "rotate(" + currentHeading + "deg)";
+    }
+  }
+
+  function startCompass() {
+    if (compassEnabled) return;
+    compassEnabled = true;
+
+    // iOS 13+ requires permission
+    if (typeof DeviceOrientationEvent !== "undefined" &&
+        typeof DeviceOrientationEvent.requestPermission === "function") {
+      DeviceOrientationEvent.requestPermission()
+        .then(function (state) {
+          if (state === "granted") {
+            window.addEventListener("deviceorientation", _onDeviceOrientation, true);
+          }
+        })
+        .catch(function () {
+          console.warn("Compass permission denied");
+          compassEnabled = false;
+        });
+    } else if ("DeviceOrientationEvent" in window) {
+      window.addEventListener("deviceorientation", _onDeviceOrientation, true);
+    }
+
+    // Show cone if already rendered
+    if (headingConeElement) {
+      headingConeElement.classList.add("active");
+    }
+  }
+
+  function stopCompass() {
+    compassEnabled = false;
+    currentHeading = null;
+    window.removeEventListener("deviceorientation", _onDeviceOrientation, true);
+
+    if (headingConeElement) {
+      headingConeElement.classList.remove("active");
+    }
+
+    var recenterIcon = document.querySelector("#recenterBtn i");
+    if (recenterIcon) {
+      recenterIcon.style.transform = "rotate(0deg)";
+    }
+  }
+
+  function toggleCompass() {
+    if (compassEnabled) {
+      stopCompass();
+    } else {
+      startCompass();
+    }
+    return compassEnabled;
+  }
+
+  function isCompassEnabled() {
+    return compassEnabled;
+  }
+
   return {
     init: init,
     createStationIcon: createStationIcon,
@@ -763,6 +890,10 @@ var MapManager = (function () {
     startLiveLocationTracking: startLiveLocationTracking,
     stopLiveLocationTracking: stopLiveLocationTracking,
     setMapToCurrentLocation: setMapToCurrentLocation,
+    startCompass: startCompass,
+    stopCompass: stopCompass,
+    toggleCompass: toggleCompass,
+    isCompassEnabled: isCompassEnabled,
   };
 })();
 

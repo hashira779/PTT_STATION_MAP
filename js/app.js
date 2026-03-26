@@ -23,6 +23,10 @@
     if (btn) {
       btn.addEventListener("click", function () {
         MapManager.setMapToCurrentLocation({ follow: true, openPopup: true });
+        // Auto-start compass when tracking location (user gesture-safe)
+        if (!MapManager.isCompassEnabled()) {
+          MapManager.startCompass();
+        }
       });
     }
   }
@@ -31,29 +35,9 @@
     var btn = document.getElementById("recenterBtn");
     if (btn) {
       btn.addEventListener("click", function () {
-        // Toggle compass on/off
-        var compassOn = MapManager.toggleCompass();
-
-        // Visual feedback on button
-        btn.classList.toggle("compass-active", compassOn);
-
-        // Fly to current location
-        var cached = PTT_UTILS.getLastKnownLocation();
-        if (cached) {
-          map.flyTo([cached.lat, cached.lng], PTT_CONFIG.DETAIL_ZOOM, {
-            animate: true,
-            duration: PTT_CONFIG.FLY_DURATION,
-          });
-          return;
-        }
-        PTT_UTILS.getCurrentLocation()
-          .then(function (loc) {
-            map.flyTo([loc.lat, loc.lng], PTT_CONFIG.DETAIL_ZOOM, {
-              animate: true,
-              duration: PTT_CONFIG.FLY_DURATION,
-            });
-          })
-          .catch(function () { /* no location available */ });
+        MapManager.recenterToCurrentLocation().catch(function () {
+          alert("Unable to get your location.");
+        });
       });
     }
   }

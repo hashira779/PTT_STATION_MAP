@@ -27,6 +27,7 @@ var MapManager = (function () {
   var currentHeading = null;          // degrees 0-360, null if unknown
   var compassEnabled = false;
   var headingConeElement = null;      // reference to DOM cone inside blue dot
+  var compassWidgetEl = null;         // floating compass widget DOM
 
   // ── Smooth animation state ────────────────────────────────
   var animFrameId = null;
@@ -147,14 +148,70 @@ var MapManager = (function () {
       /* ── Compass heading cone (Google Maps style) ────── */
       ".gm-heading-cone{" +
         "position:absolute;top:50%;left:50%;" +
-        "width:60px;height:60px;" +
-        "margin-left:-30px;margin-top:-30px;" +
+        "width:80px;height:80px;" +
+        "margin-left:-40px;margin-top:-40px;" +
         "pointer-events:none;z-index:0;" +
-        "transition:transform .15s linear,opacity .3s;" +
+        "transition:transform .1s linear,opacity .3s;" +
         "opacity:0;" +
       "}" +
       ".gm-heading-cone.active{opacity:1;}" +
       ".gm-heading-cone svg{width:100%;height:100%;}" +
+
+      /* ── 360° Compass Widget ─────────────────────────── */
+      "#compass-widget{" +
+        "position:fixed;top:calc(env(safe-area-inset-top, 0px) + 88px);left:12px;right:auto;z-index:1060;" +
+        "width:56px;height:56px;" +
+        "border-radius:50%;" +
+        "background:rgba(255,255,255,0.92);" +
+        "backdrop-filter:blur(14px);" +
+        "border:1px solid rgba(255,255,255,0.5);" +
+        "box-shadow:0 4px 20px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);" +
+        "cursor:pointer;user-select:none;" +
+        "display:flex;align-items:center;justify-content:center;" +
+        "opacity:0;transform:scale(0.6);" +
+        "transition:all .4s cubic-bezier(.22,1,.36,1);" +
+        "pointer-events:none;" +
+      "}" +
+      "#compass-widget.visible{" +
+        "opacity:1;transform:scale(1);pointer-events:auto;" +
+      "}" +
+      "#compass-widget:hover{" +
+        "box-shadow:0 6px 28px rgba(0,0,0,0.14);transform:scale(1.06);" +
+      "}" +
+      "#compass-widget:active{transform:scale(0.94);}" +
+
+      /* Compass rose inner */
+      ".compass-rose{" +
+        "width:46px;height:46px;position:relative;" +
+        "transition:transform .1s linear;" +
+      "}" +
+      ".compass-rose svg{width:100%;height:100%;}" +
+
+      /* Direction label */
+      ".compass-dir{" +
+        "position:absolute;bottom:-18px;left:50%;" +
+        "transform:translateX(-50%);" +
+        "font-size:9px;font-weight:800;letter-spacing:.5px;" +
+        "color:#1e40af;font-family:'Inter',system-ui,sans-serif;" +
+        "background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);" +
+        "padding:1px 6px;border-radius:6px;" +
+        "box-shadow:0 1px 4px rgba(0,0,0,0.08);" +
+        "white-space:nowrap;line-height:1.4;" +
+        "opacity:0;transition:opacity .3s;" +
+      "}" +
+      "#compass-widget.visible .compass-dir{opacity:1;}" +
+
+      /* Degree ring */
+      ".compass-degrees{" +
+        "position:absolute;bottom:-32px;left:50%;" +
+        "transform:translateX(-50%);" +
+        "font-size:8px;font-weight:600;" +
+        "color:#94a3b8;font-family:'Inter',system-ui,sans-serif;" +
+        "white-space:nowrap;line-height:1;" +
+        "opacity:0;transition:opacity .3s;" +
+      "}" +
+      "#compass-widget.visible .compass-degrees{opacity:0.7;}" +
+      "@media(max-width:480px){#compass-widget{top:calc(env(safe-area-inset-top, 0px) + 76px);left:10px;width:52px;height:52px;}}" +
 
       /* ── GPS signal badge ─────────────────────────────── */
       "#gps-signal-badge{" +
@@ -490,7 +547,7 @@ var MapManager = (function () {
         html:
           '<div class="gm-blue-dot-outer">' +
             '<div class="gm-heading-cone" id="gm-heading-cone">' +
-              '<svg viewBox="0 0 100 100"><path d="M50 50 L30 0 Q50 8 70 0 Z" fill="rgba(66,133,244,0.28)" /></svg>' +
+              '<svg viewBox="0 0 100 100"><path d="M50 50 L22 0 Q50 12 78 0 Z" fill="rgba(66,133,244,0.38)" /></svg>' +
             '</div>' +
             '<div class="gm-blue-dot-ring"></div>' +
             '<div class="gm-blue-dot-core"></div>' +
@@ -790,15 +847,116 @@ var MapManager = (function () {
       });
   }
 
-  // ── Compass Heading ──────────────────────────────────────
+  // ── Compass — 360° Google Maps 2026 Style ──────────────────
+
+  var DIRECTIONS = ["N","NE","E","SE","S","SW","W","NW"];
+
+  function _headingToDirection(deg) {
+    var idx = Math.round(((deg % 360) + 360) % 360 / 45) % 8;
+    return DIRECTIONS[idx];
+  }
+
+  function recenterToCurrentLocation(options) {
+    var settings = options || {};
+    var targetZoom = settings.zoom || PTT_CONFIG.DETAIL_ZOOM;
+    var cached = PTT_UTILS.getLastKnownLocation();
+
+    if (cached) {
+      map.flyTo([cached.lat, cached.lng], targetZoom, {
+        animate: true,
+        duration: PTT_CONFIG.FLY_DURATION,
+      });
+      return Promise.resolve(cached);
+    }
+
+    return PTT_UTILS.getCurrentLocation()
+      .then(function (loc) {
+        map.flyTo([loc.lat, loc.lng], targetZoom, {
+          animate: true,
+          duration: PTT_CONFIG.FLY_DURATION,
+        });
+        return loc;
+      });
+  }
+
+  function _createCompassWidget() {
+    if (compassWidgetEl) return;
+
+    compassWidgetEl = document.createElement("div");
+    compassWidgetEl.id = "compass-widget";
+    compassWidgetEl.innerHTML =
+      '<div class="compass-rose" id="compass-rose">' +
+        '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+          '<polygon points="50,6 43,44 57,44" fill="#EF4444" />' +
+          '<polygon points="50,94 43,56 57,56" fill="#CBD5E1" />' +
+          '<polygon points="94,50 56,43 56,57" fill="#CBD5E1" />' +
+          '<polygon points="6,50 44,43 44,57" fill="#CBD5E1" />' +
+          '<circle cx="50" cy="50" r="6" fill="#fff" stroke="#E2E8F0" stroke-width="1.5"/>' +
+          '<circle cx="50" cy="50" r="3" fill="#3B82F6"/>' +
+          '<text x="50" y="22" text-anchor="middle" font-size="9" font-weight="800" fill="#EF4444" font-family="Inter,system-ui,sans-serif">N</text>' +
+          '<text x="79" y="53" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" font-family="Inter,system-ui,sans-serif">E</text>' +
+          '<text x="50" y="84" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" font-family="Inter,system-ui,sans-serif">S</text>' +
+          '<text x="21" y="53" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" font-family="Inter,system-ui,sans-serif">W</text>' +
+        '</svg>' +
+      '</div>' +
+      '<span class="compass-dir" id="compass-dir">N</span>' +
+      '<span class="compass-degrees" id="compass-deg">0°</span>';
+
+    document.body.appendChild(compassWidgetEl);
+
+    // Tap compass → recenter to current location
+    compassWidgetEl.addEventListener("click", function () {
+      recenterToCurrentLocation().catch(function () {});
+    });
+  }
+
+  function _updateCompassUI(deg) {
+    // Rotate compass rose (counter-rotate so N stays pointing real north)
+    var roseEl = document.getElementById("compass-rose");
+    if (roseEl) {
+      roseEl.style.transform = "rotate(" + (-deg) + "deg)";
+    }
+
+    // Direction label: N, NE, E, SE, S, SW, W, NW
+    var dirEl = document.getElementById("compass-dir");
+    if (dirEl) {
+      dirEl.textContent = _headingToDirection(deg);
+    }
+
+    // Degree display
+    var degEl = document.getElementById("compass-deg");
+    if (degEl) {
+      degEl.textContent = deg + "°";
+    }
+
+    // Blue dot heading cone
+    if (headingConeElement) {
+      headingConeElement.style.transform = "rotate(" + deg + "deg)";
+      if (!headingConeElement.classList.contains("active")) {
+        headingConeElement.classList.add("active");
+      }
+    }
+
+    // Recenter button icon rotation
+    var recenterIcon = document.querySelector("#recenterBtn i");
+    if (recenterIcon) {
+      recenterIcon.style.transition = "transform .1s linear";
+      recenterIcon.style.transform = "rotate(" + deg + "deg)";
+    }
+  }
+
   function _onDeviceOrientation(e) {
     var heading = null;
 
-    // iOS uses webkitCompassHeading (degrees from north)
+    // iOS: webkitCompassHeading (true north)
     if (typeof e.webkitCompassHeading === "number") {
       heading = e.webkitCompassHeading;
     }
-    // Android/Chrome: alpha is degrees, but relative — use absolute if available
+    // Android/Chrome: absolute orientation
+    else if (e.absolute === true && typeof e.alpha === "number") {
+      heading = (360 - e.alpha) % 360;
+    }
+    // Fallback: relative alpha
     else if (typeof e.alpha === "number") {
       heading = (360 - e.alpha) % 360;
     }
@@ -806,45 +964,39 @@ var MapManager = (function () {
     if (heading === null || isNaN(heading)) return;
 
     currentHeading = Math.round(heading);
-
-    // Update the cone rotation
-    if (headingConeElement) {
-      headingConeElement.style.transform = "rotate(" + currentHeading + "deg)";
-      if (!headingConeElement.classList.contains("active")) {
-        headingConeElement.classList.add("active");
-      }
-    }
-
-    // Update recenter button icon rotation
-    var recenterIcon = document.querySelector("#recenterBtn i");
-    if (recenterIcon) {
-      recenterIcon.style.transition = "transform .15s linear";
-      recenterIcon.style.transform = "rotate(" + currentHeading + "deg)";
-    }
+    _updateCompassUI(currentHeading);
   }
 
   function startCompass() {
     if (compassEnabled) return;
     compassEnabled = true;
 
-    // iOS 13+ requires permission
+    _createCompassWidget();
+    if (compassWidgetEl) {
+      compassWidgetEl.classList.add("visible");
+    }
+
+    // iOS 13+ requires user gesture permission
     if (typeof DeviceOrientationEvent !== "undefined" &&
         typeof DeviceOrientationEvent.requestPermission === "function") {
       DeviceOrientationEvent.requestPermission()
         .then(function (state) {
           if (state === "granted") {
             window.addEventListener("deviceorientation", _onDeviceOrientation, true);
+          } else {
+            compassEnabled = false;
+            if (compassWidgetEl) compassWidgetEl.classList.remove("visible");
           }
         })
         .catch(function () {
           console.warn("Compass permission denied");
           compassEnabled = false;
+          if (compassWidgetEl) compassWidgetEl.classList.remove("visible");
         });
     } else if ("DeviceOrientationEvent" in window) {
       window.addEventListener("deviceorientation", _onDeviceOrientation, true);
     }
 
-    // Show cone if already rendered
     if (headingConeElement) {
       headingConeElement.classList.add("active");
     }
@@ -855,9 +1007,16 @@ var MapManager = (function () {
     currentHeading = null;
     window.removeEventListener("deviceorientation", _onDeviceOrientation, true);
 
+    if (compassWidgetEl) {
+      compassWidgetEl.classList.remove("visible");
+    }
     if (headingConeElement) {
       headingConeElement.classList.remove("active");
     }
+    var dirEl = document.getElementById("compass-dir");
+    if (dirEl) dirEl.textContent = "N";
+    var degEl = document.getElementById("compass-deg");
+    if (degEl) degEl.textContent = "0°";
 
     var recenterIcon = document.querySelector("#recenterBtn i");
     if (recenterIcon) {
@@ -887,6 +1046,7 @@ var MapManager = (function () {
     fitToAllMarkers: fitToAllMarkers,
     focusMarkers: focusMarkers,
     focusLocation: focusLocation,
+    recenterToCurrentLocation: recenterToCurrentLocation,
     startLiveLocationTracking: startLiveLocationTracking,
     stopLiveLocationTracking: stopLiveLocationTracking,
     setMapToCurrentLocation: setMapToCurrentLocation,

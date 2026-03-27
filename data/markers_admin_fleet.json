@@ -29,7 +29,8 @@
             "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": "COCO"
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 603,
@@ -61,7 +62,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": "COCO"
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 604,
@@ -93,7 +95,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "605",
@@ -122,10 +125,11 @@
             "province": "Phnom Penh",
             "address": "National Road No. 1 (Phnom Penh-Vietnam), Sangkat Niruth, Khan Chbar Ampov, Phnom Penh, Cambodia",
             "status": "24h",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 606,
@@ -158,7 +162,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 608,
@@ -190,7 +195,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "609",
@@ -206,7 +212,7 @@
                 "ULR 91",
                 "HSD"
             ],
-            "other_product": null,
+            "other_product": [],
             "service": [
                 "Fleet card",
                 "KHQR",
@@ -215,10 +221,11 @@
             "province": "Kampong Speu",
             "address": "National Road No4, Phumi 6, Khom Traeng Troyeung, Srok Phnom Srouch, Kampong Speu Province, Cambodia.",
             "status": "off fleet card",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 610,
@@ -250,7 +257,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 611,
@@ -282,7 +290,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 612,
@@ -314,7 +323,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 613,
@@ -346,7 +356,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 614,
@@ -378,7 +389,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 617,
@@ -410,7 +422,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029691,
@@ -441,7 +454,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032997,
@@ -460,7 +474,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -472,7 +485,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033524,
@@ -492,7 +506,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -504,7 +517,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032217,
@@ -535,7 +549,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029692,
@@ -555,7 +570,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -567,7 +581,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032352,
@@ -586,7 +601,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -598,7 +612,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032353,
@@ -629,7 +644,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033523,
@@ -648,7 +664,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -660,7 +675,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10033316",
@@ -687,7 +703,8 @@
             "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033821,
@@ -717,7 +734,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030896,
@@ -749,7 +767,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032893,
@@ -779,7 +798,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032705,
@@ -810,7 +830,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031114,
@@ -842,7 +863,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030505,
@@ -873,7 +895,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031826,
@@ -904,7 +927,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027087,
@@ -935,7 +959,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026213,
@@ -966,7 +991,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027210,
@@ -996,7 +1022,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025514,
@@ -1015,7 +1042,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1027,7 +1053,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034019,
@@ -1059,7 +1086,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033146,
@@ -1090,7 +1118,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027790,
@@ -1120,7 +1149,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029893,
@@ -1151,7 +1181,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030924,
@@ -1171,7 +1202,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1183,7 +1213,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030247,
@@ -1215,7 +1246,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030894,
@@ -1247,7 +1279,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034050,
@@ -1267,7 +1300,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1279,7 +1311,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026251,
@@ -1310,7 +1343,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032197,
@@ -1341,7 +1375,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025835,
@@ -1372,7 +1407,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027083,
@@ -1402,7 +1438,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027423,
@@ -1421,7 +1458,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1433,7 +1469,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027424,
@@ -1463,7 +1500,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027728,
@@ -1483,8 +1521,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Phnom Penh",
             "address": "No. 3+4, St. Oknha Tep Phan, Sangkat Boeng Keng Kang 1, Khan Chamkar Morn, Phnom Penh",
@@ -1494,7 +1531,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023722,
@@ -1513,7 +1551,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1525,7 +1562,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026809,
@@ -1555,7 +1593,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029690,
@@ -1574,7 +1613,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1586,7 +1624,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027224,
@@ -1617,7 +1656,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026802,
@@ -1636,7 +1676,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1648,7 +1687,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028079,
@@ -1679,7 +1719,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034689,
@@ -1709,7 +1750,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034999,
@@ -1742,7 +1784,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034862,
@@ -1761,7 +1804,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1773,7 +1815,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034074,
@@ -1805,7 +1848,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034461,
@@ -1836,7 +1880,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023796,
@@ -1855,7 +1900,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -1867,7 +1911,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032855,
@@ -1899,7 +1944,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023427,
@@ -1929,7 +1975,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031806,
@@ -1959,7 +2006,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021637,
@@ -1989,7 +2037,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 618,
@@ -2020,7 +2069,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021912,
@@ -2050,7 +2100,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021709,
@@ -2082,7 +2133,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021688,
@@ -2113,7 +2165,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021644,
@@ -2144,7 +2197,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025909,
@@ -2175,7 +2229,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021643,
@@ -2195,8 +2250,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Battambang",
             "address": "National road 5, Bek Chan village, Sangkat Preh Sdach, \nKhan Battombong, Battombong province\n",
@@ -2206,7 +2260,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021648,
@@ -2237,7 +2292,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "615",
@@ -2265,10 +2321,11 @@
             "province": "Phnom Penh",
             "address": "#81, St. Veng Sreng, Tro Pang Tleong village, Sangkat Chom Chav, Phnom Penh",
             "status": "24h",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": "COCO"
+            "schedule_group_code": "COCO",
+            "schedule_key": ""
         },
         {
             "id": 10023212,
@@ -2298,7 +2355,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023463,
@@ -2317,7 +2375,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -2329,7 +2386,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030619,
@@ -2360,7 +2418,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10023997,
@@ -2391,7 +2450,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025350,
@@ -2422,7 +2482,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30063513,
@@ -2453,7 +2514,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025853,
@@ -2484,7 +2546,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10025918,
@@ -2514,7 +2577,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026283,
@@ -2545,7 +2609,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030392,
@@ -2577,7 +2642,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026452,
@@ -2609,7 +2675,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026578,
@@ -2639,7 +2706,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026673,
@@ -2669,7 +2737,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10026852,
@@ -2688,7 +2757,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -2700,7 +2768,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031916,
@@ -2719,7 +2788,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -2731,7 +2799,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30057218,
@@ -2762,7 +2831,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10021647,
@@ -2793,7 +2863,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027716,
@@ -2813,7 +2884,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -2825,7 +2895,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030779,
@@ -2857,7 +2928,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10027422,
@@ -2887,7 +2959,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032579,
@@ -2918,7 +2991,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028453,
@@ -2937,7 +3011,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -2949,7 +3022,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028690,
@@ -2979,7 +3053,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028834,
@@ -3010,7 +3085,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028725,
@@ -3041,7 +3117,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028650,
@@ -3072,7 +3149,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028689,
@@ -3093,8 +3171,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Phnom Penh",
             "address": "Phum Kien Khlang, Sangkat Chroychangva, Khan Chroychangva   Phnom Penh",
@@ -3104,7 +3181,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028776,
@@ -3134,7 +3212,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028779,
@@ -3154,7 +3233,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3166,7 +3244,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029265,
@@ -3198,7 +3277,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029001,
@@ -3228,7 +3308,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10028452,
@@ -3258,7 +3339,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029430,
@@ -3290,7 +3372,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029632,
@@ -3320,7 +3403,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029925,
@@ -3341,8 +3425,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Phnom Penh",
             "address": "Trapeang Pou Village, Sangkat Chaom Chau, Khan Pou Senchey, Phnom Penh",
@@ -3352,7 +3435,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030168,
@@ -3383,7 +3467,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030169,
@@ -3413,7 +3498,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030440,
@@ -3444,7 +3530,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030456,
@@ -3475,7 +3562,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030170,
@@ -3494,7 +3582,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3506,7 +3593,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029894,
@@ -3525,7 +3613,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3537,7 +3624,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10029786,
@@ -3568,7 +3656,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030375,
@@ -3598,7 +3687,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030951,
@@ -3617,7 +3707,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3629,7 +3718,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030973,
@@ -3649,7 +3739,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3661,7 +3750,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030895,
@@ -3680,7 +3770,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3692,7 +3781,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10030643,
@@ -3711,7 +3801,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3723,7 +3812,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031323,
@@ -3743,8 +3833,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Preah Sihanouk",
             "address": "National Road 45, Ork village, Ream commune, Preynub district, Sihanoukville, near Ream roundabout",
@@ -3754,7 +3843,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30068426,
@@ -3786,7 +3876,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031787,
@@ -3817,7 +3908,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031481,
@@ -3848,7 +3940,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031773,
@@ -3878,7 +3971,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031788,
@@ -3897,7 +3991,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3909,7 +4002,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10031990,
@@ -3928,7 +4022,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3940,7 +4033,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032354,
@@ -3959,7 +4053,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -3971,7 +4064,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032399,
@@ -4001,7 +4095,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032587,
@@ -4020,7 +4115,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4032,7 +4126,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032306,
@@ -4064,7 +4159,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032708,
@@ -4083,7 +4179,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4095,7 +4190,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032704,
@@ -4126,7 +4222,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032943,
@@ -4157,7 +4254,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032355,
@@ -4187,7 +4285,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032944,
@@ -4218,7 +4317,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032709,
@@ -4250,7 +4350,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10032710,
@@ -4269,7 +4370,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4281,7 +4381,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30076521,
@@ -4302,8 +4403,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Koh Kong",
             "address": "located road 48, Chi Meal Village, Andoung Tuek Commune, Botum Sakor District, Koh Kong Province",
@@ -4313,7 +4413,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033986,
@@ -4345,7 +4446,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034008,
@@ -4365,7 +4467,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4377,7 +4478,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034077,
@@ -4397,8 +4499,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Phnom Penh",
             "address": "located at street 351 (Trong Morn),â€‹ Ta Ngov Village, Sangkat Nirouth, \nKhan Chbar Ampov, Phnom Penh",
@@ -4408,7 +4509,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033884,
@@ -4440,7 +4542,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034109,
@@ -4470,7 +4573,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034007,
@@ -4489,7 +4593,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4501,7 +4604,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10033836,
@@ -4520,7 +4624,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4532,7 +4635,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034915,
@@ -4563,7 +4667,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30077267,
@@ -4594,7 +4699,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034962,
@@ -4613,7 +4719,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4625,7 +4730,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10043893,
@@ -4656,7 +4762,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035075,
@@ -4686,7 +4793,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035074,
@@ -4705,7 +4813,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4717,7 +4824,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035079,
@@ -4748,7 +4856,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034985,
@@ -4767,7 +4876,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4779,7 +4887,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034963,
@@ -4798,7 +4907,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4810,7 +4918,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30078128,
@@ -4840,7 +4949,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035118,
@@ -4871,7 +4981,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10034777,
@@ -4891,7 +5002,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4903,7 +5013,8 @@
             ],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30075518,
@@ -4935,7 +5046,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035275,
@@ -4955,7 +5067,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4967,7 +5078,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035465,
@@ -4986,7 +5098,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -4998,7 +5109,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035495,
@@ -5017,7 +5129,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -5029,7 +5140,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035664,
@@ -5059,7 +5171,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035854,
@@ -5090,7 +5203,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035000,
@@ -5122,7 +5236,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035868,
@@ -5152,7 +5267,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30080329,
@@ -5182,7 +5298,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10036085,
@@ -5214,7 +5331,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035930,
@@ -5234,7 +5352,6 @@
                 ""
             ],
             "service": [
-                "Fleet card",
                 "KHQR",
                 "Cash"
             ],
@@ -5246,7 +5363,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10035641,
@@ -5277,7 +5395,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10036179,
@@ -5307,7 +5426,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30082047,
@@ -5339,7 +5459,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037095",
@@ -5354,7 +5475,7 @@
                 "ULR 91",
                 "HSD"
             ],
-            "other_product": null,
+            "other_product": [],
             "service": [
                 "Fleet card",
                 "KHQR",
@@ -5363,10 +5484,11 @@
             "province": "Phnom Penh",
             "address": "# 150 E0, St. 130, Phoum 1, Sangkat Phsar Kandal 2, Khan Daun Penh, Phnom Penh, Cambodia",
             "status": "16h",
-            "promotion": null,
+            "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10037152,
@@ -5396,7 +5518,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30082667,
@@ -5428,7 +5551,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10037284,
@@ -5448,8 +5572,7 @@
             ],
             "service": [
                 "Cash",
-                "KHQR",
-                "Fleet card"
+                "KHQR"
             ],
             "province": "Pursat",
             "address": "# Plot land No.42, National Road No.05, Krapeu Rou Village, Snam Preah Commune, Bakan District , Pursat Province, Cambodia.",
@@ -5459,7 +5582,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10037327,
@@ -5491,7 +5615,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 30083692,
@@ -5521,7 +5646,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": 10037634,
@@ -5552,7 +5678,8 @@
             ],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037836",
@@ -5578,7 +5705,8 @@
             "promotion": [],
             "old_picture": "2.png",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037871",
@@ -5606,7 +5734,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038283",
@@ -5633,7 +5762,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038391",
@@ -5660,7 +5790,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10037958",
@@ -5678,8 +5809,7 @@
             "other_product": [],
             "service": [
                 "KHQR",
-                "Cash",
-                "Fleet card"
+                "Cash"
             ],
             "province": "Kandal",
             "address": "National Road 21, Preaek Koy, Sambour, Kandal 080908, Cambodia",
@@ -5687,7 +5817,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038533",
@@ -5714,7 +5845,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038564",
@@ -5741,7 +5873,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038834",
@@ -5767,7 +5900,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038583",
@@ -5793,7 +5927,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038513",
@@ -5819,7 +5954,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038896",
@@ -5845,7 +5981,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         },
         {
             "id": "10038814",
@@ -5871,7 +6008,8 @@
             "promotion": [],
             "old_picture": "",
             "picture": "2.png",
-            "schedule_group_code": ""
+            "schedule_group_code": "",
+            "schedule_key": ""
         }
     ]
 }

@@ -966,6 +966,13 @@ var MapManager = (function () {
   }
 
   function _updateCompassUI(deg) {
+    // ── Rotate the MAP itself to match device heading (Google Maps style) ──
+    // When compass is active and user is following live location,
+    // rotate the map so the user's heading points "up" on screen.
+    if (compassEnabled && isFollowingLiveLocation && map && typeof map.setBearing === "function") {
+      map.setBearing(deg);
+    }
+
     // Rotate compass rose (counter-rotate so N stays pointing real north)
     var roseEl = document.getElementById("compass-rose");
     if (roseEl) {

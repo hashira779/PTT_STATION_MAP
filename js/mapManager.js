@@ -213,6 +213,21 @@ var MapManager = (function () {
       "#compass-widget.visible .compass-degrees{opacity:0.7;}" +
       "@media(max-width:480px){#compass-widget{top:calc(env(safe-area-inset-top, 0px) + 76px);left:10px;width:52px;height:52px;}}" +
 
+      /* ── Rotation hint — shows briefly when map first rotated ── */
+      "#rotate-hint{" +
+        "position:fixed;top:50%;left:50%;z-index:1100;" +
+        "transform:translate(-50%,-50%);" +
+        "background:rgba(15,23,42,.75);backdrop-filter:blur(8px);" +
+        "color:#fff;font-size:13px;font-weight:600;" +
+        "font-family:'Inter',system-ui,sans-serif;" +
+        "padding:10px 20px;border-radius:12px;" +
+        "box-shadow:0 4px 20px rgba(0,0,0,.25);" +
+        "opacity:0;pointer-events:none;" +
+        "transition:opacity .4s;" +
+      "}" +
+      "#rotate-hint.show{opacity:1;}" +
+      "#rotate-hint i{margin-right:6px;}" +
+
       /* ── GPS signal badge ─────────────────────────────── */
       "#gps-signal-badge{" +
         "position:fixed;bottom:16px;left:16px;z-index:1000;" +
@@ -398,11 +413,37 @@ var MapManager = (function () {
   function init() {
     injectTrackingCSS();
 
-    map = L.map("map", { attributionControl: false, zoomControl: false }).setView(PTT_CONFIG.MAP_CENTER, PTT_CONFIG.MAP_ZOOM);
+    map = L.map("map", {
+      attributionControl: false,
+      zoomControl: false,
+      // ── 360° rotation like Google Maps ──
+      rotate: true,
+      bearing: 0,
+      touchRotate: true,       // two-finger rotate on mobile
+      shiftKeyRotate: true,    // Shift+drag to rotate on desktop
+      rotateControl: false,    // we use our own compass widget
+    }).setView(PTT_CONFIG.MAP_CENTER, PTT_CONFIG.MAP_ZOOM);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "",
     }).addTo(map);
+
+    // ── Sync compass widget when user rotates map via gesture ──
+    var rotateHintShown = false;
+    map.on("rotate", function () {
+      var bearing = map.getBearing ? map.getBearing() : 0;
+      _syncCompassFromBearing(bearing);
+
+      // Show a one-time hint on first rotation
+      if (!rotateHintShown && Math.abs(bearing) > 5) {
+        rotateHintShown = true;
+        _showRotateHint();
+      }
+    });
+    map.on("rotateend", function () {
+      var bearing = map.getBearing ? map.getBearing() : 0;
+      _syncCompassFromBearing(bearing);
+    });
 
     markers = L.markerClusterGroup({
       iconCreateFunction: function (cluster) {
@@ -834,6 +875,61 @@ var MapManager = (function () {
       });
   }
 
+  /**
+   * Show a brief rotate hint tooltip.
+   */
+  function _showRotateHint() {
+    var hint = document.getElementById("rotate-hint");
+    if (!hint) {
+      hint = document.createElement("div");
+      hint.id = "rotate-hint";
+      hint.innerHTML = '<i class="fas fa-sync-alt"></i> Tap compass to reset north';
+      document.body.appendChild(hint);
+    }
+    setTimeout(function () { hint.classList.add("show"); }, 50);
+    setTimeout(function () { hint.classList.remove("show"); }, 2500);
+  }
+
+  /**
+   * Smoothly animate map bearing from current to target (e.g. 0 = north).
+   */
+  function _animateBearingTo(targetBearing) {
+    if (!map || typeof map.setBearing !== "function") return;
+
+    var startBearing = map.getBearing ? map.getBearing() : 0;
+    var diff = targetBearing - startBearing;
+    // Normalize to shortest rotation path (-180 to 180)
+    while (diff > 180) diff -= 360;
+    while (diff < -180) diff += 360;
+
+    if (Math.abs(diff) < 0.5) {
+      map.setBearing(targetBearing);
+      _syncCompassFromBearing(targetBearing);
+      return;
+    }
+
+    var duration = 400; // ms
+    var start = performance.now();
+
+    function step(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      var current = startBearing + diff * eased;
+      map.setBearing(current);
+      _syncCompassFromBearing(((current % 360) + 360) % 360);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        map.setBearing(targetBearing);
+        _syncCompassFromBearing(((targetBearing % 360) + 360) % 360);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
   function _createCompassWidget() {
     if (compassWidgetEl) return;
 
@@ -859,8 +955,12 @@ var MapManager = (function () {
 
     document.body.appendChild(compassWidgetEl);
 
-    // Tap compass → recenter to current location
+    // Tap compass → reset rotation to North + recenter
     compassWidgetEl.addEventListener("click", function () {
+      // Smoothly reset map bearing to 0 (north up)
+      if (map && typeof map.setBearing === "function") {
+        _animateBearingTo(0);
+      }
       recenterToCurrentLocation().catch(function () {});
     });
   }
@@ -881,7 +981,7 @@ var MapManager = (function () {
     // Degree display
     var degEl = document.getElementById("compass-deg");
     if (degEl) {
-      degEl.textContent = deg + "°";
+      degEl.textContent = Math.round(deg) + "°";
     }
 
     // Blue dot heading cone
@@ -897,6 +997,39 @@ var MapManager = (function () {
     if (recenterIcon) {
       recenterIcon.style.transition = "transform .1s linear";
       recenterIcon.style.transform = "rotate(" + deg + "deg)";
+    }
+  }
+
+  /**
+   * Sync compass widget from map bearing (called when user rotates map via touch/shift-drag).
+   * This keeps compass aligned even without device orientation events.
+   */
+  function _syncCompassFromBearing(bearing) {
+    var deg = ((bearing % 360) + 360) % 360;
+
+    // Always show compass widget if map is rotated away from north
+    if (!compassWidgetEl) _createCompassWidget();
+    if (compassWidgetEl && deg > 1) {
+      compassWidgetEl.classList.add("visible");
+    }
+
+    // Update the compass rose to reflect map rotation
+    var roseEl = document.getElementById("compass-rose");
+    if (roseEl) {
+      roseEl.style.transform = "rotate(" + (-deg) + "deg)";
+    }
+    var dirEl = document.getElementById("compass-dir");
+    if (dirEl) {
+      dirEl.textContent = _headingToDirection(deg);
+    }
+    var degEl = document.getElementById("compass-deg");
+    if (degEl) {
+      degEl.textContent = Math.round(deg) + "°";
+    }
+
+    // If compass is near north (< 2°) and no device heading, hide widget
+    if (deg < 2 && !compassEnabled) {
+      if (compassWidgetEl) compassWidgetEl.classList.remove("visible");
     }
   }
 
@@ -1009,6 +1142,14 @@ var MapManager = (function () {
     stopCompass: stopCompass,
     toggleCompass: toggleCompass,
     isCompassEnabled: isCompassEnabled,
+    // ── 360° rotation API ──
+    setBearing: function (deg) {
+      if (map && typeof map.setBearing === "function") map.setBearing(deg);
+    },
+    getBearing: function () {
+      return (map && typeof map.getBearing === "function") ? map.getBearing() : 0;
+    },
+    resetBearing: function () { _animateBearingTo(0); },
   };
 })();
 

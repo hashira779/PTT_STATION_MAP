@@ -155,9 +155,10 @@ var NearbyManager = (function () {
     li.addEventListener("click", function () {
       // Use live location for the route if available
       var routeLoc = PTT_UTILS.getLastKnownLocation() || currentLocation;
-      map.flyTo([parseFloat(station.latitude), parseFloat(station.longitude)], PTT_CONFIG.DETAIL_ZOOM, {
-        animate: true,
-        duration: 0.4,
+      map.flyTo({
+        center: [parseFloat(station.longitude), parseFloat(station.latitude)],
+        zoom: PTT_CONFIG.DETAIL_ZOOM,
+        duration: 400,
       });
       var found = allMarkers.find(function (m) {
         return parseFloat(m.data.latitude) === parseFloat(station.latitude) &&

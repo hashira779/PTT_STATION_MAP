@@ -12,18 +12,8 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- Leaflet.markercluster CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.1/MarkerCluster.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.1/MarkerCluster.Default.css"
-    />
-    <!-- styles injected by mapManager.js -->
+    <!-- MapLibre GL JS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
     <!-- Font Awesome for Icons -->
     <link
       rel="stylesheet"
@@ -40,20 +30,14 @@
     <script>
       function detectDevice() {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-        // Regex pattern to detect mobile devices
         var isMobile =
           /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
             userAgent.toLowerCase()
           );
-
         if (isMobile) {
-          // Redirect to mobile page if detected
           window.location.href = "mapViewPhone.html";
         }
       }
-
-      // Run device detection on page load
       detectDevice();
     </script>
     <script src="main.js"></script>
@@ -87,7 +71,7 @@
         width: 100%;
         z-index: 0;
       }
-      /* CRITICAL FIX: modals above Leaflet */
+      /* CRITICAL FIX: modals above MapLibre */
       .modal { z-index:10001 !important; }
       .modal-backdrop { z-index:10000 !important; }
       .offcanvas { z-index:10001 !important; }
@@ -110,6 +94,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        z-index: 5;
       }
       .right-buttons .btn {
         width: 50px;
@@ -125,34 +110,30 @@
       }
       .oil-retail-icon {
         position: absolute;
-        top: 97%; /* Adjust as needed */
-        left: 15px; /* Adjust as needed */
+        top: 97%;
+        left: 15px;
         transform: translateY(-50%);
         display: flex;
         align-items: center;
-        background-color: rgba(
-          255,
-          255,
-          255,
-          0.3
-        ); /* Semi-transparent background */
+        background-color: rgba(255, 255, 255, 0.3);
         padding: 5px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 5;
       }
 
       .oil-retail-icon img {
-        width: 150px; /* Adjust as needed */
+        width: 150px;
         height: auto;
         margin-right: 10px;
       }
       .oil-retail-icon .icon-text {
-        font-size: 20px; /* Make font smaller */
-        font-style: italic; /* Make text italic */
-        color: #000; /* Adjust text color as needed */
+        font-size: 20px;
+        font-style: italic;
+        color: #000;
       }
       .footer-buttons {
-        display: none; /* Hide footer buttons */
+        display: none;
       }
       .modal-content {
         border-radius: 20px;
@@ -170,7 +151,7 @@
         border-bottom: none;
       }
       .rounded-image {
-        border-radius: 20px; /* Adjust the value as needed */
+        border-radius: 20px;
       }
       .badge {
         border-radius: 25px;
@@ -198,16 +179,16 @@
         }
       }
       .info {
-        font-size: 14px; /* Adjust font size to match the image */
-        color: #7d7d7d; /* Adjust font color to match the image */
+        font-size: 14px;
+        color: #7d7d7d;
         display: flex;
         align-items: center;
         margin-bottom: 0.5rem;
       }
       .info .icon {
-        color: #ff0000; /* Adjust icon color to match the image */
+        color: #ff0000;
         margin-right: 8px;
-        font-size: 1.25rem; /* Adjust icon size to match the font size */
+        font-size: 1.25rem;
       }
       .go-button {
         width: 70px;
@@ -218,7 +199,7 @@
         align-items: center;
       }
       .icon-background {
-        background-color: #d4d4d4; /* Adjust color as needed */
+        background-color: #d4d4d4;
         color: #003cff;
         border-radius: 50%;
         width: 30px;
@@ -229,10 +210,10 @@
       }
       .share-icon,
       .navigate-icon {
-        font-size: 18px; /* Adjust font size as needed */
+        font-size: 18px;
       }
       .badge .icon-background {
-        background-color: #0a4bcc; /* Adjust color as needed */
+        background-color: #0a4bcc;
         color: #fff;
         border-radius: 50%;
         padding: 5px;
@@ -294,7 +275,7 @@
         transition: opacity 0.5s;
       }
       .fade-enter,
-        .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+      .fade-leave-to {
         opacity: 0;
       }
       /* Subtle pulsing border animation for Under Construction */
@@ -302,13 +283,8 @@
         animation: pulse-border 2s infinite;
       }
       @keyframes pulse-border {
-        0%,
-        100% {
-          border: 2px solid #ff0000;
-        }
-        50% {
-          border: 2px solid transparent;
-        }
+        0%, 100% { border: 2px solid #ff0000; }
+        50% { border: 2px solid transparent; }
       }
       /* General styles for status badges */
       .status-badge {
@@ -321,104 +297,97 @@
         animation: pulse 2s infinite;
       }
       @keyframes pulse {
-        0%,
-        100% {
-          box-shadow: 0 0 5px #002fff;
-        }
-        50% {
-          box-shadow: 0 0 15px #174c85;
-        }
+        0%, 100% { box-shadow: 0 0 5px #002fff; }
+        50% { box-shadow: 0 0 15px #174c85; }
       }
       .product-icon,
       .item-icon {
-        width: 40px; /* Adjust size as needed */
-        height: 40px; /* Adjust size as needed */
-        margin-right: 8px; /* Add some space between the icon and the text */
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
       }
       .round {
-        border-radius: 50%; /* Make the image round */
-        object-fit: cover; /* Ensure the image covers the container */
+        border-radius: 50%;
+        object-fit: cover;
       }
       .full {
-        width: 32px; /* Ensure consistent size */
-        height: auto; /* Ensure consistent size */
-        object-fit: cover; /* Ensure the image covers the container */
+        width: 32px;
+        height: auto;
+        object-fit: cover;
       }
       .product-row,
       .service-row,
       .description-row,
       .promotion-row {
         display: flex;
-        flex-wrap: wrap; /* Wrap items if they don't fit in one line */
-        gap: 10px; /* Space between items */
+        flex-wrap: wrap;
+        gap: 10px;
       }
       .info {
         display: flex;
-        align-items: center; /* Vertically center the image and text */
-        margin-bottom: 8px; /* Add some space between info items */
+        align-items: center;
+        margin-bottom: 8px;
       }
       /* Add this CSS to your stylesheet */
       .list-group-item {
         display: flex;
         align-items: center;
         padding: 10px;
-        border: none; /* Remove default border */
-        border-radius: 15px; /* Add rounded corners */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-        margin-bottom: 10px; /* Space between items */
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
       }
       .list-group-item img {
-        width: 100px; /* Adjust size as needed */
-        height: 100px; /* Adjust size as needed */
+        width: 100px;
+        height: 100px;
         margin-right: 10px;
-        border-radius: 15px; /* Add rounded corners */
-        object-fit: cover; /* Ensure the image covers the container */
+        border-radius: 15px;
+        object-fit: cover;
       }
       .station-details {
         flex-grow: 1;
       }
       .station-details h6 {
-        margin: 0 0 5px 0; /* Adjust spacing as needed */
+        margin: 0 0 5px 0;
         font-weight: bold;
       }
       .station-details p {
         margin: 0;
-        color: #555; /* Adjust color as needed */
-        font-size: 12px; /* Make the address smaller */
+        color: #555;
+        font-size: 12px;
       }
       .station-details .icons {
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
-        margin-top: 10px; /* Space between text and icons */
+        margin-top: 10px;
       }
       .station-details .icons img {
         width: 25px;
         height: 25px;
-        border-radius: 50%; /* Round icons */
+        border-radius: 50%;
       }
-      /* Media query for laptops and tablets */
       @media (min-width: 768px) and (max-width: 1024px) {
         .offcanvas {
-          width: 50%; /* Make offcanvas smaller on laptops and tablets */
+          width: 50%;
         }
       }
-      /* Media query for smartphones */
       @media (max-width: 767px) {
         .offcanvas {
-          width: 90%; /* Make offcanvas smaller on smartphones */
+          width: 90%;
         }
       }
       .filter-icon {
-        width: 30px; /* Adjust size as needed */
-        height: 30px; /* Adjust size as needed */
+        width: 30px;
+        height: 30px;
         cursor: pointer;
         border: 2px solid transparent;
         border-radius: 25px;
-        object-fit: contain; /* Add this line */
+        object-fit: contain;
       }
       .filter-icon.full {
-        border-radius: 0; /* Adjust border radius for full images */
+        border-radius: 0;
       }
       .filter-icon.selected {
         border-color: blue;
@@ -435,109 +404,28 @@
       }
 
       @keyframes pulse {
-        0% {
-          transform: scale(1);
-          opacity: 1;
-        }
-
-        50% {
-          transform: scale(1.5);
-          opacity: 0.5;
-        }
-
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.5); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
       }
 
       .red-dot.animate {
         animation: pulse 1.5s infinite;
       }
 
-      .product-icon,
-      .item-icon {
-        width: 40px;
-        /* Adjust size as needed */
-        height: 40px;
-        /* Adjust size as needed */
-        margin-right: 8px;
-        /* Add some space between the icon and the text */
-      }
-
-      .round {
-        border-radius: 50%;
-        /* Make the image round */
-        object-fit: cover;
-        /* Ensure the image covers the container */
-      }
-
-      .full {
-        width: 32px;
-        /* Ensure consistent size */
-        height: auto;
-        /* Ensure consistent size */
-        object-fit: cover;
-        /* Ensure the image covers the container */
-      }
-
-      .product-row,
-      .service-row,
-      .description-row,
-      .promotion-row {
-        display: flex;
-        flex-wrap: wrap;
-        /* Wrap items if they don't fit in one line */
-        gap: 10px;
-        /* Space between items */
-      }
-
-      .info {
-        display: flex;
-        align-items: center;
-        /* Vertically center the image and text */
-        margin-bottom: 8px;
-        /* Add some space between info items */
-      }
-
-      /* Styling for the red dot notification */
       #promotionBtn .notification-dot {
         position: absolute;
         top: 3px;
-        /* Adjusted for better alignment */
         right: 3px;
-        /* Adjusted for better alignment */
         width: 12px;
-        /* Slightly increased size for better visibility */
         height: 12px;
-        /* Slightly increased size for better visibility */
         background-color: red;
         border-radius: 50%;
         animation: pulse 2s infinite;
       }
 
-      /* Keyframes for pulsing animation */
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-          opacity: 1;
-        }
-
-        50% {
-          transform: scale(1.5);
-          opacity: 0.5;
-        }
-
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      /* Ensure the button container has relative positioning */
       .right-buttons .btn {
         position: relative;
-        /* Needed for absolute positioning of the red dot */
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -551,13 +439,34 @@
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
       }
 
-      /* Add hover effect for buttons */
       .right-buttons .btn:hover {
         background-color: #f0f0f0;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
       #clearAllButton {
         display: none;
+      }
+
+      /* 3D toggle button active state */
+      #toggle3DBtn.active {
+        background-color: #3b82f6 !important;
+        color: #fff !important;
+        border: 2px solid #1d4ed8;
+      }
+      #toggle3DBtn.active i {
+        color: #fff !important;
+      }
+
+      /* MapLibre marker styling overrides */
+      .maplibregl-marker {
+        cursor: pointer;
+      }
+      .maplibregl-popup {
+        z-index: 10 !important;
+      }
+      /* Hide default MapLibre attribution for clean look */
+      .maplibregl-ctrl-attrib {
+        display: none !important;
       }
     </style>
   </head>
@@ -597,14 +506,21 @@
         >
           <i class="fas fa-credit-card"></i>
         </button>
-		  <button
-				  type="button"
-				  class="btn"
-				  
-				  onclick="window.location.href='https://ptt-station.netlify.app/#ev'"
-		  >
-			  <i class="fas fa-charging-station"></i>
-		  </button>
+        <button
+          type="button"
+          class="btn"
+          onclick="window.location.href='https://ptt-station.netlify.app/#ev'"
+        >
+          <i class="fas fa-charging-station"></i>
+        </button>
+        <button
+          type="button"
+          class="btn"
+          id="toggle3DBtn"
+          title="Toggle 3D View"
+        >
+          <i class="fas fa-cube"></i>
+        </button>
         <button
           type="button"
           class="btn btn-danger bg-danger clear-filter-button"
@@ -695,24 +611,21 @@
         cursor: pointer;
         border: 2px solid transparent;
         border-radius: 25px;
-        object-fit: contain; /* Add this line */
+        object-fit: contain;
       }
       .filter-icon.full {
-        border-radius: 0; /* Adjust border radius for full images */
+        border-radius: 0;
       }
       .filter-icon.selected {
         border-color: blue;
       }
-      /* Shadow for the modal content */
       .modal-content.shadow-lg {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 10px; /* Optional: Add rounded corners */
+        border-radius: 10px;
       }
-
-      /* Shadow for the image inside the modal */
       .img-fluid.shadow {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 10px; /* Optional: Add rounded corners */
+        border-radius: 10px;
       }
     </style>
     <!-- Modal for Marker Data -->
@@ -905,60 +818,31 @@
     </div>
 
     <style>
-      /* Add this CSS to your stylesheet */
       .list-group-item {
         display: flex;
         align-items: center;
         padding: 10px;
-        border: none; /* Remove default border */
-        border-radius: 15px; /* Add rounded corners */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-        margin-bottom: 10px; /* Space between items */
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
       }
-
       .list-group-item img {
-        width: 100px; /* Adjust size as needed */
-        height: 100px; /* Adjust size as needed */
+        width: 100px;
+        height: 100px;
         margin-right: 10px;
-        border-radius: 15px; /* Add rounded corners */
-        object-fit: cover; /* Ensure the image covers the container */
+        border-radius: 15px;
+        object-fit: cover;
       }
-
-      .station-details {
-        flex-grow: 1;
-      }
-
-      .station-details h6 {
-        margin: 0 0 5px 0; /* Adjust spacing as needed */
-        font-weight: bold;
-      }
-
-      .station-details p {
-        margin: 0;
-        color: #555; /* Adjust color as needed */
-        font-size: 12px; /* Make the address smaller */
-      }
-
-      .station-details .icons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        margin-top: 10px; /* Space between text and icons */
-      }
-
-      .station-details .icons img {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%; /* Round icons */
-      }
+      .station-details { flex-grow: 1; }
+      .station-details h6 { margin: 0 0 5px 0; font-weight: bold; }
+      .station-details p { margin: 0; color: #555; font-size: 12px; }
+      .station-details .icons { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+      .station-details .icons img { width: 25px; height: 25px; border-radius: 50%; }
     </style>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- Leaflet Rotate — 360° map rotation like Google Maps -->
-    <script src="https://unpkg.com/leaflet-rotate@0.2.8/dist/leaflet-rotate-src.js"></script>
-    <!-- Leaflet.markercluster JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.1/leaflet.markercluster.js"></script>
+    <!-- MapLibre GL JS -->
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script>
       window.PTT_PAGE_CONFIG = {
         dataUrl: "markers_admin.json",
@@ -975,6 +859,6 @@
     <script src="./js/nearbyManager.js"></script>
     <script src="./js/promotionManager.js"></script>
     <script src="./js/oilPriceManager.js"></script>
-<script src="./js/app.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>

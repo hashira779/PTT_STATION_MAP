@@ -182,11 +182,16 @@ var FilterManager = (function () {
       }
     });
 
-    map.addLayer(markers);
     if (filtered.length > 0) {
-      map.flyToBounds(new L.featureGroup(filtered).getBounds(), {
+      var bounds = new maplibregl.LngLatBounds();
+      filtered.forEach(function (m) {
+        var ll = m.getLatLng ? m.getLatLng() : (m._maplibreMarker ? m._maplibreMarker.getLngLat() : null);
+        if (ll) bounds.extend([ll.lng, ll.lat]);
+      });
+      map.fitBounds(bounds, {
         animate: true,
-        duration: PTT_CONFIG.FLY_DURATION,
+        duration: PTT_CONFIG.FLY_DURATION * 1000,
+        padding: 30,
       });
     }
     _hideFilterUI();
@@ -212,13 +217,17 @@ var FilterManager = (function () {
 
     markers.clearLayers();
     allMarkers.forEach(function (e) { markers.addLayer(e.marker); });
-    map.addLayer(markers);
 
-    var all = allMarkers.map(function (e) { return e.marker; });
-    if (all.length > 0) {
-      map.flyToBounds(new L.featureGroup(all).getBounds(), {
+    if (allMarkers.length > 0) {
+      var bounds = new maplibregl.LngLatBounds();
+      allMarkers.forEach(function (e) {
+        var ll = e.marker.getLatLng ? e.marker.getLatLng() : (e.marker._maplibreMarker ? e.marker._maplibreMarker.getLngLat() : null);
+        if (ll) bounds.extend([ll.lng, ll.lat]);
+      });
+      map.fitBounds(bounds, {
         animate: true,
-        duration: PTT_CONFIG.FLY_DURATION,
+        duration: PTT_CONFIG.FLY_DURATION * 1000,
+        padding: 30,
       });
     }
     _updateClearButton();

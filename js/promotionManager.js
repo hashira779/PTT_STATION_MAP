@@ -62,7 +62,6 @@ var PromotionManager = (function () {
       }
     });
 
-    map.addLayer(markers);
     if (filtered.length) {
       MapManager.focusMarkers(filtered);
     }

@@ -19,6 +19,8 @@ var PTT_CONFIG = (function () {
   var MAP_ZOOM = 7;
   var DETAIL_ZOOM = 15;
   var FLY_DURATION = 1;
+  var MAP_PITCH = 60;           // 3D tilt angle when enabled (0-85)
+  var MAP_MAX_PITCH = 85;       // Maximum pitch allowed
   var TIMEZONE = "Asia/Phnom_Penh";
   var GEOLOCATION_OPTIONS = {
     enableHighAccuracy: true,
@@ -201,6 +203,8 @@ var PTT_CONFIG = (function () {
     MAP_ZOOM: MAP_ZOOM,
     DETAIL_ZOOM: DETAIL_ZOOM,
     FLY_DURATION: FLY_DURATION,
+    MAP_PITCH: MAP_PITCH,
+    MAP_MAX_PITCH: MAP_MAX_PITCH,
     TIMEZONE: TIMEZONE,
     GEOLOCATION_OPTIONS: GEOLOCATION_OPTIONS,
     LIVE_LOCATION_MIN_DISTANCE_METERS: LIVE_LOCATION_MIN_DISTANCE_METERS,

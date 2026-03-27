@@ -107,9 +107,10 @@
 
   function _onMarkerClick(station, imageUrl) {
     if (map.getZoom() < PTT_CONFIG.DETAIL_ZOOM) {
-      map.flyTo([station.latitude, station.longitude], PTT_CONFIG.DETAIL_ZOOM, {
-        animate: true,
-        duration: PTT_CONFIG.FLY_DURATION,
+      map.flyTo({
+        center: [parseFloat(station.longitude), parseFloat(station.latitude)],
+        zoom: PTT_CONFIG.DETAIL_ZOOM,
+        duration: PTT_CONFIG.FLY_DURATION * 1000,
       });
       setTimeout(function () {
         _showStation(station, imageUrl);

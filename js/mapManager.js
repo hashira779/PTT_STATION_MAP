@@ -1,65 +1,56 @@
 /**
  * ============================================================
- *  PTT Station Map — Map Manager
- *  Owns Leaflet map state, marker cluster state, and location UI.
+ *  PTT Station Map — Map Manager (MapLibre GL JS + 3D Buildings)
+ *  Owns MapLibre map state, DOM markers, and location UI.
  *  Smooth live-location like Google Maps blue dot.
- *  Exposes legacy globals: map, markers, allMarkers
+ *  Exposes legacy globals: map, markers (stub), allMarkers
  *  Depends on: config.js, utils.js
  * ============================================================
  */
 var map;
-var markers;
+var markers;   // legacy stub — now a plain object with helper methods
 var allMarkers = [];
 
 var MapManager = (function () {
   "use strict";
 
   var currentLocationMarker = null;
-  var currentLocationCircle = null;
   var iconRefreshTimer = null;
   var liveLocationUnsubscribe = null;
   var isFollowingLiveLocation = false;
   var trackingStateUnsubscribe = null;
-  var gpsSignalElement = null;
   var cssInjected = false;
+  var is3DEnabled = false;
+
+  // Store all DOM markers for management
+  var _domMarkers = [];
 
   // ── Compass heading state ─────────────────────────────────
-  var currentHeading = null;          // degrees 0-360, null if unknown
+  var currentHeading = null;
   var compassEnabled = false;
-  var headingConeElement = null;      // reference to DOM cone inside blue dot
-  var compassWidgetEl = null;         // floating compass widget DOM
+  var headingConeElement = null;
+  var compassWidgetEl = null;
 
   // ── Smooth animation state ────────────────────────────────
   var animFrameId = null;
   var animStartTime = 0;
-  var ANIM_DURATION = 600; // ms — smooth glide duration
+  var ANIM_DURATION = 600;
   var animFrom = { lat: 0, lng: 0, radius: 0 };
   var animTo = { lat: 0, lng: 0, radius: 0 };
   var isAnimating = false;
 
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
+  // ── Current location state ────────────────────────────────
+  var _currentLat = 0;
+  var _currentLng = 0;
+  var _currentRadius = 0;
 
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
   function animateLocationUpdate(toLat, toLng, toRadius) {
-    if (currentLocationMarker) {
-      var cur = currentLocationMarker.getLatLng();
-      animFrom.lat = cur.lat;
-      animFrom.lng = cur.lng;
-    } else {
-      animFrom.lat = toLat;
-      animFrom.lng = toLng;
-    }
-    if (currentLocationCircle) {
-      animFrom.radius = currentLocationCircle.getRadius();
-    } else {
-      animFrom.radius = toRadius;
-    }
-
+    animFrom.lat = _currentLat;
+    animFrom.lng = _currentLng;
+    animFrom.radius = _currentRadius;
     animTo.lat = toLat;
     animTo.lng = toLng;
     animTo.radius = toRadius;
@@ -69,7 +60,6 @@ var MapManager = (function () {
       applyPosition(toLat, toLng, toRadius);
       return;
     }
-
     animStartTime = performance.now();
     if (!isAnimating) {
       isAnimating = true;
@@ -81,17 +71,13 @@ var MapManager = (function () {
     var elapsed = now - animStartTime;
     var progress = Math.min(elapsed / ANIM_DURATION, 1);
     var eased = easeOutCubic(progress);
-
     var lat = lerp(animFrom.lat, animTo.lat, eased);
     var lng = lerp(animFrom.lng, animTo.lng, eased);
     var rad = lerp(animFrom.radius, animTo.radius, eased);
-
     applyPosition(lat, lng, rad);
-
     if (isFollowingLiveLocation && map) {
-      map.panTo([lat, lng], { animate: false });
+      map.panTo([lng, lat], { animate: false });
     }
-
     if (progress < 1) {
       animFrameId = requestAnimationFrame(animStep);
     } else {
@@ -101,13 +87,15 @@ var MapManager = (function () {
   }
 
   function applyPosition(lat, lng, radius) {
-    var latlng = L.latLng(lat, lng);
+    _currentLat = lat;
+    _currentLng = lng;
+    _currentRadius = radius;
     if (currentLocationMarker) {
-      currentLocationMarker.setLatLng(latlng);
+      currentLocationMarker.setLngLat([lng, lat]);
     }
-    if (currentLocationCircle) {
-      currentLocationCircle.setLatLng(latlng);
-      currentLocationCircle.setRadius(radius);
+    if (map && map.getSource && map.getSource("location-accuracy")) {
+      var circle = _createGeoJSONCircle([lng, lat], radius);
+      map.getSource("location-accuracy").setData(circle);
     }
   }
 
@@ -119,285 +107,82 @@ var MapManager = (function () {
     isAnimating = false;
   }
 
+  function _createGeoJSONCircle(center, radiusMeters, points) {
+    points = points || 64;
+    var coords = [];
+    var distanceX = radiusMeters / (111320 * Math.cos(center[1] * Math.PI / 180));
+    var distanceY = radiusMeters / 110540;
+    for (var i = 0; i < points; i++) {
+      var theta = (i / points) * (2 * Math.PI);
+      coords.push([center[0] + distanceX * Math.cos(theta), center[1] + distanceY * Math.sin(theta)]);
+    }
+    coords.push(coords[0]);
+    return { type: "Feature", geometry: { type: "Polygon", coordinates: [coords] }, properties: {} };
+  }
+
   // ── CSS Injection ─────────────────────────────────────────
   function injectTrackingCSS() {
     if (cssInjected) return;
     cssInjected = true;
-
     var style = document.createElement("style");
     style.textContent =
-      /* ── Google Maps blue dot ────────────────────────── */
-      ".gm-blue-dot-outer{" +
-        "width:22px;height:22px;position:relative;display:flex;" +
-        "align-items:center;justify-content:center;" +
-      "}" +
-      ".gm-blue-dot-ring{" +
-        "position:absolute;width:22px;height:22px;border-radius:50%;" +
-        "background:rgba(66,133,244,.18);animation:gm-ring-pulse 2s ease-out infinite;" +
-      "}" +
-      ".gm-blue-dot-core{" +
-        "width:14px;height:14px;border-radius:50%;" +
-        "background:#4285F4;border:2.5px solid #fff;" +
-        "box-shadow:0 1px 4px rgba(0,0,0,.3);position:relative;z-index:1;" +
-      "}" +
-      "@keyframes gm-ring-pulse{" +
-        "0%{transform:scale(1);opacity:.7;}" +
-        "100%{transform:scale(3);opacity:0;}" +
-      "}" +
-
-      /* ── Compass heading cone (Google Maps style) ────── */
-      ".gm-heading-cone{" +
-        "position:absolute;top:50%;left:50%;" +
-        "width:80px;height:80px;" +
-        "margin-left:-40px;margin-top:-40px;" +
-        "pointer-events:none;z-index:0;" +
-        "transition:transform .1s linear,opacity .3s;" +
-        "opacity:0;" +
-      "}" +
+      ".gm-blue-dot-outer{width:22px;height:22px;position:relative;display:flex;align-items:center;justify-content:center;}" +
+      ".gm-blue-dot-ring{position:absolute;width:22px;height:22px;border-radius:50%;background:rgba(66,133,244,.18);animation:gm-ring-pulse 2s ease-out infinite;}" +
+      ".gm-blue-dot-core{width:14px;height:14px;border-radius:50%;background:#4285F4;border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);position:relative;z-index:1;}" +
+      "@keyframes gm-ring-pulse{0%{transform:scale(1);opacity:.7;}100%{transform:scale(3);opacity:0;}}" +
+      ".gm-heading-cone{position:absolute;top:50%;left:50%;width:80px;height:80px;margin-left:-40px;margin-top:-40px;pointer-events:none;z-index:0;transition:transform .1s linear,opacity .3s;opacity:0;}" +
       ".gm-heading-cone.active{opacity:1;}" +
       ".gm-heading-cone svg{width:100%;height:100%;}" +
-
-      /* ── 360° Compass Widget ─────────────────────────── */
-      "#compass-widget{" +
-        "position:fixed;top:calc(env(safe-area-inset-top, 0px) + 88px);left:12px;right:auto;z-index:1060;" +
-        "width:56px;height:56px;" +
-        "border-radius:50%;" +
-        "background:rgba(255,255,255,0.92);" +
-        "backdrop-filter:blur(14px);" +
-        "border:1px solid rgba(255,255,255,0.5);" +
-        "box-shadow:0 4px 20px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);" +
-        "cursor:pointer;user-select:none;" +
-        "display:flex;align-items:center;justify-content:center;" +
-        "opacity:0;transform:scale(0.6);" +
-        "transition:all .4s cubic-bezier(.22,1,.36,1);" +
-        "pointer-events:none;" +
-      "}" +
-      "#compass-widget.visible{" +
-        "opacity:1;transform:scale(1);pointer-events:auto;" +
-      "}" +
-      "#compass-widget:hover{" +
-        "box-shadow:0 6px 28px rgba(0,0,0,0.14);transform:scale(1.06);" +
-      "}" +
+      "#compass-widget{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 88px);left:12px;right:auto;z-index:1060;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.6);transition:all .4s cubic-bezier(.22,1,.36,1);pointer-events:none;}" +
+      "#compass-widget.visible{opacity:1;transform:scale(1);pointer-events:auto;}" +
+      "#compass-widget:hover{box-shadow:0 6px 28px rgba(0,0,0,0.14);transform:scale(1.06);}" +
       "#compass-widget:active{transform:scale(0.94);}" +
-
-      /* Compass rose inner */
-      ".compass-rose{" +
-        "width:46px;height:46px;position:relative;" +
-        "transition:transform .1s linear;" +
-      "}" +
+      ".compass-rose{width:46px;height:46px;position:relative;transition:transform .1s linear;}" +
       ".compass-rose svg{width:100%;height:100%;}" +
-
-      /* Direction label */
-      ".compass-dir{" +
-        "position:absolute;bottom:-18px;left:50%;" +
-        "transform:translateX(-50%);" +
-        "font-size:9px;font-weight:800;letter-spacing:.5px;" +
-        "color:#1e40af;font-family:'Inter',system-ui,sans-serif;" +
-        "background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);" +
-        "padding:1px 6px;border-radius:6px;" +
-        "box-shadow:0 1px 4px rgba(0,0,0,0.08);" +
-        "white-space:nowrap;line-height:1.4;" +
-        "opacity:0;transition:opacity .3s;" +
-      "}" +
+      ".compass-dir{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.5px;color:#1e40af;font-family:'Inter',system-ui,sans-serif;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);padding:1px 6px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);white-space:nowrap;line-height:1.4;opacity:0;transition:opacity .3s;}" +
       "#compass-widget.visible .compass-dir{opacity:1;}" +
-
-      /* Degree ring */
-      ".compass-degrees{" +
-        "position:absolute;bottom:-32px;left:50%;" +
-        "transform:translateX(-50%);" +
-        "font-size:8px;font-weight:600;" +
-        "color:#94a3b8;font-family:'Inter',system-ui,sans-serif;" +
-        "white-space:nowrap;line-height:1;" +
-        "opacity:0;transition:opacity .3s;" +
-      "}" +
+      ".compass-degrees{position:absolute;bottom:-32px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:600;color:#94a3b8;font-family:'Inter',system-ui,sans-serif;white-space:nowrap;line-height:1;opacity:0;transition:opacity .3s;}" +
       "#compass-widget.visible .compass-degrees{opacity:0.7;}" +
       "@media(max-width:480px){#compass-widget{top:calc(env(safe-area-inset-top, 0px) + 76px);left:10px;width:52px;height:52px;}}" +
-
-      /* ── Rotation hint — shows briefly when map first rotated ── */
-      "#rotate-hint{" +
-        "position:fixed;top:50%;left:50%;z-index:1100;" +
-        "transform:translate(-50%,-50%);" +
-        "background:rgba(15,23,42,.75);backdrop-filter:blur(8px);" +
-        "color:#fff;font-size:13px;font-weight:600;" +
-        "font-family:'Inter',system-ui,sans-serif;" +
-        "padding:10px 20px;border-radius:12px;" +
-        "box-shadow:0 4px 20px rgba(0,0,0,.25);" +
-        "opacity:0;pointer-events:none;" +
-        "transition:opacity .4s;" +
-      "}" +
+      "#rotate-hint{position:fixed;top:50%;left:50%;z-index:1100;transform:translate(-50%,-50%);background:rgba(15,23,42,.75);backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:600;font-family:'Inter',system-ui,sans-serif;padding:10px 20px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .4s;}" +
       "#rotate-hint.show{opacity:1;}" +
       "#rotate-hint i{margin-right:6px;}" +
-
-      /* ── GPS signal badge ─────────────────────────────── */
-      "#gps-signal-badge{" +
-        "position:fixed;bottom:16px;left:16px;z-index:1000;" +
-        "display:flex;align-items:center;gap:6px;" +
-        "padding:6px 12px;border-radius:20px;" +
-        "font-size:12px;font-weight:600;font-family:system-ui,sans-serif;" +
-        "color:#fff;pointer-events:none;" +
-        "box-shadow:0 2px 8px rgba(0,0,0,.25);" +
-        "transition:background .4s,opacity .4s;opacity:0;" +
-      "}" +
-      "#gps-signal-badge.show{opacity:1;}" +
-      "#gps-signal-badge.gps-active{background:#16a34a;}" +
-      "#gps-signal-badge.gps-searching{background:#f59e0b;}" +
-      "#gps-signal-badge.gps-error{background:#ef4444;}" +
-      "#gps-signal-badge.gps-idle{background:#94a3b8;}" +
-
-      /* ── Signal bars ─────────────────────────────────── */
-      ".gps-bars{display:flex;align-items:flex-end;gap:2px;height:14px;}" +
-      ".gps-bars .bar{width:3px;border-radius:1px;background:#fff;opacity:.35;" +
-        "transition:opacity .3s,height .3s;}" +
-      ".gps-bars .bar.on{opacity:1;}" +
-      ".gps-bars .bar:nth-child(1){height:4px;}" +
-      ".gps-bars .bar:nth-child(2){height:8px;}" +
-      ".gps-bars .bar:nth-child(3){height:12px;}" +
-
-      /* ── Searching bar animation ─────────────────────── */
-      "@keyframes gps-searching-pulse{0%,100%{opacity:.35;}50%{opacity:1;}}" +
-      ".gps-searching .gps-bars .bar{animation:gps-searching-pulse 1.2s ease-in-out infinite;}" +
-      ".gps-searching .gps-bars .bar:nth-child(2){animation-delay:.15s;}" +
-      ".gps-searching .gps-bars .bar:nth-child(3){animation-delay:.3s;}" +
-
-      /* ── Accuracy indicator dot ──────────────────────── */
-      ".gps-accuracy-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}" +
-      ".gps-active .gps-accuracy-dot{background:#86efac;}" +
-      ".gps-searching .gps-accuracy-dot{background:#fde68a;}" +
-      ".gps-error .gps-accuracy-dot{background:#fca5a5;}" +
-
-      /* ── Location button states ──────────────────────── */
-      "#myLocationBtn.loc-active{" +
-        "background-color:#dbeafe !important;border:2px solid #3b82f6 !important;" +
-      "}" +
+      "#myLocationBtn.loc-active{background-color:#dbeafe !important;border:2px solid #3b82f6 !important;}" +
       "#myLocationBtn.loc-active i{color:#2563eb !important;}" +
-      "#myLocationBtn.loc-searching{" +
-        "background-color:#fef9c3 !important;border:2px solid #f59e0b !important;" +
-      "}" +
-      "#myLocationBtn.loc-searching i{color:#d97706 !important;" +
-        "animation:loc-spin 1.5s linear infinite;}" +
+      "#myLocationBtn.loc-searching{background-color:#fef9c3 !important;border:2px solid #f59e0b !important;}" +
+      "#myLocationBtn.loc-searching i{color:#d97706 !important;animation:loc-spin 1.5s linear infinite;}" +
       "@keyframes loc-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}" +
-      "#myLocationBtn.loc-error{" +
-        "background-color:#fee2e2 !important;border:2px solid #ef4444 !important;" +
-      "}" +
+      "#myLocationBtn.loc-error{background-color:#fee2e2 !important;border:2px solid #ef4444 !important;}" +
       "#myLocationBtn.loc-error i{color:#dc2626 !important;}" +
-      "#myLocationBtn.loc-following{" +
-        "background-color:#3b82f6 !important;border:2px solid #1d4ed8 !important;" +
-      "}" +
+      "#myLocationBtn.loc-following{background-color:#3b82f6 !important;border:2px solid #1d4ed8 !important;}" +
       "#myLocationBtn.loc-following i{color:#fff !important;}" +
-
-      /* ── Compass / Recenter button states ────────────── */
-      "#recenterBtn.compass-active{" +
-        "background-color:#dbeafe !important;border:2px solid #6366f1 !important;" +
-      "}" +
-      "#recenterBtn.compass-active i{color:#4f46e5 !important;}" +
-
-      /* ── EV Station Pluz Marker ──────────────────────── */
-
-      /* Wrapper */
-      ".ev-marker-wrap{" +
-        "position:relative;width:58px;height:52px;" +
-        "display:flex;flex-direction:column;align-items:center;" +
-        "animation:ev-drop-in .4s cubic-bezier(.22,1.15,.64,1) both;" +
-      "}" +
-      "@keyframes ev-drop-in{" +
-        "0%{opacity:0;transform:translateY(-28px) scale(.3);}" +
-        "100%{opacity:1;transform:translateY(0) scale(1);}" +
-      "}" +
-
-      /* Ripple rings */
-      ".ev-ripple-ring{" +
-        "position:absolute;top:16px;left:50%;width:38px;height:38px;" +
-        "margin-left:-19px;margin-top:-19px;border-radius:50%;" +
-        "border:2px solid rgba(51,195,240,.4);" +
-        "animation:ev-ripple 2.8s ease-out infinite;pointer-events:none;z-index:0;" +
-      "}" +
+      ".ev-marker-wrap{position:relative;width:58px;height:52px;display:flex;flex-direction:column;align-items:center;animation:ev-drop-in .4s cubic-bezier(.22,1.15,.64,1) both;}" +
+      "@keyframes ev-drop-in{0%{opacity:0;transform:translateY(-28px) scale(.3);}100%{opacity:1;transform:translateY(0) scale(1);}}" +
+      ".ev-ripple-ring{position:absolute;top:16px;left:50%;width:38px;height:38px;margin-left:-19px;margin-top:-19px;border-radius:50%;border:2px solid rgba(51,195,240,.4);animation:ev-ripple 2.8s ease-out infinite;pointer-events:none;z-index:0;}" +
       ".ev-ripple-ring:nth-child(2){animation-delay:1.4s;border-color:rgba(26,60,158,.25);}" +
-      "@keyframes ev-ripple{" +
-        "0%{transform:scale(.45);opacity:.7;}" +
-        "100%{transform:scale(3);opacity:0;}" +
-      "}" +
-
-      /* Pin — exact 1.73:1 ratio matching logo */
-      ".ev-pin-body{" +
-        "position:relative;z-index:2;" +
-        "width:52px;height:30px;" +
-        "background:#fff;" +
-        "border-radius:8px;" +
-        "border:2px solid #33C3F0;" +
-        "box-shadow:0 2px 8px rgba(51,195,240,.35),0 0 0 3px rgba(51,195,240,.07);" +
-        "overflow:hidden;" +
-        "animation:ev-glow 3s ease-in-out infinite;" +
-      "}" +
-      "@keyframes ev-glow{" +
-        "0%,100%{border-color:#33C3F0;box-shadow:0 2px 8px rgba(51,195,240,.35),0 0 0 3px rgba(51,195,240,.07);}" +
-        "50%{border-color:#0EA5E9;box-shadow:0 2px 16px rgba(51,195,240,.5),0 0 0 5px rgba(51,195,240,.1);}" +
-      "}" +
-
-      /* Logo — 100% fill, no gaps */
-      ".ev-logo-img{" +
-        "display:block;width:100%;height:100%;object-fit:fill;" +
-      "}" +
-
-      /* Tail arrow */
-      ".ev-pin-tail{" +
-        "width:0;height:0;z-index:1;" +
-        "border-left:8px solid transparent;border-right:8px solid transparent;" +
-        "border-top:10px solid #33C3F0;" +
-        "margin-top:-1px;" +
-        "filter:drop-shadow(0 2px 2px rgba(0,0,0,.1));" +
-        "animation:ev-tail-c 3s ease-in-out infinite;" +
-      "}" +
-      "@keyframes ev-tail-c{" +
-        "0%,100%{border-top-color:#33C3F0;}" +
-        "50%{border-top-color:#0EA5E9;}" +
-      "}" +
-
-      /* Promo dot */
-      ".ev-promo-dot{" +
-        "position:absolute;top:-4px;right:-4px;width:12px;height:12px;z-index:5;" +
-        "background:#ff1744;border-radius:50%;border:2px solid #fff;" +
-        "animation:ev-promo-ping 1.5s ease-out infinite;" +
-      "}" +
-      "@keyframes ev-promo-ping{" +
-        "0%{box-shadow:0 0 0 0 rgba(255,23,68,.5);}" +
-        "70%{box-shadow:0 0 0 6px rgba(255,23,68,0);}" +
-        "100%{box-shadow:0 0 0 0 rgba(255,23,68,0);}" +
-      "}" +
-
-      /* Shadow */
-      ".ev-ground-shadow{" +
-        "width:16px;height:4px;border-radius:50%;margin-top:1px;" +
-        "background:radial-gradient(ellipse,rgba(0,0,0,.15),transparent 70%);" +
-        "z-index:0;" +
-      "}" +
-
-      /* Closed */
-      ".ev-marker-closed .ev-pin-body{" +
-        "background:#f5f5f5;border-color:#bdbdbd;" +
-        "box-shadow:0 2px 6px rgba(0,0,0,.1);animation:none;" +
-      "}" +
+      "@keyframes ev-ripple{0%{transform:scale(.45);opacity:.7;}100%{transform:scale(3);opacity:0;}}" +
+      ".ev-pin-body{position:relative;z-index:2;width:52px;height:30px;background:#fff;border-radius:8px;border:2px solid #33C3F0;box-shadow:0 2px 8px rgba(51,195,240,.35),0 0 0 3px rgba(51,195,240,.07);overflow:hidden;animation:ev-glow 3s ease-in-out infinite;}" +
+      "@keyframes ev-glow{0%,100%{border-color:#33C3F0;box-shadow:0 2px 8px rgba(51,195,240,.35),0 0 0 3px rgba(51,195,240,.07);}50%{border-color:#0EA5E9;box-shadow:0 2px 16px rgba(51,195,240,.5),0 0 0 5px rgba(51,195,240,.1);}}" +
+      ".ev-logo-img{display:block;width:100%;height:100%;object-fit:fill;}" +
+      ".ev-pin-tail{width:0;height:0;z-index:1;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #33C3F0;margin-top:-1px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.1));animation:ev-tail-c 3s ease-in-out infinite;}" +
+      "@keyframes ev-tail-c{0%,100%{border-top-color:#33C3F0;}50%{border-top-color:#0EA5E9;}}" +
+      ".ev-promo-dot{position:absolute;top:-4px;right:-4px;width:12px;height:12px;z-index:5;background:#ff1744;border-radius:50%;border:2px solid #fff;animation:ev-promo-ping 1.5s ease-out infinite;}" +
+      "@keyframes ev-promo-ping{0%{box-shadow:0 0 0 0 rgba(255,23,68,.5);}70%{box-shadow:0 0 0 6px rgba(255,23,68,0);}100%{box-shadow:0 0 0 0 rgba(255,23,68,0);}}" +
+      ".ev-ground-shadow{width:16px;height:4px;border-radius:50%;margin-top:1px;background:radial-gradient(ellipse,rgba(0,0,0,.15),transparent 70%);z-index:0;}" +
+      ".ev-marker-closed .ev-pin-body{background:#f5f5f5;border-color:#bdbdbd;box-shadow:0 2px 6px rgba(0,0,0,.1);animation:none;}" +
       ".ev-marker-closed .ev-pin-tail{border-top-color:#bdbdbd;animation:none;}" +
       ".ev-marker-closed .ev-ripple-ring{display:none;}" +
       ".ev-marker-closed .ev-logo-img{filter:grayscale(1) opacity(.4);}";
-
     document.head.appendChild(style);
   }
 
-  // ── GPS signal badge ──────────────────────────────────────
-  function createGPSBadge() {
-    return;
-  }
-
-  function updateGPSBadge(state, location) {
-    return;
-  }
+  function createGPSBadge() { return; }
+  function updateGPSBadge() { return; }
 
   function updateLocationButton(state) {
     var btn = document.getElementById("myLocationBtn");
     if (!btn) return;
-
     btn.classList.remove("loc-active", "loc-searching", "loc-error", "loc-following");
-
     if (state === "active" && isFollowingLiveLocation) {
       btn.classList.add("loc-following");
     } else if (state === "active") {
@@ -413,73 +198,68 @@ var MapManager = (function () {
   function init() {
     injectTrackingCSS();
 
-    map = L.map("map", {
-      attributionControl: false,
-      zoomControl: false,
-      // ── 360° rotation like Google Maps ──
-      rotate: true,
+    map = new maplibregl.Map({
+      container: "map",
+      style: {
+        version: 8,
+        sources: {
+          "osm-tiles": {
+            type: "raster",
+            tiles: [
+              "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ],
+            tileSize: 256,
+            attribution: ""
+          },
+          "openmaptiles": {
+            type: "vector",
+            url: "https://tiles.openfreemap.org/planet"
+          }
+        },
+        layers: [
+          {
+            id: "osm-raster",
+            type: "raster",
+            source: "osm-tiles",
+            minzoom: 0,
+            maxzoom: 19
+          }
+        ],
+        glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf"
+      },
+      center: [PTT_CONFIG.MAP_CENTER[1], PTT_CONFIG.MAP_CENTER[0]],
+      zoom: PTT_CONFIG.MAP_ZOOM,
+      pitch: 0,
       bearing: 0,
-      touchRotate: true,       // two-finger rotate on mobile
-      shiftKeyRotate: true,    // Shift+drag to rotate on desktop
-      rotateControl: false,    // we use our own compass widget
-    }).setView(PTT_CONFIG.MAP_CENTER, PTT_CONFIG.MAP_ZOOM);
+      maxPitch: PTT_CONFIG.MAP_MAX_PITCH || 85,
+      attributionControl: false,
+      touchPitch: true,
+      dragRotate: true
+    });
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "",
-    }).addTo(map);
+    // No zoom/compass controls — clean map like Google Maps app
 
-    // ── Sync compass widget when user rotates map via gesture ──
+    map.on("load", function () {
+      _add3DBuildingLayer();
+      _addLocationAccuracyLayer();
+    });
+
     var rotateHintShown = false;
     map.on("rotate", function () {
-      var bearing = map.getBearing ? map.getBearing() : 0;
+      var bearing = map.getBearing();
       _syncCompassFromBearing(bearing);
-
-      // Show a one-time hint on first rotation
       if (!rotateHintShown && Math.abs(bearing) > 5) {
         rotateHintShown = true;
         _showRotateHint();
       }
     });
     map.on("rotateend", function () {
-      var bearing = map.getBearing ? map.getBearing() : 0;
-      _syncCompassFromBearing(bearing);
+      _syncCompassFromBearing(map.getBearing());
     });
 
-    markers = L.markerClusterGroup({
-      iconCreateFunction: function (cluster) {
-        var childMarkers = cluster.getAllChildMarkers();
-        var hasPromotions = childMarkers.some(function (marker) {
-          return (
-            marker.options &&
-            marker.options.icon &&
-            marker.options.icon.options &&
-            marker.options.icon.options.html &&
-            (marker.options.icon.options.html.indexOf("red-dot") !== -1 ||
-             marker.options.icon.options.html.indexOf("ev-promo-dot") !== -1)
-          );
-        });
-
-        var evPage = isEVPage();
-        var clusterBg = evPage
-          ? "background:linear-gradient(135deg,#33C3F0,#1a3c9e);box-shadow:0 2px 12px rgba(51,195,240,.45);"
-          : "background: rgba(0, 27, 255, 0.8);";
-
-        var clusterHtml =
-          '<div class="cluster-icon-container" style="position: relative;">' +
-          (hasPromotions
-            ? '<div class="' + (evPage ? 'ev-promo-dot' : 'red-dot animate') + '" style="position:absolute;top:0;right:0;' + (evPage ? '' : 'width:12px;height:12px;background-color:red;border-radius:50%;border:2px solid white;') + '"></div>'
-            : "") +
-          '<div class="cluster-number" style="' + clusterBg + ' border-radius: 50%; color: white; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-weight:700; font-size:13px;">' +
-          cluster.getChildCount() +
-          "</div></div>";
-
-        return L.divIcon({
-          html: clusterHtml,
-          className: "custom-cluster-icon",
-          iconSize: L.point(40, 40),
-        });
-      },
-    });
+    markers = _createMarkersStub();
 
     map.on("dragstart", function () {
       if (currentLocationMarker) {
@@ -489,24 +269,108 @@ var MapManager = (function () {
     });
 
     createGPSBadge();
-
     trackingStateUnsubscribe = PTT_UTILS.subscribeToTrackingState(function (state) {
       var loc = PTT_UTILS.getLastKnownLocation();
       updateGPSBadge(state, loc);
       updateLocationButton(state);
     });
-
     PTT_UTILS.subscribeToLocationUpdates(function (location) {
       if (PTT_UTILS.getTrackingState() === "active") {
         updateGPSBadge("active", location);
       }
     });
+
+    _bind3DToggle();
   }
 
-  // ── Live location subscription ────────────────────────────
+  // ── Legacy markers stub ───────────────────────────────────
+  function _createMarkersStub() {
+    return {
+      clearLayers: function () {
+        _domMarkers.forEach(function (m) { m.remove(); });
+        _domMarkers = [];
+      },
+      addLayer: function (wrapper) {
+        if (wrapper && wrapper._maplibreMarker) {
+          wrapper._maplibreMarker.addTo(map);
+          _domMarkers.push(wrapper._maplibreMarker);
+        }
+      },
+      refreshClusters: function () { /* no-op */ }
+    };
+  }
+
+  // ── 3D Building Layer ─────────────────────────────────────
+  function _add3DBuildingLayer() {
+    if (!map.getSource("openmaptiles")) return;
+    map.addLayer({
+      id: "3d-buildings",
+      source: "openmaptiles",
+      "source-layer": "building",
+      type: "fill-extrusion",
+      minzoom: 14,
+      paint: {
+        "fill-extrusion-color": [
+          "interpolate", ["linear"], ["get", "render_height"],
+          0, "#e8e0d8", 20, "#d4ccc4", 50, "#c0b8b0"
+        ],
+        "fill-extrusion-height": [
+          "interpolate", ["linear"], ["zoom"],
+          14, 0, 15.5, ["get", "render_height"]
+        ],
+        "fill-extrusion-base": [
+          "interpolate", ["linear"], ["zoom"],
+          14, 0, 15.5, ["get", "render_min_height"]
+        ],
+        "fill-extrusion-opacity": 0.7
+      },
+      layout: { visibility: "none" }
+    });
+  }
+
+  function _addLocationAccuracyLayer() {
+    map.addSource("location-accuracy", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: [] }
+    });
+    map.addLayer({
+      id: "location-accuracy-fill",
+      type: "fill",
+      source: "location-accuracy",
+      paint: { "fill-color": "rgba(66,133,244,0.1)", "fill-opacity": 1 }
+    });
+    map.addLayer({
+      id: "location-accuracy-border",
+      type: "line",
+      source: "location-accuracy",
+      paint: { "line-color": "rgba(66,133,244,0.3)", "line-width": 1 }
+    });
+  }
+
+  // ── 3D Toggle ─────────────────────────────────────────────
+  function _bind3DToggle() {
+    var btn = document.getElementById("toggle3DBtn");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      is3DEnabled = !is3DEnabled;
+      btn.classList.toggle("active", is3DEnabled);
+      if (is3DEnabled) {
+        map.easeTo({ pitch: PTT_CONFIG.MAP_PITCH || 60, duration: 1000 });
+        if (map.getLayer("3d-buildings")) {
+          map.setLayoutProperty("3d-buildings", "visibility", "visible");
+        }
+      } else {
+        map.easeTo({ pitch: 0, duration: 1000 });
+        if (map.getLayer("3d-buildings")) {
+          map.setLayoutProperty("3d-buildings", "visibility", "none");
+        }
+      }
+    });
+  }
+
+  // ── Live location ─────────────────────────────────────────
   function ensureLiveLocationSubscription() {
     if (liveLocationUnsubscribe) return;
-
     liveLocationUnsubscribe = PTT_UTILS.subscribeToLocationUpdates(function (location) {
       renderCurrentLocation(location, {
         center: isFollowingLiveLocation,
@@ -517,49 +381,38 @@ var MapManager = (function () {
     });
   }
 
-  // ── Render current location ───────────────────────────────
   function renderCurrentLocation(location, options) {
     if (!location) return null;
-
     var settings = options || {};
     var lat = parseFloat(location.lat);
     var lng = parseFloat(location.lng);
     var accuracy = Math.max(20, Math.min(Number(location.accuracy) || 80, 500));
 
-    // Create layers on first call
-    if (!currentLocationCircle) {
-      currentLocationCircle = L.circle([lat, lng], {
-        color: "rgba(66,133,244,.3)",
-        fillColor: "rgba(66,133,244,.1)",
-        fillOpacity: 1,
-        weight: 1,
-        radius: accuracy,
-        interactive: false,
-      }).addTo(map);
+    if (map.getSource && map.getSource("location-accuracy")) {
+      map.getSource("location-accuracy").setData(_createGeoJSONCircle([lng, lat], accuracy));
     }
 
     if (!currentLocationMarker) {
-      var blueDotIcon = L.divIcon({
-        html:
-          '<div class="gm-blue-dot-outer">' +
-            '<div class="gm-heading-cone" id="gm-heading-cone">' +
-              '<svg viewBox="0 0 100 100"><path d="M50 50 L22 0 Q50 12 78 0 Z" fill="rgba(66,133,244,0.38)" /></svg>' +
-            '</div>' +
-            '<div class="gm-blue-dot-ring"></div>' +
-            '<div class="gm-blue-dot-core"></div>' +
-          "</div>",
-        className: "",
-        iconSize: [22, 22],
-        iconAnchor: [11, 11],
-      });
+      var el = document.createElement("div");
+      el.innerHTML =
+        '<div class="gm-blue-dot-outer">' +
+          '<div class="gm-heading-cone" id="gm-heading-cone">' +
+            '<svg viewBox="0 0 100 100"><path d="M50 50 L22 0 Q50 12 78 0 Z" fill="rgba(66,133,244,0.38)" /></svg>' +
+          '</div>' +
+          '<div class="gm-blue-dot-ring"></div>' +
+          '<div class="gm-blue-dot-core"></div>' +
+        '</div>';
+      el.style.width = "22px";
+      el.style.height = "22px";
 
-      currentLocationMarker = L.marker([lat, lng], {
-        icon: blueDotIcon,
-        zIndexOffset: 1000,
-        interactive: false,
-      }).addTo(map);
+      currentLocationMarker = new maplibregl.Marker({ element: el, anchor: "center" })
+        .setLngLat([lng, lat])
+        .addTo(map);
 
-      // Cache the heading cone element
+      _currentLat = lat;
+      _currentLng = lng;
+      _currentRadius = accuracy;
+
       setTimeout(function () {
         headingConeElement = document.getElementById("gm-heading-cone");
         if (headingConeElement && compassEnabled && currentHeading !== null) {
@@ -567,55 +420,37 @@ var MapManager = (function () {
           headingConeElement.style.transform = "rotate(" + currentHeading + "deg)";
         }
       }, 50);
-
-      // First fix — snap, don't animate
       applyPosition(lat, lng, accuracy);
     } else if (settings.animate !== false) {
-      // Smooth glide to new position
       animateLocationUpdate(lat, lng, accuracy);
     } else {
       applyPosition(lat, lng, accuracy);
     }
 
-    // Center / follow — only when NOT during a smooth animation
-    // (the animStep handles panTo when following + animating)
     if (settings.center && !isAnimating) {
       var targetZoom = settings.zoom || PTT_CONFIG.DETAIL_ZOOM;
       if (map.getZoom() < targetZoom) {
-        // Need to zoom in — fast flyTo
-        map.flyTo([lat, lng], targetZoom, {
-          animate: true,
-          duration: 0.4,
-        });
+        map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 400 });
       } else {
-        // Already zoomed in — quick pan
-        map.panTo([lat, lng], {
-          animate: true,
-          duration: 0.3,
-          easeLinearity: 0.25,
-        });
+        map.panTo([lng, lat], { duration: 300 });
       }
     }
 
     if (settings.openPopup === true) {
-      if (!currentLocationMarker.getPopup || !currentLocationMarker.getPopup()) {
-        currentLocationMarker.bindPopup("You are here.");
-      }
-      currentLocationMarker.openPopup();
+      new maplibregl.Popup({ offset: 12, closeButton: false })
+        .setLngLat([lng, lat])
+        .setHTML("You are here.")
+        .addTo(map);
     }
-
     return location;
   }
 
-  // ── Start / stop tracking ─────────────────────────────────
   function startLiveLocationTracking(options) {
     var settings = options || {};
-
     ensureLiveLocationSubscription();
     if (typeof settings.follow === "boolean") {
       isFollowingLiveLocation = settings.follow;
     }
-
     return PTT_UTILS.startLocationWatch(settings.geolocationOptions)
       .then(function (location) {
         return renderCurrentLocation(location, {
@@ -640,13 +475,11 @@ var MapManager = (function () {
 
   // ── Station markers ───────────────────────────────────────
 
-  /** Detect if current page is an EV-filtered page */
   function isEVPage() {
     var cfg = window.PTT_PAGE_CONFIG;
     return cfg && cfg.autoSelectFilter && cfg.autoSelectFilter.item === "EV";
   }
 
-  /** Check if station has EV charger */
   function stationHasEV(station) {
     if (!station) return false;
     var op = station.other_product;
@@ -656,71 +489,82 @@ var MapManager = (function () {
     return typeof op === "string" && op.toUpperCase() === "EV";
   }
 
-  /** Create animated EV Station Pluz marker icon (2026 brand style) */
-  function createEVStationIcon(station) {
+  function _createEVMarkerElement(station) {
     var isOpen = PTT_UTILS.isStationOpen(station);
     var hasPromotions = station.promotions && station.promotions.length > 0;
     var logoSrc = PTT_CONFIG.IMAGE_BASE_URL + 'ev_marker.png';
-
-    var html =
+    var el = document.createElement("div");
+    el.innerHTML =
       '<div class="ev-marker-wrap' + (isOpen ? '' : ' ev-marker-closed') + '">' +
-        // 2 subtle ripple rings behind
-        '<div class="ev-ripple-ring"></div>' +
-        '<div class="ev-ripple-ring"></div>' +
-        // White card pin with logo
+        '<div class="ev-ripple-ring"></div><div class="ev-ripple-ring"></div>' +
         '<div class="ev-pin-body">' +
           '<img class="ev-logo-img" src="' + logoSrc + '" alt="EV" />' +
           (hasPromotions ? '<div class="ev-promo-dot"></div>' : '') +
         '</div>' +
-        // Pointer arrow
-        '<div class="ev-pin-tail"></div>' +
-        // Ground shadow
-        '<div class="ev-ground-shadow"></div>' +
+        '<div class="ev-pin-tail"></div><div class="ev-ground-shadow"></div>' +
       '</div>';
+    el.style.width = "58px";
+    el.style.height = "52px";
+    return el;
+  }
 
-    return L.divIcon({
-      html: html,
-      className: "",
-      iconSize: [58, 52],
-      iconAnchor: [29, 48],
-      popupAnchor: [0, -44],
-    });
+  function _createStationMarkerElement(station) {
+    var iconUrl = PTT_UTILS.getIconUrl(station);
+    var hasPromotions = station.promotions && station.promotions.length > 0;
+    var el = document.createElement("div");
+    el.innerHTML =
+      '<div class="custom-icon-container" style="position: relative;">' +
+      '<img src="' + iconUrl + '" alt="station status" class="station-icon" style="width: 41px; height: 62px;">' +
+      (hasPromotions
+        ? '<div class="red-dot animate" style="position:absolute;top:0;right:0;width:12px;height:12px;background-color:red;border-radius:50%;border:2px solid white;"></div>'
+        : "") +
+      '</div>';
+    el.style.width = "41px";
+    el.style.height = "62px";
+    return el;
   }
 
   function createStationIcon(station) {
-    // Use animated EV marker on EV pages for stations with EV charger
     if (isEVPage() && stationHasEV(station)) {
-      return createEVStationIcon(station);
+      return _createEVMarkerElement(station);
     }
-
-    var iconUrl = PTT_UTILS.getIconUrl(station);
-    var hasPromotions = station.promotions && station.promotions.length > 0;
-
-    return L.divIcon({
-      html:
-        '<div class="custom-icon-container" style="position: relative;">' +
-        '<img src="' + iconUrl + '" alt="station status" class="station-icon" style="width: 41px; height: 62px;">' +
-        (hasPromotions
-          ? '<div class="red-dot animate" style="position:absolute;top:0;right:0;width:12px;height:12px;background-color:red;border-radius:50%;border:2px solid white;"></div>'
-          : "") +
-        "</div>",
-      className: "",
-      iconSize: [41, 62],
-      iconAnchor: [24, 62],
-      popupAnchor: [1, -34],
-    });
+    return _createStationMarkerElement(station);
   }
 
   function buildStationMarker(station, onClick) {
-    var marker = L.marker([station.latitude, station.longitude], {
-      icon: createStationIcon(station),
-    });
+    var el = createStationIcon(station);
+
+    var mlMarker = new maplibregl.Marker({ element: el, anchor: "bottom" })
+      .setLngLat([parseFloat(station.longitude), parseFloat(station.latitude)]);
+
     if (typeof onClick === "function") {
-      marker.on("click", function () {
-        onClick(marker, station);
+      el.addEventListener("click", function (e) {
+        e.stopPropagation();
+        onClick(wrapper, station);
       });
     }
-    return marker;
+
+    // Wrapper for Leaflet API compatibility
+    var wrapper = {
+      _maplibreMarker: mlMarker,
+      _station: station,
+      getLatLng: function () {
+        var ll = mlMarker.getLngLat();
+        return { lat: ll.lat, lng: ll.lng };
+      },
+      setIcon: function (newEl) {
+        var oldEl = mlMarker.getElement();
+        oldEl.innerHTML = newEl.innerHTML;
+      },
+      openPopup: function () { /* modals used instead */ },
+      setLatLng: function (latlng) {
+        var lat2 = latlng.lat || latlng[0];
+        var lng2 = latlng.lng || latlng[1];
+        mlMarker.setLngLat([lng2, lat2]);
+      }
+    };
+
+    return wrapper;
   }
 
   function setMarkers(entries) {
@@ -729,51 +573,59 @@ var MapManager = (function () {
     entries.forEach(function (entry) {
       markers.addLayer(entry.marker);
     });
-    map.addLayer(markers);
     startMarkerAutoRefresh();
   }
 
   function startMarkerAutoRefresh() {
-    if (iconRefreshTimer) {
-      clearInterval(iconRefreshTimer);
-    }
+    if (iconRefreshTimer) clearInterval(iconRefreshTimer);
     iconRefreshTimer = setInterval(refreshStationIcons, 60 * 1000);
   }
 
   function refreshStationIcons() {
     allMarkers.forEach(function (entry) {
-      entry.marker.setIcon(createStationIcon(entry.data));
+      var newEl = createStationIcon(entry.data);
+      entry.marker.setIcon(newEl);
     });
-    if (markers && markers.refreshClusters) {
-      markers.refreshClusters();
-    }
   }
 
   function fitToAllMarkers() {
     if (!allMarkers.length) return;
-    var group = new L.featureGroup(
-      allMarkers.map(function (entry) {
-        return entry.marker;
-      })
-    );
-    map.flyToBounds(group.getBounds(), {
+    var bounds = new maplibregl.LngLatBounds();
+    allMarkers.forEach(function (entry) {
+      var ll = entry.marker.getLatLng();
+      bounds.extend([ll.lng, ll.lat]);
+    });
+    map.fitBounds(bounds, {
       animate: true,
-      duration: PTT_CONFIG.FLY_DURATION,
-      padding: [30, 30],
+      duration: PTT_CONFIG.FLY_DURATION * 1000,
+      padding: 30
     });
   }
 
   function focusMarkers(markerList) {
     if (!markerList || !markerList.length) return;
-    var group = new L.featureGroup(markerList);
-    map.flyToBounds(group.getBounds(), {
+    var bounds = new maplibregl.LngLatBounds();
+    markerList.forEach(function (m) {
+      if (m._maplibreMarker) {
+        var ll = m._maplibreMarker.getLngLat();
+        bounds.extend([ll.lng, ll.lat]);
+      } else if (m.getLatLng) {
+        var ll2 = m.getLatLng();
+        bounds.extend([ll2.lng, ll2.lat]);
+      }
+    });
+    map.fitBounds(bounds, {
       animate: true,
-      duration: PTT_CONFIG.FLY_DURATION,
+      duration: PTT_CONFIG.FLY_DURATION * 1000
     });
   }
 
   function focusLocation(lat, lng, zoom) {
-    map.setView([parseFloat(lat), parseFloat(lng)], zoom || PTT_CONFIG.DETAIL_ZOOM);
+    map.flyTo({
+      center: [parseFloat(lng), parseFloat(lat)],
+      zoom: zoom || PTT_CONFIG.DETAIL_ZOOM,
+      duration: 500
+    });
   }
 
   // ── Main entry ────────────────────────────────────────────
@@ -784,55 +636,36 @@ var MapManager = (function () {
     ensureLiveLocationSubscription();
     updateLocationButton(PTT_UTILS.getTrackingState());
 
-    // ★ FAST PATH — cached location exists → render NOW, zero delay
     var cached = PTT_UTILS.getLastKnownLocation();
     if (cached) {
       renderCurrentLocation(cached, {
-        center: true,
-        zoom: targetZoom,
-        openPopup: settings.openPopup === true,
-        animate: false,
+        center: true, zoom: targetZoom,
+        openPopup: settings.openPopup === true, animate: false,
       });
-
-      // start live watcher in background (non-blocking)
       startLiveLocationTracking({
         follow: isFollowingLiveLocation,
-        centerOnFirstFix: false,
-        openPopup: false,
-        zoom: targetZoom,
-      }).catch(function () { /* already showing cached, ignore */ });
-
+        centerOnFirstFix: false, openPopup: false, zoom: targetZoom,
+      }).catch(function () {});
       return Promise.resolve(cached);
     }
 
-    // ★ SLOW PATH — no cached location yet, must ask GPS
     return PTT_UTILS.getCurrentLocation({ preferCached: false })
       .then(function (currentLocation) {
         renderCurrentLocation(currentLocation, {
-          center: true,
-          zoom: targetZoom,
-          openPopup: settings.openPopup === true,
-          animate: false,
+          center: true, zoom: targetZoom,
+          openPopup: settings.openPopup === true, animate: false,
         });
-
         return startLiveLocationTracking({
           follow: isFollowingLiveLocation,
-          centerOnFirstFix: false,
-          openPopup: false,
-          zoom: targetZoom,
-        }).catch(function () {
-          return currentLocation;
-        });
+          centerOnFirstFix: false, openPopup: false, zoom: targetZoom,
+        }).catch(function () { return currentLocation; });
       })
       .catch(function () {
         return startLiveLocationTracking({
           follow: isFollowingLiveLocation,
           centerOnFirstFix: true,
-          openPopup: settings.openPopup === true,
-          zoom: targetZoom,
-        }).catch(function (watchError) {
-          throw watchError;
-        });
+          openPopup: settings.openPopup === true, zoom: targetZoom,
+        }).catch(function (watchError) { throw watchError; });
       })
       .catch(function (error) {
         console.error("Error getting current location:", error);
@@ -843,10 +676,8 @@ var MapManager = (function () {
       });
   }
 
-  // ── Compass — 360° Google Maps 2026 Style ──────────────────
-
+  // ── Compass ───────────────────────────────────────────────
   var DIRECTIONS = ["N","NE","E","SE","S","SW","W","NW"];
-
   function _headingToDirection(deg) {
     var idx = Math.round(((deg % 360) + 360) % 360 / 45) % 8;
     return DIRECTIONS[idx];
@@ -856,28 +687,17 @@ var MapManager = (function () {
     var settings = options || {};
     var targetZoom = settings.zoom || PTT_CONFIG.DETAIL_ZOOM;
     var cached = PTT_UTILS.getLastKnownLocation();
-
     if (cached) {
-      map.flyTo([cached.lat, cached.lng], targetZoom, {
-        animate: true,
-        duration: PTT_CONFIG.FLY_DURATION,
-      });
+      map.flyTo({ center: [cached.lng, cached.lat], zoom: targetZoom, duration: PTT_CONFIG.FLY_DURATION * 1000 });
       return Promise.resolve(cached);
     }
-
     return PTT_UTILS.getCurrentLocation()
       .then(function (loc) {
-        map.flyTo([loc.lat, loc.lng], targetZoom, {
-          animate: true,
-          duration: PTT_CONFIG.FLY_DURATION,
-        });
+        map.flyTo({ center: [loc.lng, loc.lat], zoom: targetZoom, duration: PTT_CONFIG.FLY_DURATION * 1000 });
         return loc;
       });
   }
 
-  /**
-   * Show a brief rotate hint tooltip.
-   */
   function _showRotateHint() {
     var hint = document.getElementById("rotate-hint");
     if (!hint) {
@@ -890,49 +710,12 @@ var MapManager = (function () {
     setTimeout(function () { hint.classList.remove("show"); }, 2500);
   }
 
-  /**
-   * Smoothly animate map bearing from current to target (e.g. 0 = north).
-   */
   function _animateBearingTo(targetBearing) {
-    if (!map || typeof map.setBearing !== "function") return;
-
-    var startBearing = map.getBearing ? map.getBearing() : 0;
-    var diff = targetBearing - startBearing;
-    // Normalize to shortest rotation path (-180 to 180)
-    while (diff > 180) diff -= 360;
-    while (diff < -180) diff += 360;
-
-    if (Math.abs(diff) < 0.5) {
-      map.setBearing(targetBearing);
-      _syncCompassFromBearing(targetBearing);
-      return;
-    }
-
-    var duration = 400; // ms
-    var start = performance.now();
-
-    function step(now) {
-      var elapsed = now - start;
-      var progress = Math.min(elapsed / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-      var current = startBearing + diff * eased;
-      map.setBearing(current);
-      _syncCompassFromBearing(((current % 360) + 360) % 360);
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        map.setBearing(targetBearing);
-        _syncCompassFromBearing(((targetBearing % 360) + 360) % 360);
-      }
-    }
-
-    requestAnimationFrame(step);
+    map.rotateTo(targetBearing, { duration: 400 });
   }
 
   function _createCompassWidget() {
     if (compassWidgetEl) return;
-
     compassWidgetEl = document.createElement("div");
     compassWidgetEl.id = "compass-widget";
     compassWidgetEl.innerHTML =
@@ -952,89 +735,41 @@ var MapManager = (function () {
       '</div>' +
       '<span class="compass-dir" id="compass-dir">N</span>' +
       '<span class="compass-degrees" id="compass-deg">0°</span>';
-
     document.body.appendChild(compassWidgetEl);
-
-    // Tap compass → reset rotation to North + recenter
     compassWidgetEl.addEventListener("click", function () {
-      // Smoothly reset map bearing to 0 (north up)
-      if (map && typeof map.setBearing === "function") {
-        _animateBearingTo(0);
-      }
+      _animateBearingTo(0);
       recenterToCurrentLocation().catch(function () {});
     });
   }
 
   function _updateCompassUI(deg) {
-    // ── Rotate the MAP itself to match device heading (Google Maps style) ──
-    // When compass is active and user is following live location,
-    // rotate the map so the user's heading points "up" on screen.
-    if (compassEnabled && isFollowingLiveLocation && map && typeof map.setBearing === "function") {
-      map.setBearing(deg);
+    if (compassEnabled && isFollowingLiveLocation && map) {
+      map.rotateTo(deg, { duration: 100 });
     }
-
-    // Rotate compass rose (counter-rotate so N stays pointing real north)
     var roseEl = document.getElementById("compass-rose");
-    if (roseEl) {
-      roseEl.style.transform = "rotate(" + (-deg) + "deg)";
-    }
-
-    // Direction label: N, NE, E, SE, S, SW, W, NW
+    if (roseEl) roseEl.style.transform = "rotate(" + (-deg) + "deg)";
     var dirEl = document.getElementById("compass-dir");
-    if (dirEl) {
-      dirEl.textContent = _headingToDirection(deg);
-    }
-
-    // Degree display
+    if (dirEl) dirEl.textContent = _headingToDirection(deg);
     var degEl = document.getElementById("compass-deg");
-    if (degEl) {
-      degEl.textContent = Math.round(deg) + "°";
-    }
-
-    // Blue dot heading cone
+    if (degEl) degEl.textContent = Math.round(deg) + "°";
     if (headingConeElement) {
       headingConeElement.style.transform = "rotate(" + deg + "deg)";
       if (!headingConeElement.classList.contains("active")) {
         headingConeElement.classList.add("active");
       }
     }
-
-    // Recenter button icon rotation
-    var recenterIcon = document.querySelector("#recenterBtn i");
-    if (recenterIcon) {
-      recenterIcon.style.transition = "transform .1s linear";
-      recenterIcon.style.transform = "rotate(" + deg + "deg)";
-    }
   }
 
-  /**
-   * Sync compass widget from map bearing (called when user rotates map via touch/shift-drag).
-   * This keeps compass aligned even without device orientation events.
-   */
   function _syncCompassFromBearing(bearing) {
     var deg = ((bearing % 360) + 360) % 360;
-
-    // Always show compass widget if map is rotated away from north
     if (!compassWidgetEl) _createCompassWidget();
-    if (compassWidgetEl && deg > 1) {
-      compassWidgetEl.classList.add("visible");
-    }
-
-    // Update the compass rose to reflect map rotation
+    if (compassWidgetEl && deg > 1) compassWidgetEl.classList.add("visible");
     var roseEl = document.getElementById("compass-rose");
-    if (roseEl) {
-      roseEl.style.transform = "rotate(" + (-deg) + "deg)";
-    }
+    if (roseEl) roseEl.style.transform = "rotate(" + (-deg) + "deg)";
     var dirEl = document.getElementById("compass-dir");
-    if (dirEl) {
-      dirEl.textContent = _headingToDirection(deg);
-    }
+    if (dirEl) dirEl.textContent = _headingToDirection(deg);
     var degEl = document.getElementById("compass-deg");
-    if (degEl) {
-      degEl.textContent = Math.round(deg) + "°";
-    }
-
-    // If compass is near north (< 2°) and no device heading, hide widget
+    if (degEl) degEl.textContent = Math.round(deg) + "°";
     if (deg < 2 && !compassEnabled) {
       if (compassWidgetEl) compassWidgetEl.classList.remove("visible");
     }
@@ -1042,22 +777,14 @@ var MapManager = (function () {
 
   function _onDeviceOrientation(e) {
     var heading = null;
-
-    // iOS: webkitCompassHeading (true north)
     if (typeof e.webkitCompassHeading === "number") {
       heading = e.webkitCompassHeading;
-    }
-    // Android/Chrome: absolute orientation
-    else if (e.absolute === true && typeof e.alpha === "number") {
+    } else if (e.absolute === true && typeof e.alpha === "number") {
+      heading = (360 - e.alpha) % 360;
+    } else if (typeof e.alpha === "number") {
       heading = (360 - e.alpha) % 360;
     }
-    // Fallback: relative alpha
-    else if (typeof e.alpha === "number") {
-      heading = (360 - e.alpha) % 360;
-    }
-
     if (heading === null || isNaN(heading)) return;
-
     currentHeading = Math.round(heading);
     _updateCompassUI(currentHeading);
   }
@@ -1065,13 +792,8 @@ var MapManager = (function () {
   function startCompass() {
     if (compassEnabled) return;
     compassEnabled = true;
-
     _createCompassWidget();
-    if (compassWidgetEl) {
-      compassWidgetEl.classList.add("visible");
-    }
-
-    // iOS 13+ requires user gesture permission
+    if (compassWidgetEl) compassWidgetEl.classList.add("visible");
     if (typeof DeviceOrientationEvent !== "undefined" &&
         typeof DeviceOrientationEvent.requestPermission === "function") {
       DeviceOrientationEvent.requestPermission()
@@ -1084,53 +806,33 @@ var MapManager = (function () {
           }
         })
         .catch(function () {
-          console.warn("Compass permission denied");
           compassEnabled = false;
           if (compassWidgetEl) compassWidgetEl.classList.remove("visible");
         });
     } else if ("DeviceOrientationEvent" in window) {
       window.addEventListener("deviceorientation", _onDeviceOrientation, true);
     }
-
-    if (headingConeElement) {
-      headingConeElement.classList.add("active");
-    }
+    if (headingConeElement) headingConeElement.classList.add("active");
   }
 
   function stopCompass() {
     compassEnabled = false;
     currentHeading = null;
     window.removeEventListener("deviceorientation", _onDeviceOrientation, true);
-
-    if (compassWidgetEl) {
-      compassWidgetEl.classList.remove("visible");
-    }
-    if (headingConeElement) {
-      headingConeElement.classList.remove("active");
-    }
+    if (compassWidgetEl) compassWidgetEl.classList.remove("visible");
+    if (headingConeElement) headingConeElement.classList.remove("active");
     var dirEl = document.getElementById("compass-dir");
     if (dirEl) dirEl.textContent = "N";
     var degEl = document.getElementById("compass-deg");
     if (degEl) degEl.textContent = "0°";
-
-    var recenterIcon = document.querySelector("#recenterBtn i");
-    if (recenterIcon) {
-      recenterIcon.style.transform = "rotate(0deg)";
-    }
   }
 
   function toggleCompass() {
-    if (compassEnabled) {
-      stopCompass();
-    } else {
-      startCompass();
-    }
+    if (compassEnabled) stopCompass(); else startCompass();
     return compassEnabled;
   }
 
-  function isCompassEnabled() {
-    return compassEnabled;
-  }
+  function isCompassEnabled() { return compassEnabled; }
 
   return {
     init: init,
@@ -1149,13 +851,8 @@ var MapManager = (function () {
     stopCompass: stopCompass,
     toggleCompass: toggleCompass,
     isCompassEnabled: isCompassEnabled,
-    // ── 360° rotation API ──
-    setBearing: function (deg) {
-      if (map && typeof map.setBearing === "function") map.setBearing(deg);
-    },
-    getBearing: function () {
-      return (map && typeof map.getBearing === "function") ? map.getBearing() : 0;
-    },
+    setBearing: function (deg) { if (map) map.rotateTo(deg, { duration: 100 }); },
+    getBearing: function () { return map ? map.getBearing() : 0; },
     resetBearing: function () { _animateBearingTo(0); },
   };
 })();

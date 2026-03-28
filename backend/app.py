@@ -724,14 +724,32 @@ def bulk_delete_markers(file_key):
 # ── Oil Price Proxy ──────────────────────────────────────────
 OIL_PRICE_API = "https://apioilprice.orsptt.space/api/oil-prices"
 
+
+def no_cache_json_response(payload, status_code=200):
+    response = jsonify(payload)
+    response.status_code = status_code
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    response.headers["Surrogate-Control"] = "no-store"
+    return response
+
 @app.route("/api/oil-prices", methods=["GET"])
 def proxy_oil_prices():
     """Proxy the external oil-price API to avoid CORS issues."""
     try:
-        resp = http_requests.get(OIL_PRICE_API, timeout=10)
-        return jsonify(resp.json()), resp.status_code
+        resp = http_requests.get(
+            OIL_PRICE_API,
+            timeout=10,
+            headers={
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
+                "Accept": "application/json",
+            },
+        )
+        return no_cache_json_response(resp.json(), resp.status_code)
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 502
+        return no_cache_json_response({"success": False, "error": str(e)}, 502)
 
 
 if __name__ == "__main__":

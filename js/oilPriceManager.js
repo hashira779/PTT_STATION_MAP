@@ -10,13 +10,15 @@ var OilPriceManager = (function () {
   "use strict";
 
   var API_URL = "https://apioilprice.orsptt.space/api/oil-prices";
-  var PROXY_URL = "/api/oil-prices";
-  var REFRESH_INTERVAL = 10 * 1000;
+  var VISIBLE_REFRESH_INTERVAL = 10 * 1000;
+  var HIDDEN_REFRESH_INTERVAL = 30 * 1000;
   var refreshTimer = null;
+  var activeFetchPromise = null;
   var widgetEl = null;
   var modalEl = null;
   var cssInjected = false;
   var lastData = null;
+  var lastRenderedSignature = "";
 
   // Fuel display config
   var FUEL_CONFIG = {
@@ -259,7 +261,13 @@ var OilPriceManager = (function () {
 
   // ── Render prices ─────────────────────────────────────────
   function renderPrices(data) {
+    var nextSignature = JSON.stringify(data || {});
+    if (lastRenderedSignature === nextSignature) {
+      return;
+    }
+
     lastData = data;
+    lastRenderedSignature = nextSignature;
     var body = document.getElementById("opw-body");
     if (!body) return;
 
@@ -330,7 +338,7 @@ var OilPriceManager = (function () {
 
   function renderError() {
     var body = document.getElementById("opw-body");
-    if (!body) return;
+    if (!body || lastData) return;
     body.innerHTML =
       '<div class="opw-modal-error">' +
         '<i class="fas fa-exclamation-triangle"></i> Unable to load prices' +
@@ -340,44 +348,110 @@ var OilPriceManager = (function () {
   }
 
   // ── Fetch data ────────────────────────────────────────────
+  function buildFreshUrl(url) {
+    var sep = url.indexOf("?") === -1 ? "?" : "&";
+    return url + sep + "_ts=" + Date.now();
+  }
+
   function fetchFromUrl(url) {
-    return fetch(url)
+    return fetch(buildFreshUrl(url), {
+      cache: "no-store",
+      headers: {
+        "Accept": "application/json",
+        "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+      }
+    })
       .then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
       });
   }
 
+  function getRefreshInterval() {
+    return document.hidden ? HIDDEN_REFRESH_INTERVAL : VISIBLE_REFRESH_INTERVAL;
+  }
+
+  function stopAutoRefresh() {
+    if (refreshTimer) {
+      clearTimeout(refreshTimer);
+      refreshTimer = null;
+    }
+  }
+
+  function scheduleNextRefresh(delay) {
+    stopAutoRefresh();
+    refreshTimer = setTimeout(function () {
+      fetchPrices().finally(function () {
+        scheduleNextRefresh(getRefreshInterval());
+      });
+    }, Math.max(1000, delay || getRefreshInterval()));
+  }
+
+  function startAutoRefresh() {
+    scheduleNextRefresh(getRefreshInterval());
+  }
+
   function fetchPrices() {
-    return fetchFromUrl(PROXY_URL)
-      .catch(function () {
-        return fetchFromUrl(API_URL);
-      })
+    if (activeFetchPromise) {
+      return activeFetchPromise;
+    }
+
+    activeFetchPromise = fetchFromUrl(API_URL)
       .then(function (json) {
         if (json.success && json.data) {
           renderPrices(json.data);
+          return json.data;
         } else {
           renderError();
+          throw new Error("Invalid oil price response.");
         }
       })
       .catch(function (err) {
         console.error("Oil price fetch error:", err);
         renderError();
+        throw err;
+      })
+      .finally(function () {
+        activeFetchPromise = null;
       });
+
+    return activeFetchPromise;
+  }
+
+  function refresh(options) {
+    var settings = options || {};
+    if (settings.restartTimer !== false) {
+      startAutoRefresh();
+    }
+    return fetchPrices();
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      startAutoRefresh();
+      return Promise.resolve();
+    }
+    return refresh({ restartTimer: true }).catch(function () {
+      return null;
+    });
   }
 
   // ── Public ────────────────────────────────────────────────
   function init() {
     injectCSS();
     createWidget();
-    fetchPrices();
-
-    if (refreshTimer) clearInterval(refreshTimer);
-    refreshTimer = setInterval(fetchPrices, REFRESH_INTERVAL);
+    refresh({ restartTimer: false }).catch(function () {
+      return null;
+    });
+    startAutoRefresh();
   }
 
   return {
     init: init,
-    refresh: fetchPrices,
+    refresh: refresh,
+    handleVisibilityChange: handleVisibilityChange,
+    stopAutoRefresh: stopAutoRefresh,
   };
 })();

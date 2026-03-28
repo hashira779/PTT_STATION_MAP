@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-site-cache-v1';
+const CACHE_NAME = 'my-site-cache-v2';
 const urlsToCache = [
   '/MAPTT_0114/',
 //   '/MAPTT_0114/styles/main.css',
@@ -15,19 +15,39 @@ self.addEventListener('install', function(event) {
         return cache.addAll(urlsToCache);
       })
   );
+  self.skipWaiting();
 });
 
 // Fetch event
 self.addEventListener('fetch', function(event) {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  const requestUrl = new URL(event.request.url);
+  const isOilPriceApi = requestUrl.pathname.indexOf('/api/oil-prices') !== -1;
+  const isApiRequest = requestUrl.pathname.indexOf('/api/') !== -1;
+  const hasNoCacheParam = requestUrl.searchParams.has('nocache') || requestUrl.searchParams.has('_ts');
+
+  if (isOilPriceApi || isApiRequest || hasNoCacheParam) {
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
+    return;
+  }
+
+  const isPrecachedAsset = urlsToCache.indexOf(requestUrl.pathname) !== -1;
+
+  if (!isPrecachedAsset) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
+    caches.match(event.request).then(function(response) {
+      if (response) {
+        return response;
       }
-    )
+      return fetch(event.request);
+    })
   );
 });
 
@@ -40,7 +60,9 @@ self.addEventListener('activate', function(event) {
         if (cacheWhitelist.indexOf(key) === -1) {
           return caches.delete(key);
         }
-      }));
+      })).then(function() {
+        return self.clients.claim();
+      });
     })
   );
 });

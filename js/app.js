@@ -47,8 +47,29 @@
       }
     }
 
+    function refreshOilPrices() {
+      if (!window.OilPriceManager || typeof OilPriceManager.refresh !== "function") {
+        return;
+      }
+      OilPriceManager.refresh().catch(function () {
+        return null;
+      });
+    }
+
     window.addEventListener("pagehide", stopLiveLocation);
     window.addEventListener("beforeunload", stopLiveLocation);
+    window.addEventListener("focus", refreshOilPrices);
+    window.addEventListener("online", refreshOilPrices);
+    document.addEventListener("visibilitychange", function () {
+      if (window.OilPriceManager && typeof OilPriceManager.handleVisibilityChange === "function") {
+        OilPriceManager.handleVisibilityChange();
+        return;
+      }
+
+      if (!document.hidden) {
+        refreshOilPrices();
+      }
+    });
   }
 
   function _loadStations() {

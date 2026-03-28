@@ -37,7 +37,7 @@ var OilPriceManager = (function () {
         "position:fixed;top:12px;left:12px;z-index:1100;" +
         "font-family:'Inter',system-ui,-apple-system,sans-serif;" +
         "animation:opw-pop .4s cubic-bezier(.22,1,.36,1) both;" +
-        "pointer-events:auto;user-select:none;cursor:pointer;" +
+        "pointer-events:auto;-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:pointer;" +
       "}" +
       "@keyframes opw-pop{" +
         "0%{opacity:0;transform:translateY(-8px) scale(.9);}" +

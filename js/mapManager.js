@@ -1,52 +1,74 @@
 /**
  * ============================================================
  *  PTT Station Map — Map Manager (MapLibre GL JS + 3D Buildings)
- *  Owns MapLibre map state, DOM markers, and location UI.
- *  Smooth live-location like Google Maps blue dot.
- *  Exposes legacy globals: map, markers (stub), allMarkers
+ *  Google-Maps-style 3-state location tracking:
+ *    OFF → CENTERED → COMPASS → OFF
+ *  Smooth, non-blocking — user can always zoom/pinch.
  *  Depends on: config.js, utils.js
  * ============================================================
  */
 var map;
-var markers;   // legacy stub — now a plain object with helper methods
+var markers;
 var allMarkers = [];
 
 var MapManager = (function () {
   "use strict";
 
+  // ── Core state ──────────────────────────────────────────────
   var currentLocationMarker = null;
-  var iconRefreshTimer = null;
+  var currentLocationPopup  = null;
+  var iconRefreshTimer      = null;
   var liveLocationUnsubscribe = null;
-  var isFollowingLiveLocation = false;
   var trackingStateUnsubscribe = null;
   var cssInjected = false;
   var is3DEnabled = false;
 
-  // Store all DOM markers for management
   var _domMarkers = [];
 
-  // ── Compass heading state ─────────────────────────────────
-  var currentHeading = null;
-  var compassEnabled = false;
-  var headingConeElement = null;
-  var compassWidgetEl = null;
+  // ── 3-state location mode  (like Google Maps) ──────────────
+  //  "off"      — not tracking
+  //  "centered" — blue dot visible, map follows position, no rotation
+  //  "compass"  — follows position AND rotates map to heading
+  var _locationMode = "off";
 
-  // ── Smooth animation state ────────────────────────────────
-  var animFrameId = null;
+  // ── Compass heading ─────────────────────────────────────────
+  var currentHeading       = null;
+  var compassEnabled       = false;
+  var headingConeElement   = null;
+  var compassWidgetEl      = null;
+  var _lastCompassApply    = 0;
+  var COMPASS_THROTTLE_MS  = 60;
+
+  // ── Smooth dot animation ────────────────────────────────────
+  var animFrameId   = null;
   var animStartTime = 0;
   var ANIM_DURATION = 600;
   var animFrom = { lat: 0, lng: 0, radius: 0 };
-  var animTo = { lat: 0, lng: 0, radius: 0 };
+  var animTo   = { lat: 0, lng: 0, radius: 0 };
   var isAnimating = false;
 
-  // ── Current location state ────────────────────────────────
-  var _currentLat = 0;
-  var _currentLng = 0;
+  // ── Current position cache ──────────────────────────────────
+  var _currentLat    = 0;
+  var _currentLng    = 0;
   var _currentRadius = 0;
+  var _isLocating    = false;
 
+  // ── User-interaction guard ──────────────────────────────────
+  // When user drags/pans we exit following. Zoom is allowed.
+  var _userDragging       = false;
+  var _dragEndTimer       = null;
+  var DRAG_COOLDOWN_MS    = 250;
+  var _userMovedSinceLocateStart = false;
+
+  // ────────────────────────────────────────────────────────────
+  //  Math helpers
+  // ────────────────────────────────────────────────────────────
   function lerp(a, b, t) { return a + (b - a) * t; }
   function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
+  // ────────────────────────────────────────────────────────────
+  //  Smooth blue-dot position animation
+  // ────────────────────────────────────────────────────────────
   function animateLocationUpdate(toLat, toLng, toRadius) {
     animFrom.lat = _currentLat;
     animFrom.lng = _currentLng;
@@ -68,14 +90,16 @@ var MapManager = (function () {
   }
 
   function animStep(now) {
-    var elapsed = now - animStartTime;
+    var elapsed  = now - animStartTime;
     var progress = Math.min(elapsed / ANIM_DURATION, 1);
-    var eased = easeOutCubic(progress);
+    var eased    = easeOutCubic(progress);
     var lat = lerp(animFrom.lat, animTo.lat, eased);
     var lng = lerp(animFrom.lng, animTo.lng, eased);
     var rad = lerp(animFrom.radius, animTo.radius, eased);
     applyPosition(lat, lng, rad);
-    if (isFollowingLiveLocation && map) {
+
+    // Only pan when in centered/compass AND user isn't dragging
+    if (_locationMode !== "off" && map && !_userDragging) {
       map.panTo([lng, lat], { animate: false });
     }
     if (progress < 1) {
@@ -94,16 +118,12 @@ var MapManager = (function () {
       currentLocationMarker.setLngLat([lng, lat]);
     }
     if (map && map.getSource && map.getSource("location-accuracy")) {
-      var circle = _createGeoJSONCircle([lng, lat], radius);
-      map.getSource("location-accuracy").setData(circle);
+      map.getSource("location-accuracy").setData(_createGeoJSONCircle([lng, lat], radius));
     }
   }
 
   function cancelAnimation() {
-    if (animFrameId) {
-      cancelAnimationFrame(animFrameId);
-      animFrameId = null;
-    }
+    if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
     isAnimating = false;
   }
 
@@ -120,33 +140,58 @@ var MapManager = (function () {
     return { type: "Feature", geometry: { type: "Polygon", coordinates: [coords] }, properties: {} };
   }
 
-  // ── CSS Injection ─────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  CSS Injection
+  // ────────────────────────────────────────────────────────────
   function injectTrackingCSS() {
     if (cssInjected) return;
     cssInjected = true;
     var style = document.createElement("style");
     style.textContent =
+      /* Blue dot */
       ".gm-blue-dot-outer{width:22px;height:22px;position:relative;display:flex;align-items:center;justify-content:center;}" +
       ".gm-blue-dot-ring{position:absolute;width:22px;height:22px;border-radius:50%;background:rgba(66,133,244,.18);animation:gm-ring-pulse 2s ease-out infinite;}" +
       ".gm-blue-dot-core{width:14px;height:14px;border-radius:50%;background:#4285F4;border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);position:relative;z-index:1;}" +
       "@keyframes gm-ring-pulse{0%{transform:scale(1);opacity:.7;}100%{transform:scale(3);opacity:0;}}" +
-      ".gm-heading-cone{position:absolute;top:50%;left:50%;width:80px;height:80px;margin-left:-40px;margin-top:-40px;pointer-events:none;z-index:0;transition:transform .1s linear,opacity .3s;opacity:0;}" +
+
+      /* Heading cone — CSS transition for smooth rotation */
+      ".gm-heading-cone{position:absolute;top:50%;left:50%;width:80px;height:80px;margin-left:-40px;margin-top:-40px;pointer-events:none;z-index:0;" +
+        "transition:transform .15s linear,opacity .3s;opacity:0;will-change:transform;}" +
       ".gm-heading-cone.active{opacity:1;}" +
       ".gm-heading-cone svg{width:100%;height:100%;}" +
-      "#compass-widget{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 88px);left:12px;right:auto;z-index:1060;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.6);transition:all .4s cubic-bezier(.22,1,.36,1);pointer-events:none;}" +
+
+      /* Compass widget */
+      "#compass-widget{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 88px);left:12px;right:auto;z-index:1060;" +
+        "width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);" +
+        "border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);" +
+        "cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none;" +
+        "display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.6);" +
+        "transition:all .4s cubic-bezier(.22,1,.36,1);pointer-events:none;}" +
       "#compass-widget.visible{opacity:1;transform:scale(1);pointer-events:auto;}" +
       "#compass-widget:hover{box-shadow:0 6px 28px rgba(0,0,0,0.14);transform:scale(1.06);}" +
       "#compass-widget:active{transform:scale(0.94);}" +
-      ".compass-rose{width:46px;height:46px;position:relative;transition:transform .1s linear;}" +
+      ".compass-rose{width:46px;height:46px;position:relative;transition:transform .15s linear;will-change:transform;}" +
       ".compass-rose svg{width:100%;height:100%;}" +
-      ".compass-dir{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.5px;color:#1e40af;font-family:'Inter',system-ui,sans-serif;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);padding:1px 6px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);white-space:nowrap;line-height:1.4;opacity:0;transition:opacity .3s;}" +
+      ".compass-dir{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;" +
+        "letter-spacing:.5px;color:#1e40af;font-family:'Inter',system-ui,sans-serif;background:rgba(255,255,255,0.9);" +
+        "backdrop-filter:blur(8px);padding:1px 6px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);" +
+        "white-space:nowrap;line-height:1.4;opacity:0;transition:opacity .3s;}" +
       "#compass-widget.visible .compass-dir{opacity:1;}" +
-      ".compass-degrees{position:absolute;bottom:-32px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:600;color:#94a3b8;font-family:'Inter',system-ui,sans-serif;white-space:nowrap;line-height:1;opacity:0;transition:opacity .3s;}" +
+      ".compass-degrees{position:absolute;bottom:-32px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:600;" +
+        "color:#94a3b8;font-family:'Inter',system-ui,sans-serif;white-space:nowrap;line-height:1;opacity:0;transition:opacity .3s;}" +
       "#compass-widget.visible .compass-degrees{opacity:0.7;}" +
       "@media(max-width:480px){#compass-widget{top:calc(env(safe-area-inset-top, 0px) + 76px);left:10px;width:52px;height:52px;}}" +
-      "#rotate-hint{position:fixed;top:50%;left:50%;z-index:1100;transform:translate(-50%,-50%);background:rgba(15,23,42,.75);backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:600;font-family:'Inter',system-ui,sans-serif;padding:10px 20px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .4s;}" +
+
+      /* Rotate hint toast */
+      "#rotate-hint{position:fixed;top:50%;left:50%;z-index:1100;transform:translate(-50%,-50%);" +
+        "background:rgba(15,23,42,.75);backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:600;" +
+        "font-family:'Inter',system-ui,sans-serif;padding:10px 20px;border-radius:12px;" +
+        "box-shadow:0 4px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .4s;}" +
       "#rotate-hint.show{opacity:1;}" +
       "#rotate-hint i{margin-right:6px;}" +
+
+      /* Location button states (Google Maps colours) */
+      "#myLocationBtn i{color:#2563eb;transition:color .2s,transform .2s;}" +
       "#myLocationBtn.loc-active{background-color:#dbeafe !important;border:2px solid #3b82f6 !important;}" +
       "#myLocationBtn.loc-active i{color:#2563eb !important;}" +
       "#myLocationBtn.loc-searching{background-color:#fef9c3 !important;border:2px solid #f59e0b !important;}" +
@@ -156,6 +201,10 @@ var MapManager = (function () {
       "#myLocationBtn.loc-error i{color:#dc2626 !important;}" +
       "#myLocationBtn.loc-following{background-color:#3b82f6 !important;border:2px solid #1d4ed8 !important;}" +
       "#myLocationBtn.loc-following i{color:#fff !important;}" +
+      "#myLocationBtn.loc-compass{background-color:#1d4ed8 !important;border:2px solid #1e3a8a !important;}" +
+      "#myLocationBtn.loc-compass i{color:#fff !important;}" +
+
+      /* EV markers */
       ".ev-marker-wrap{position:relative;width:58px;height:52px;display:flex;flex-direction:column;align-items:center;animation:ev-drop-in .4s cubic-bezier(.22,1.15,.64,1) both;}" +
       "@keyframes ev-drop-in{0%{opacity:0;transform:translateY(-28px) scale(.3);}100%{opacity:1;transform:translateY(0) scale(1);}}" +
       ".ev-ripple-ring{position:absolute;top:16px;left:50%;width:38px;height:38px;margin-left:-19px;margin-top:-19px;border-radius:50%;border:2px solid rgba(51,195,240,.4);animation:ev-ripple 2.8s ease-out infinite;pointer-events:none;z-index:0;}" +
@@ -176,25 +225,33 @@ var MapManager = (function () {
     document.head.appendChild(style);
   }
 
+  // ────────────────────────────────────────────────────────────
+  //  Location-button UI
+  // ────────────────────────────────────────────────────────────
   function createGPSBadge() { return; }
   function updateGPSBadge() { return; }
 
   function updateLocationButton(state) {
     var btn = document.getElementById("myLocationBtn");
     if (!btn) return;
-    btn.classList.remove("loc-active", "loc-searching", "loc-error", "loc-following");
-    if (state === "active" && isFollowingLiveLocation) {
-      btn.classList.add("loc-following");
-    } else if (state === "active") {
-      btn.classList.add("loc-active");
-    } else if (state === "searching") {
+    btn.classList.remove("loc-active", "loc-searching", "loc-error", "loc-following", "loc-compass");
+
+    if (state === "searching") {
       btn.classList.add("loc-searching");
     } else if (state === "error") {
       btn.classList.add("loc-error");
+    } else if (_locationMode === "compass") {
+      btn.classList.add("loc-compass");
+    } else if (_locationMode === "centered") {
+      btn.classList.add("loc-following");
+    } else if (state === "active") {
+      btn.classList.add("loc-active");
     }
   }
 
-  // ── Init ──────────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  Init
+  // ────────────────────────────────────────────────────────────
   function init() {
     injectTrackingCSS();
 
@@ -219,13 +276,7 @@ var MapManager = (function () {
           }
         },
         layers: [
-          {
-            id: "osm-raster",
-            type: "raster",
-            source: "osm-tiles",
-            minzoom: 0,
-            maxzoom: 19
-          }
+          { id: "osm-raster", type: "raster", source: "osm-tiles", minzoom: 0, maxzoom: 19 }
         ],
         glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf"
       },
@@ -239,13 +290,12 @@ var MapManager = (function () {
       dragRotate: true
     });
 
-    // No zoom/compass controls — clean map like Google Maps app
-
     map.on("load", function () {
       _add3DBuildingLayer();
       _addLocationAccuracyLayer();
     });
 
+    // Compass widget sync on manual rotate
     var rotateHintShown = false;
     map.on("rotate", function () {
       var bearing = map.getBearing();
@@ -261,12 +311,29 @@ var MapManager = (function () {
 
     markers = _createMarkersStub();
 
+    // ── Interaction: ONLY drag/pan breaks following ──
+    // Zoom & pinch are allowed while following (like Google Maps)
     map.on("dragstart", function () {
-      if (currentLocationMarker) {
-        isFollowingLiveLocation = false;
-        updateLocationButton(PTT_UTILS.getTrackingState());
+      _userDragging = true;
+      _userMovedSinceLocateStart = true;
+      if (_dragEndTimer) { clearTimeout(_dragEndTimer); _dragEndTimer = null; }
+      if (_locationMode !== "off") {
+        _setLocationMode("off");
       }
     });
+    map.on("dragend", function () {
+      if (_dragEndTimer) clearTimeout(_dragEndTimer);
+      _dragEndTimer = setTimeout(function () { _userDragging = false; }, DRAG_COOLDOWN_MS);
+    });
+
+    // Track user-initiated zoom/pinch so we can skip auto-center
+    var _mapEl = map.getContainer();
+    _mapEl.addEventListener("wheel", function () {
+      _userMovedSinceLocateStart = true;
+    }, { passive: true });
+    _mapEl.addEventListener("touchmove", function () {
+      _userMovedSinceLocateStart = true;
+    }, { passive: true });
 
     createGPSBadge();
     trackingStateUnsubscribe = PTT_UTILS.subscribeToTrackingState(function (state) {
@@ -283,7 +350,36 @@ var MapManager = (function () {
     _bind3DToggle();
   }
 
-  // ── Legacy markers stub ───────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  3-state location mode (Google Maps style)
+  //  off → centered → compass → off
+  // ────────────────────────────────────────────────────────────
+  function _setLocationMode(newMode) {
+    var prev = _locationMode;
+    _locationMode = newMode;
+
+    if (newMode === "off") {
+      if (prev === "compass") {
+        stopCompass();
+        map.rotateTo(0, { duration: 400 });
+      }
+    } else if (newMode === "centered") {
+      if (prev === "compass") {
+        stopCompass();
+        map.rotateTo(0, { duration: 400 });
+      }
+    } else if (newMode === "compass") {
+      startCompass();
+    }
+
+    updateLocationButton(PTT_UTILS.getTrackingState());
+  }
+
+  function getLocationMode() { return _locationMode; }
+
+  // ────────────────────────────────────────────────────────────
+  //  Legacy markers stub
+  // ────────────────────────────────────────────────────────────
   function _createMarkersStub() {
     return {
       clearLayers: function () {
@@ -300,7 +396,9 @@ var MapManager = (function () {
     };
   }
 
-  // ── 3D Building Layer ─────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  3D Building Layer
+  // ────────────────────────────────────────────────────────────
   function _add3DBuildingLayer() {
     if (!map.getSource("openmaptiles")) return;
     map.addLayer({
@@ -347,7 +445,9 @@ var MapManager = (function () {
     });
   }
 
-  // ── 3D Toggle ─────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  3D Toggle
+  // ────────────────────────────────────────────────────────────
   function _bind3DToggle() {
     var btn = document.getElementById("toggle3DBtn");
     if (!btn) return;
@@ -368,12 +468,14 @@ var MapManager = (function () {
     });
   }
 
-  // ── Live location ─────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  Live location subscription
+  // ────────────────────────────────────────────────────────────
   function ensureLiveLocationSubscription() {
     if (liveLocationUnsubscribe) return;
     liveLocationUnsubscribe = PTT_UTILS.subscribeToLocationUpdates(function (location) {
       renderCurrentLocation(location, {
-        center: isFollowingLiveLocation,
+        center: _locationMode !== "off",
         zoom: map.getZoom() < PTT_CONFIG.DETAIL_ZOOM ? PTT_CONFIG.DETAIL_ZOOM : map.getZoom(),
         openPopup: false,
         animate: true,
@@ -381,6 +483,9 @@ var MapManager = (function () {
     });
   }
 
+  // ────────────────────────────────────────────────────────────
+  //  Render blue dot + optional center/popup
+  // ────────────────────────────────────────────────────────────
   function renderCurrentLocation(location, options) {
     if (!location) return null;
     var settings = options || {};
@@ -427,7 +532,8 @@ var MapManager = (function () {
       applyPosition(lat, lng, accuracy);
     }
 
-    if (settings.center && !isAnimating) {
+    // Center map — only when mode is centered/compass AND user isn't dragging
+    if (settings.center && !isAnimating && !_userDragging) {
       var targetZoom = settings.zoom || PTT_CONFIG.DETAIL_ZOOM;
       if (map.getZoom() < targetZoom) {
         map.flyTo({ center: [lng, lat], zoom: targetZoom, duration: 400 });
@@ -436,8 +542,13 @@ var MapManager = (function () {
       }
     }
 
+    // Popup (only on first locate, not re-clicks)
     if (settings.openPopup === true) {
-      new maplibregl.Popup({ offset: 12, closeButton: false })
+      if (currentLocationPopup) {
+        currentLocationPopup.remove();
+        currentLocationPopup = null;
+      }
+      currentLocationPopup = new maplibregl.Popup({ offset: 12, closeButton: false })
         .setLngLat([lng, lat])
         .setHTML("You are here.")
         .addTo(map);
@@ -445,12 +556,12 @@ var MapManager = (function () {
     return location;
   }
 
+  // ────────────────────────────────────────────────────────────
+  //  Live tracking start / stop
+  // ────────────────────────────────────────────────────────────
   function startLiveLocationTracking(options) {
     var settings = options || {};
     ensureLiveLocationSubscription();
-    if (typeof settings.follow === "boolean") {
-      isFollowingLiveLocation = settings.follow;
-    }
     return PTT_UTILS.startLocationWatch(settings.geolocationOptions)
       .then(function (location) {
         return renderCurrentLocation(location, {
@@ -464,17 +575,22 @@ var MapManager = (function () {
 
   function stopLiveLocationTracking() {
     cancelAnimation();
+    _isLocating = false;
     PTT_UTILS.stopLocationWatch();
     if (liveLocationUnsubscribe) {
       liveLocationUnsubscribe();
       liveLocationUnsubscribe = null;
     }
-    isFollowingLiveLocation = false;
-    updateLocationButton("idle");
+    if (currentLocationPopup) {
+      currentLocationPopup.remove();
+      currentLocationPopup = null;
+    }
+    _setLocationMode("off");
   }
 
-  // ── Station markers ───────────────────────────────────────
-
+  // ────────────────────────────────────────────────────────────
+  //  Station markers
+  // ────────────────────────────────────────────────────────────
   function isEVPage() {
     var cfg = window.PTT_PAGE_CONFIG;
     return cfg && cfg.autoSelectFilter && cfg.autoSelectFilter.item === "EV";
@@ -544,7 +660,6 @@ var MapManager = (function () {
       });
     }
 
-    // Wrapper for Leaflet API compatibility
     var wrapper = {
       _maplibreMarker: mlMarker,
       _station: station,
@@ -556,7 +671,7 @@ var MapManager = (function () {
         var oldEl = mlMarker.getElement();
         oldEl.innerHTML = newEl.innerHTML;
       },
-      openPopup: function () { /* modals used instead */ },
+      openPopup: function () { },
       setLatLng: function (latlng) {
         var lat2 = latlng.lat || latlng[0];
         var lng2 = latlng.lng || latlng[1];
@@ -628,55 +743,128 @@ var MapManager = (function () {
     });
   }
 
-  // ── Main entry ────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  Main entry — setMapToCurrentLocation
+  //  Called on button click (via app.js) and on boot (silent).
+  // ────────────────────────────────────────────────────────────
   function setMapToCurrentLocation(options) {
     var settings = options || {};
     var targetZoom = settings.zoom || PTT_CONFIG.DETAIL_ZOOM;
-    isFollowingLiveLocation = settings.follow === true;
-    ensureLiveLocationSubscription();
-    updateLocationButton(PTT_UTILS.getTrackingState());
 
+    // ── Cycle mode on re-click when marker already exists ──
+    if (currentLocationMarker && (_currentLat || _currentLng)) {
+      if (settings.follow) {
+        // Button was tapped — cycle: off → centered → compass → off
+        if (_locationMode === "off") {
+          _setLocationMode("centered");
+          ensureLiveLocationSubscription();
+        } else if (_locationMode === "centered") {
+          _setLocationMode("compass");
+        } else {
+          // compass → off
+          _setLocationMode("off");
+          return Promise.resolve({ lat: _currentLat, lng: _currentLng });
+        }
+      }
+      // Fly / pan to current position
+      _userDragging = false;
+      if (map.getZoom() < targetZoom) {
+        map.flyTo({ center: [_currentLng, _currentLat], zoom: targetZoom, duration: 400 });
+      } else {
+        map.panTo([_currentLng, _currentLat], { duration: 300 });
+      }
+      return Promise.resolve({ lat: _currentLat, lng: _currentLng });
+    }
+
+    // ── Allow button click to override a pending silent/boot locate ──
+    if (_isLocating) {
+      if (settings.follow) {
+        // User tapped button while background locate is pending — take over
+        _isLocating = false;
+        // Fall through to start a fresh locate with follow mode
+      } else {
+        return Promise.resolve(null);
+      }
+    }
+
+    _isLocating = true;
+    _userMovedSinceLocateStart = false;
+    updateLocationButton("searching");
+
+    // Set mode to centered for follow (button click)
+    if (settings.follow) {
+      _locationMode = "centered";
+    }
+    ensureLiveLocationSubscription();
+
+    // ── Try cached location first for instant feedback ──
     var cached = PTT_UTILS.getLastKnownLocation();
     if (cached) {
+      _isLocating = false;
       renderCurrentLocation(cached, {
-        center: true, zoom: targetZoom,
-        openPopup: settings.openPopup === true, animate: false,
+        center: settings.follow === true,
+        zoom: targetZoom,
+        openPopup: settings.openPopup === true,
+        animate: false,
       });
+      updateLocationButton("active");
       startLiveLocationTracking({
-        follow: isFollowingLiveLocation,
         centerOnFirstFix: false, openPopup: false, zoom: targetZoom,
       }).catch(function () {});
       return Promise.resolve(cached);
     }
 
-    return PTT_UTILS.getCurrentLocation({ preferCached: false })
-      .then(function (currentLocation) {
-        renderCurrentLocation(currentLocation, {
-          center: true, zoom: targetZoom,
-          openPopup: settings.openPopup === true, animate: false,
-        });
-        return startLiveLocationTracking({
-          follow: isFollowingLiveLocation,
-          centerOnFirstFix: false, openPopup: false, zoom: targetZoom,
-        }).catch(function () { return currentLocation; });
-      })
-      .catch(function () {
-        return startLiveLocationTracking({
-          follow: isFollowingLiveLocation,
-          centerOnFirstFix: true,
-          openPopup: settings.openPopup === true, zoom: targetZoom,
-        }).catch(function (watchError) { throw watchError; });
-      })
-      .catch(function (error) {
-        console.error("Error getting current location:", error);
-        if (!settings.silent) {
-          alert("Error getting your location. Please try again later.");
+    // ── Use watchPosition directly — skip redundant getCurrentPosition ──
+    // This is faster (single GPS call) and truly non-blocking.
+    // The user can freely zoom, pan, and explore while the GPS fix arrives.
+    return startLiveLocationTracking({
+      centerOnFirstFix: false,
+      openPopup: false,
+      zoom: targetZoom,
+    }).then(function (location) {
+      _isLocating = false;
+
+      // Decide whether to auto-center the map:
+      //  • follow mode: the live subscription already handles centering
+      //    (because _locationMode is "centered", renderCurrentLocation pans)
+      //  • non-follow, non-silent: center only if user hasn't interacted
+      //  • silent (boot): never auto-center — just place the blue dot
+      if (!settings.follow && !settings.silent && !_userMovedSinceLocateStart && location) {
+        if (map.getZoom() < targetZoom) {
+          map.flyTo({ center: [location.lng, location.lat], zoom: targetZoom, duration: 400 });
+        } else {
+          map.panTo([location.lng, location.lat], { duration: 300 });
         }
-        throw error;
-      });
+      }
+
+      if (settings.openPopup === true && location) {
+        if (currentLocationPopup) {
+          currentLocationPopup.remove();
+          currentLocationPopup = null;
+        }
+        currentLocationPopup = new maplibregl.Popup({ offset: 12, closeButton: false })
+          .setLngLat([location.lng, location.lat])
+          .setHTML("You are here.")
+          .addTo(map);
+      }
+
+      updateLocationButton("active");
+      return location;
+    }).catch(function (error) {
+      _isLocating = false;
+      _setLocationMode("off");
+      updateLocationButton("error");
+      console.error("Error getting current location:", error);
+      if (!settings.silent) {
+        alert("Error getting your location. Please try again later.");
+      }
+      throw error;
+    });
   }
 
-  // ── Compass ───────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────
+  //  Compass
+  // ────────────────────────────────────────────────────────────
   var DIRECTIONS = ["N","NE","E","SE","S","SW","W","NW"];
   function _headingToDirection(deg) {
     var idx = Math.round(((deg % 360) + 360) % 360 / 45) % 8;
@@ -742,20 +930,36 @@ var MapManager = (function () {
     });
   }
 
+  /**
+   * _updateCompassUI — called on every device-orientation event.
+   *  • Always updates: compass widget needle + blue-dot heading cone (DOM only, fast)
+   *  • Only rotates the MAP when in "compass" mode, throttled, and user isn't dragging
+   *  • Uses jumpTo (instant) instead of rotateTo (animated) to avoid blocking gestures
+   */
   function _updateCompassUI(deg) {
-    if (compassEnabled && isFollowingLiveLocation && map) {
-      map.rotateTo(deg, { duration: 100 });
-    }
+    // 1) Compass widget needle (always — cheap DOM transform)
     var roseEl = document.getElementById("compass-rose");
     if (roseEl) roseEl.style.transform = "rotate(" + (-deg) + "deg)";
     var dirEl = document.getElementById("compass-dir");
     if (dirEl) dirEl.textContent = _headingToDirection(deg);
     var degEl = document.getElementById("compass-deg");
     if (degEl) degEl.textContent = Math.round(deg) + "°";
+
+    // 2) Blue-dot heading cone (always — CSS transition smooths it)
     if (headingConeElement) {
       headingConeElement.style.transform = "rotate(" + deg + "deg)";
       if (!headingConeElement.classList.contains("active")) {
         headingConeElement.classList.add("active");
+      }
+    }
+
+    // 3) Rotate the actual map ONLY in compass mode, throttled, instant
+    if (_locationMode === "compass" && compassEnabled && map && !_userDragging) {
+      var now = performance.now();
+      if (now - _lastCompassApply >= COMPASS_THROTTLE_MS) {
+        _lastCompassApply = now;
+        // jumpTo = instant, never queues animations, never blocks gestures
+        map.jumpTo({ bearing: deg });
       }
     }
   }
@@ -834,6 +1038,9 @@ var MapManager = (function () {
 
   function isCompassEnabled() { return compassEnabled; }
 
+  // ────────────────────────────────────────────────────────────
+  //  Public API
+  // ────────────────────────────────────────────────────────────
   return {
     init: init,
     createStationIcon: createStationIcon,
@@ -851,6 +1058,7 @@ var MapManager = (function () {
     stopCompass: stopCompass,
     toggleCompass: toggleCompass,
     isCompassEnabled: isCompassEnabled,
+    getLocationMode: getLocationMode,
     setBearing: function (deg) { if (map) map.rotateTo(deg, { duration: 100 }); },
     getBearing: function () { return map ? map.getBearing() : 0; },
     resetBearing: function () { _animateBearingTo(0); },

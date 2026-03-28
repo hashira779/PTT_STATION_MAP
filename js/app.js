@@ -22,11 +22,9 @@
     var btn = document.getElementById("myLocationBtn");
     if (btn) {
       btn.addEventListener("click", function () {
-        MapManager.setMapToCurrentLocation({ follow: true, openPopup: true });
-        // Auto-start compass when tracking location (user gesture-safe)
-        if (!MapManager.isCompassEnabled()) {
-          MapManager.startCompass();
-        }
+        // 3-state Google Maps cycle: OFF → CENTERED → COMPASS → OFF
+        // Handled entirely inside setMapToCurrentLocation
+        MapManager.setMapToCurrentLocation({ follow: true });
       });
     }
   }
@@ -86,7 +84,7 @@
         PromotionManager.init(stations);
         FilterManager.autoSelectFilter();
         MapManager.fitToAllMarkers();
-        MapManager.setMapToCurrentLocation({ follow: false, openPopup: false });
+        MapManager.setMapToCurrentLocation({ follow: false, openPopup: false, silent: true });
       })
       .catch(function (error) {
         console.error("Error loading station app data:", error);

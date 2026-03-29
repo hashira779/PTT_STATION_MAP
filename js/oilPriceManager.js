@@ -355,12 +355,9 @@ var OilPriceManager = (function () {
 
   function fetchFromUrl(url) {
     return fetch(buildFreshUrl(url), {
-      cache: "no-store",
+      mode: "cors",
       headers: {
-        "Accept": "application/json",
-        "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0"
+        "Accept": "application/json"
       }
     })
       .then(function (res) {

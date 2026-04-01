@@ -98,12 +98,12 @@
       }
       #markerModal .btn-close:hover { background-color:rgba(15,23,42,0.9); }
 
-      /* â"€â"€ Rounded image â"€â"€ */
+      /* ï¿½"ï¿½ï¿½"ï¿½ Rounded image ï¿½"ï¿½ï¿½"ï¿½ */
       .rounded-image { border-radius:1rem; }
 
-      /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         STATION DETAIL — Modal Renderer (mr-*) classes
-         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+      /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+         STATION DETAIL ï¿½ Modal Renderer (mr-*) classes
+         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
       /* Hero Image */
       .mr-hero {
         position:relative; overflow:hidden;
@@ -169,7 +169,7 @@
       }
       .mr-item:hover { background:rgba(226,232,240,0.8); }
 
-      /* Icons — small & crisp */
+      /* Icons ï¿½ small & crisp */
       .mr-icon { flex-shrink:0; }
       .mr-icon.mr-round { width:32px; height:32px; border-radius:50%; object-fit:cover; }
       .mr-icon.mr-full { width:26px; height:auto; object-fit:contain; }
@@ -197,7 +197,7 @@
       }
       .mr-empty { font-size:0.8rem; color:#cbd5e1; font-style:italic; }
 
-      /* Actions — GO button + icon circles */
+      /* Actions ï¿½ GO button + icon circles */
       .mr-actions {
         display:flex; justify-content:center; align-items:center;
         gap:1.5rem; margin:1rem 0 0.5rem;
@@ -429,6 +429,10 @@
       .promotion-item { display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:1.25rem; }
       .promotion-text { font-weight:600; color:#334155; margin-top:0.5rem; font-size:0.9rem; }
 
+      /* â”€â”€ Image Preview Modal â”€â”€ */
+      #imagePreviewModal .modal-dialog { max-width:480px; }
+      #imagePreviewModal .modal-content { background:rgba(255,255,255,0.98); }
+
       /* â”€â”€ Hidden â”€â”€ */
       .footer-buttons { display:none; }
       #clearAllButton { display:none; }
@@ -436,6 +440,7 @@
       #toggle3DBtn.active i { color:#fff !important; }
       .maplibregl-ctrl-attrib { display:none !important; }
     </style>
+    <link rel="stylesheet" href="./styles/modal-renderer-shared.css" />
   </head>
 
   <body class="bg-gray-50">

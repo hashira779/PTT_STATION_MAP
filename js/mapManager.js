@@ -164,7 +164,7 @@ var MapManager = (function () {
       "#compass-widget{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 88px);left:12px;right:auto;z-index:1060;" +
         "width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);" +
         "border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);" +
-        "cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none;" +
+        "cursor:pointer;-webkit-user-select:none;user-select:none;" +
         "display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.6);" +
         "transition:all .4s cubic-bezier(.22,1,.36,1);pointer-events:none;}" +
       "#compass-widget.visible{opacity:1;transform:scale(1);pointer-events:auto;}" +

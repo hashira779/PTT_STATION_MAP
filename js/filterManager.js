@@ -25,6 +25,7 @@ var FilterManager = (function () {
   function autoSelectFilter() {
     var cfg = window.PTT_PAGE_CONFIG;
     if (!cfg || !cfg.autoSelectFilter) return;
+    _revealFilterIcons(); // ensure icons are loaded for auto-selected filters
     var sel = cfg.autoSelectFilter; // { container, item }
     var icon = document.querySelector(
       "#" + sel.container + ' img[data-item="' + sel.item + '"]'
@@ -75,6 +76,8 @@ var FilterManager = (function () {
     return Array.from(items);
   }
 
+  var _filterIconsRevealed = false;
+
   function _populateContainer(containerId, items, shapeClass) {
     var container = document.getElementById(containerId);
     if (!container) return;
@@ -84,7 +87,16 @@ var FilterManager = (function () {
     items.forEach(function (item) {
       var img = document.createElement("img");
       var mapped = PTT_CONFIG.IMAGE_MAPPING[item];
-      img.src = "./pictures/" + (mapped || "default.png");
+      var imgUrl = "./pictures/" + (mapped || "default.png");
+      // Defer loading: use data-src so hidden offcanvas/modal images
+      // are not fetched until the filter UI is actually shown.
+      // This avoids NS_BINDING_ABORTED in Firefox on the PC page.
+      if (_filterIconsRevealed) {
+        img.src = imgUrl;
+      } else {
+        img.dataset.lazySrc = imgUrl;
+        img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+      }
       img.alt = item;
       img.classList.add("filter-icon", shapeClass);
       img.dataset.item = item;
@@ -106,6 +118,16 @@ var FilterManager = (function () {
         img.addEventListener("click", _toggleIcon);
       }
       container.appendChild(img);
+    });
+  }
+
+  /** Swap data-lazy-src → src on all deferred filter icons. */
+  function _revealFilterIcons() {
+    if (_filterIconsRevealed) return;
+    _filterIconsRevealed = true;
+    document.querySelectorAll(".filter-icon[data-lazy-src]").forEach(function (img) {
+      img.src = img.dataset.lazySrc;
+      delete img.dataset.lazySrc;
     });
   }
 
@@ -314,6 +336,17 @@ var FilterManager = (function () {
     _getClearButtons().forEach(function (clearBtn) {
       clearBtn.addEventListener("click", clearAll);
     });
+
+    // Reveal deferred filter-icon images when the filter panel opens.
+    // PC uses offcanvas, Phone uses modal — listen for both.
+    var offcanvasEl = document.getElementById("filterOffcanvas");
+    if (offcanvasEl) {
+      offcanvasEl.addEventListener("show.bs.offcanvas", _revealFilterIcons);
+    }
+    var filterModalEl = document.getElementById("filterModal");
+    if (filterModalEl) {
+      filterModalEl.addEventListener("show.bs.modal", _revealFilterIcons);
+    }
 
     _updateClearButton();
   }

@@ -1325,38 +1325,6 @@
             "schedule_key": ""
         },
         {
-            "id": 10025909,
-            "latitude": 13.3603333333333,
-            "longitude": 103.872,
-            "title": "PTT Bun Sary II",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Fleet card",
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Siem Reap",
-            "address": "Street 6A, Bonteay Chas village, Sangkat Slor Kram, Siem Reap town Siem Reap province",
-            "status": "16h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
             "id": 10021648,
             "latitude": 11.59825,
             "longitude": 104.900805555555,
@@ -2370,38 +2338,6 @@
             "province": "Tboung Khmum",
             "address": "National Road 7, Phum ChhreiBitMeas, Sangkat Soung, Krung Soung, Tboung Khmom Province",
             "status": "24h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
-            "id": 10032704,
-            "latitude": 13.2668055555555,
-            "longitude": 104.089944444444,
-            "title": "PTT DOM DEK II",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Fleet card",
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Siem Reap",
-            "address": "National Road No. 6, Khchas Village, Khchas Commune, Srok Sonikum, Siem Reap Province, Kingdom of Cambodia",
-            "status": "16h",
             "promotion": [
                 ""
             ],

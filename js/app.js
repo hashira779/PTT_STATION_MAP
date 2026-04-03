@@ -114,14 +114,25 @@
 
   function _createStationMarkers(stations) {
     var entries = stations.map(function (station) {
-      var imageUrl = PTT_UTILS.getStationPictureUrl(station);
-      var marker = MapManager.buildStationMarker(station, function () {
-        _onMarkerClick(station, imageUrl);
-      });
-      return { marker: marker, data: station };
+      var wrapper = {
+        _station: station,
+        getLatLng: function () {
+          return { lat: parseFloat(station.latitude), lng: parseFloat(station.longitude) };
+        },
+        openPopup: function () {},
+        setIcon: function () {},
+        setLatLng: function () {}
+      };
+      return { marker: wrapper, data: station };
     });
 
     MapManager.setMarkers(entries);
+
+    // Station click handler — called by cluster layer click events
+    MapManager.setStationClickHandler(function (station) {
+      var imageUrl = PTT_UTILS.getStationPictureUrl(station);
+      _onMarkerClick(station, imageUrl);
+    });
   }
 
   function _onMarkerClick(station, imageUrl) {

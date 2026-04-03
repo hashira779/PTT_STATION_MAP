@@ -25,6 +25,12 @@ var MapManager = (function () {
 
   var _domMarkers = [];
 
+  // ── Cluster & GeoJSON state ──
+  var _stationDataMap = {};
+  var _stationClickHandler = null;
+  var _allStationFeatures = [];
+  var _filteredStationFeatures = null;
+
   // ── 3-state location mode  (like Google Maps) ──────────────
   //  "off"      — not tracking
   //  "centered" — blue dot visible, map follows position, no rotation
@@ -204,6 +210,7 @@ var MapManager = (function () {
       "#myLocationBtn.loc-compass{background-color:#1d4ed8 !important;border:2px solid #1e3a8a !important;}" +
       "#myLocationBtn.loc-compass i{color:#fff !important;}" +
 
+
       /* EV markers */
       ".ev-marker-wrap{position:relative;width:58px;height:52px;display:flex;flex-direction:column;align-items:center;animation:ev-drop-in .4s cubic-bezier(.22,1.15,.64,1) both;}" +
       "@keyframes ev-drop-in{0%{opacity:0;transform:translateY(-28px) scale(.3);}100%{opacity:1;transform:translateY(0) scale(1);}}" +
@@ -287,12 +294,20 @@ var MapManager = (function () {
       maxPitch: PTT_CONFIG.MAP_MAX_PITCH || 85,
       attributionControl: false,
       touchPitch: true,
-      dragRotate: true
+      dragRotate: true,
+      // ── FIX #1: Prevent blank/white map at high browser zoom (150-200%+) ──
+      // At high browser zoom, canvas pixel dimensions can exceed WebGL's
+      // MAX_TEXTURE_SIZE (4096-8192 on most GPUs), causing a blank canvas.
+      // maxCanvasSize caps the internal canvas resolution to prevent this.
+      maxCanvasSize: [4096, 4096],
+      // Also cap the pixel ratio so retina + browser zoom doesn't double-stack
+      pixelRatio: Math.min(window.devicePixelRatio || 1, 2)
     });
 
     map.on("load", function () {
       _add3DBuildingLayer();
       _addLocationAccuracyLayer();
+      _setupClusterSource();
     });
 
     // Compass widget sync on manual rotate
@@ -386,12 +401,7 @@ var MapManager = (function () {
         _domMarkers.forEach(function (m) { m.remove(); });
         _domMarkers = [];
       },
-      addLayer: function (wrapper) {
-        if (wrapper && wrapper._maplibreMarker) {
-          wrapper._maplibreMarker.addTo(map);
-          _domMarkers.push(wrapper._maplibreMarker);
-        }
-      },
+      addLayer: function () { /* no-op: managed via GeoJSON source */ },
       refreshClusters: function () { /* no-op */ }
     };
   }
@@ -443,6 +453,268 @@ var MapManager = (function () {
       source: "location-accuracy",
       paint: { "line-color": "rgba(66,133,244,0.3)", "line-width": 1 }
     });
+  }
+
+  // ────────────────────────────────────────────────────────────
+  //  Cluster Source & Layers  (canvas clusters + DOM station markers)
+  // ────────────────────────────────────────────────────────────
+  var _domMarkerMap = {};   // stationId → maplibregl.Marker
+
+  function _setupClusterSource() {
+    map.addSource("stations", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: [] },
+      cluster: true,
+      clusterMaxZoom: 14,
+      clusterRadius: 60
+    });
+
+    // ── Cluster outer glow (canvas) ──
+    map.addLayer({
+      id: "cluster-glow",
+      type: "circle",
+      source: "stations",
+      filter: ["has", "point_count"],
+      paint: {
+        "circle-color": "rgba(59,130,246,0.12)",
+        "circle-radius": ["step", ["get", "point_count"], 28, 10, 36, 30, 44],
+        "circle-blur": 0.7
+      }
+    });
+
+    // ── Cluster circles (canvas) ──
+    map.addLayer({
+      id: "clusters",
+      type: "circle",
+      source: "stations",
+      filter: ["has", "point_count"],
+      paint: {
+        "circle-color": [
+          "step", ["get", "point_count"],
+          "#3b82f6", 10, "#2563eb", 30, "#1d4ed8"
+        ],
+        "circle-radius": [
+          "step", ["get", "point_count"],
+          18, 10, 24, 30, 30
+        ],
+        "circle-stroke-width": 3,
+        "circle-stroke-color": "rgba(255,255,255,0.85)"
+      }
+    });
+
+    // ── Cluster count label (canvas) ──
+    map.addLayer({
+      id: "cluster-count",
+      type: "symbol",
+      source: "stations",
+      filter: ["has", "point_count"],
+      layout: {
+        "text-field": ["get", "point_count_abbreviated"],
+        "text-font": ["Open Sans Bold"],
+        "text-size": 13,
+        "text-allow-overlap": true
+      },
+      paint: { "text-color": "#ffffff" }
+    });
+
+    // ── Invisible helper for unclustered points (DOM marker sync) ──
+    map.addLayer({
+      id: "unclustered-helper",
+      type: "circle",
+      source: "stations",
+      filter: ["!", ["has", "point_count"]],
+      paint: {
+        "circle-radius": 1,
+        "circle-opacity": 0.01,
+        "circle-stroke-opacity": 0
+      }
+    });
+
+    // ── Click: cluster → zoom in (canvas click) ──
+    map.on("click", "clusters", _onClusterClick);
+    map.on("click", "cluster-glow", _onClusterClick);
+    map.on("click", "cluster-count", _onClusterClick);
+
+    // ── Fallback: general map click also checks for clusters with wider tolerance ──
+    map.on("click", function (e) {
+      // Skip if a DOM marker or cluster layer click already handled this
+      if (e.originalEvent && (e.originalEvent._stationHandled || e.originalEvent._clusterHandled)) return;
+
+      // Use a 15px bounding box for more forgiving cluster click detection
+      var bbox = [
+        [e.point.x - 15, e.point.y - 15],
+        [e.point.x + 15, e.point.y + 15]
+      ];
+      var clusterHits = map.queryRenderedFeatures(bbox, { layers: ["clusters"] });
+      if (clusterHits.length) {
+        _zoomToCluster(clusterHits[0]);
+      }
+    });
+
+    // ── Cursor style for clusters ──
+    ["clusters", "cluster-glow", "cluster-count"].forEach(function (layerId) {
+      map.on("mouseenter", layerId, function () { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", layerId, function () { map.getCanvas().style.cursor = ""; });
+    });
+
+    // ── DOM station marker lifecycle events ──
+    map.on("moveend", _updateDOMMarkers);
+    map.on("idle", _updateDOMMarkers);
+    map.on("sourcedata", function (e) {
+      if (e.sourceId === "stations" && e.isSourceLoaded) {
+        _updateDOMMarkers();
+      }
+    });
+
+    // Apply any pending station data
+    _updateStationSource();
+  }
+
+  function _onClusterClick(e) {
+    // Use a small bounding box for more reliable hit detection
+    var bbox = [
+      [e.point.x - 10, e.point.y - 10],
+      [e.point.x + 10, e.point.y + 10]
+    ];
+    var features = map.queryRenderedFeatures(bbox, { layers: ["clusters"] });
+    if (!features.length) return;
+    e.originalEvent && (e.originalEvent._clusterHandled = true);
+    _zoomToCluster(features[0]);
+  }
+
+  function _zoomToCluster(clusterFeature) {
+    var clusterId = clusterFeature.properties.cluster_id;
+    var source = map.getSource("stations");
+    if (!source || clusterId == null) return;
+
+    // ── FIX #3: Use Promise API (MapLibre GL JS v4.x dropped callback style) ──
+    var result = source.getClusterExpansionZoom(clusterId);
+
+    // Handle Promise-based return (v4.x+)
+    if (result && typeof result.then === "function") {
+      result.then(function (zoom) {
+        map.easeTo({
+          center: clusterFeature.geometry.coordinates,
+          zoom: Math.min(zoom, 18),
+          duration: 500
+        });
+      }).catch(function (err) {
+        // Fallback: just zoom in +2 from current level
+        console.warn("Cluster expansion zoom failed, using fallback:", err);
+        map.easeTo({
+          center: clusterFeature.geometry.coordinates,
+          zoom: Math.min(map.getZoom() + 2, 18),
+          duration: 500
+        });
+      });
+    } else {
+      // Fallback for older versions or unexpected return
+      map.easeTo({
+        center: clusterFeature.geometry.coordinates,
+        zoom: Math.min(map.getZoom() + 2, 18),
+        duration: 500
+      });
+    }
+  }
+
+  // ────────────────────────────────────────────────────────────
+  //  DOM Marker Management  (original custom icons for individual stations)
+  // ────────────────────────────────────────────────────────────
+  function _clearAllDOMMarkers() {
+    Object.keys(_domMarkerMap).forEach(function (id) {
+      _domMarkerMap[id].remove();
+    });
+    _domMarkerMap = {};
+  }
+
+  function _updateDOMMarkers() {
+    if (!map.getLayer("unclustered-helper")) return;
+    if (!map.isSourceLoaded("stations")) return;
+
+    var features = map.queryRenderedFeatures({ layers: ["unclustered-helper"] });
+
+    // Deduplicate (tiles may return same feature from overlapping regions)
+    var seen = {};
+    var uniqueFeatures = [];
+    features.forEach(function (f) {
+      var id = String(f.properties.id);
+      if (!seen[id]) { seen[id] = true; uniqueFeatures.push(f); }
+    });
+
+    var activeIds = {};
+
+    uniqueFeatures.forEach(function (feature) {
+      var id = String(feature.properties.id);
+      activeIds[id] = true;
+      if (_domMarkerMap[id]) return; // already on the map
+
+      var station = _stationDataMap[id];
+      if (!station) return;
+
+      var el = createStationIcon(station);
+      var mlMarker = new maplibregl.Marker({ element: el, anchor: "bottom" })
+        .setLngLat(feature.geometry.coordinates)
+        .addTo(map);
+
+      el.addEventListener("click", function (e) {
+        e.stopPropagation();
+        // Flag so the general map click handler ignores this
+        if (e._stationHandled === undefined) e._stationHandled = true;
+        if (_stationClickHandler) { _stationClickHandler(station); }
+      });
+
+      _domMarkerMap[id] = mlMarker;
+    });
+
+    // Remove markers that are now inside a cluster or off-screen
+    Object.keys(_domMarkerMap).forEach(function (id) {
+      if (!activeIds[id]) { _domMarkerMap[id].remove(); delete _domMarkerMap[id]; }
+    });
+  }
+
+  // ── GeoJSON helpers ──
+  function _stationToFeature(station) {
+    var statusKey = (station.status || "").toLowerCase().trim();
+    return {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [parseFloat(station.longitude), parseFloat(station.latitude)]
+      },
+      properties: {
+        id: String(station.id),
+        title: station.title || "",
+        isOpen: PTT_UTILS.isStationOpen(station),
+        hasPromotion: !!(station.promotions && station.promotions.length > 0),
+        isEV: stationHasEV(station),
+        specialStatus: PTT_CONFIG.SPECIAL_STATUSES[statusKey] ? statusKey : ""
+      }
+    };
+  }
+
+  function _updateStationSource() {
+    var features = _filteredStationFeatures || _allStationFeatures;
+    if (map && map.getSource && map.getSource("stations")) {
+      _clearAllDOMMarkers();
+      map.getSource("stations").setData({
+        type: "FeatureCollection",
+        features: features
+      });
+    }
+  }
+
+  function setStationClickHandler(handler) {
+    _stationClickHandler = handler;
+  }
+
+  function setFilteredFeatures(features) {
+    _filteredStationFeatures = features;
+    _updateStationSource();
+  }
+
+  function clearFilteredFeatures() {
+    _filteredStationFeatures = null;
+    _updateStationSource();
   }
 
   // ────────────────────────────────────────────────────────────
@@ -648,35 +920,16 @@ var MapManager = (function () {
   }
 
   function buildStationMarker(station, onClick) {
-    var el = createStationIcon(station);
-
-    var mlMarker = new maplibregl.Marker({ element: el, anchor: "bottom" })
-      .setLngLat([parseFloat(station.longitude), parseFloat(station.latitude)]);
-
-    if (typeof onClick === "function") {
-      el.addEventListener("click", function (e) {
-        e.stopPropagation();
-        onClick(wrapper, station);
-      });
-    }
-
+    // Lightweight wrapper — actual rendering handled by cluster GeoJSON layers
     var wrapper = {
-      _maplibreMarker: mlMarker,
       _station: station,
+      _maplibreMarker: null,
       getLatLng: function () {
-        var ll = mlMarker.getLngLat();
-        return { lat: ll.lat, lng: ll.lng };
+        return { lat: parseFloat(station.latitude), lng: parseFloat(station.longitude) };
       },
-      setIcon: function (newEl) {
-        var oldEl = mlMarker.getElement();
-        oldEl.innerHTML = newEl.innerHTML;
-      },
-      openPopup: function () { },
-      setLatLng: function (latlng) {
-        var lat2 = latlng.lat || latlng[0];
-        var lng2 = latlng.lng || latlng[1];
-        mlMarker.setLngLat([lng2, lat2]);
-      }
+      setIcon: function () {},
+      openPopup: function () {},
+      setLatLng: function () {}
     };
 
     return wrapper;
@@ -684,10 +937,17 @@ var MapManager = (function () {
 
   function setMarkers(entries) {
     allMarkers = entries.slice();
-    markers.clearLayers();
+    _stationDataMap = {};
+    _allStationFeatures = [];
+
     entries.forEach(function (entry) {
-      markers.addLayer(entry.marker);
+      var station = entry.data;
+      _stationDataMap[String(station.id)] = station;
+      _allStationFeatures.push(_stationToFeature(station));
     });
+
+    _filteredStationFeatures = null;
+    _updateStationSource();
     startMarkerAutoRefresh();
   }
 
@@ -697,23 +957,24 @@ var MapManager = (function () {
   }
 
   function refreshStationIcons() {
-    allMarkers.forEach(function (entry) {
-      var newEl = createStationIcon(entry.data);
-      entry.marker.setIcon(newEl);
+    _allStationFeatures = allMarkers.map(function (entry) {
+      return _stationToFeature(entry.data);
     });
+    // Clears DOM markers and updates source; markers get recreated via events
+    _updateStationSource();
   }
 
   function fitToAllMarkers() {
-    if (!allMarkers.length) return;
+    var features = _filteredStationFeatures || _allStationFeatures;
+    if (!features.length) return;
     var bounds = new maplibregl.LngLatBounds();
-    allMarkers.forEach(function (entry) {
-      var ll = entry.marker.getLatLng();
-      bounds.extend([ll.lng, ll.lat]);
+    features.forEach(function (f) {
+      bounds.extend(f.geometry.coordinates);
     });
     map.fitBounds(bounds, {
       animate: true,
       duration: PTT_CONFIG.FLY_DURATION * 1000,
-      padding: 30
+      padding: { top: 80, bottom: 80, left: 60, right: 60 }
     });
   }
 
@@ -721,7 +982,9 @@ var MapManager = (function () {
     if (!markerList || !markerList.length) return;
     var bounds = new maplibregl.LngLatBounds();
     markerList.forEach(function (m) {
-      if (m._maplibreMarker) {
+      if (m.longitude !== undefined && m.latitude !== undefined) {
+        bounds.extend([parseFloat(m.longitude), parseFloat(m.latitude)]);
+      } else if (m._maplibreMarker) {
         var ll = m._maplibreMarker.getLngLat();
         bounds.extend([ll.lng, ll.lat]);
       } else if (m.getLatLng) {
@@ -1062,6 +1325,11 @@ var MapManager = (function () {
     setBearing: function (deg) { if (map) map.rotateTo(deg, { duration: 100 }); },
     getBearing: function () { return map ? map.getBearing() : 0; },
     resetBearing: function () { _animateBearingTo(0); },
+    // ── Cluster / Filter API ──
+    setStationClickHandler: setStationClickHandler,
+    setFilteredFeatures: setFilteredFeatures,
+    clearFilteredFeatures: clearFilteredFeatures,
+    stationToFeature: _stationToFeature,
   };
 })();
 

@@ -47,8 +47,7 @@ var PromotionManager = (function () {
   }
 
   function filterMarkersByPromotion(promotionId) {
-    markers.clearLayers();
-    var filtered = [];
+    var filteredFeatures = [];
 
     allMarkers.forEach(function (entry) {
       if (
@@ -57,13 +56,22 @@ var PromotionManager = (function () {
           return promo.promotion_id === promotionId;
         })
       ) {
-        markers.addLayer(entry.marker);
-        filtered.push(entry.marker);
+        filteredFeatures.push(MapManager.stationToFeature(entry.data));
       }
     });
 
-    if (filtered.length) {
-      MapManager.focusMarkers(filtered);
+    MapManager.setFilteredFeatures(filteredFeatures);
+
+    if (filteredFeatures.length) {
+      var bounds = new maplibregl.LngLatBounds();
+      filteredFeatures.forEach(function (f) {
+        bounds.extend(f.geometry.coordinates);
+      });
+      map.fitBounds(bounds, {
+        animate: true,
+        duration: PTT_CONFIG.FLY_DURATION * 1000,
+        padding: 30,
+      });
     }
 
     var modalEl = document.getElementById("promotionModal");

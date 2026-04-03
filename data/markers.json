@@ -1611,37 +1611,6 @@
             "schedule_key": ""
         },
         {
-            "id": 10025918,
-            "latitude": 12.719,
-            "longitude": 104.887083333333,
-            "title": "PTT Kampong Thom",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Cash",
-                "KHQR"
-            ],
-            "province": "Kampong Thom",
-            "address": "National Road No. 06, Phum Kdey,Sangkat Prey Taho,Krung Steung Sen,KompongThom Province",
-            "status": "16h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
             "id": 10026283,
             "latitude": 11.5428,
             "longitude": 104.893644444444,
@@ -1731,37 +1700,6 @@
             "province": "Kampong Speu",
             "address": "Road 4, Phum Rolang Sangkae,Sangkat Sopor Tep,Krung Chbar Morn",
             "status": "24h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
-            "id": 10026578,
-            "latitude": 11.5905472222222,
-            "longitude": 104.881333333333,
-            "title": "PTT Mong Rithy",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Cash",
-                "KHQR"
-            ],
-            "province": "Phnom Penh",
-            "address": "#4458, St.1928, Payab Village,Sangkat Phnom Penh Thmey,Khan Sen Sok",
-            "status": "16h",
             "promotion": [
                 ""
             ],
@@ -1985,38 +1923,6 @@
             "province": "Ratanakiri",
             "address": "No. 22, National Road No. 78, Phum. Phnom Svay, Sangkat Boeng Kansaeng, Khan, Banlong, Ratanakiri Province",
             "status": "16h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
-            "id": 10028650,
-            "latitude": 11.4628055555555,
-            "longitude": 104.520944444444,
-            "title": "PTT K.Speu City",
-            "description": [
-                "Amazon",
-                "7-Eleven"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Cash",
-                "KHQR"
-            ],
-            "province": "Kampong Speu",
-            "address": "A Phum Krang Pol Tep, Sangkat Rokar Thom, Khan Chbar  Morn,   Kampong Speu  Province",
-            "status": "24h",
             "promotion": [
                 ""
             ],
@@ -3440,60 +3346,6 @@
             "schedule_key": ""
         },
         {
-            "id": "10038834",
-            "latitude": "12.30558333",
-            "longitude": "103.1020833",
-            "title": "PTT Veal Veng PHNOM TOMPOR RETAIL CO.,LTD_10038834",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [],
-            "service": [
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Pursat",
-            "address": "#National Road No. 55, Corner of No. 10, Pramaoy Village, Pursat Province",
-            "status": "16h",
-            "promotion": [],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
-            "id": "10038583",
-            "latitude": "14.42688889",
-            "longitude": "103.6960556",
-            "title": "PTT O-Smach_MEANCHEY ENERGY (CAMBODIA) CO.,LDT_10038583",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [],
-            "service": [
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Oddar Meanchey",
-            "address": "#Land plot no. 23, NR 68, Ou Smach Village, Oddar Meanchey Province",
-            "status": "16h",
-            "promotion": [],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
             "id": "10038513",
             "latitude": "11.45083333",
             "longitude": "105.0636111",
@@ -3540,33 +3392,6 @@
             ],
             "province": "Kampong Chhnang",
             "address": "#379, National Road No.5, Ou Ruessei Village, Ou Ruessei Commune,  Kampong Tralach District, Kampong Chhnang Province.",
-            "status": "16h",
-            "promotion": [],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
-            "id": "10038814",
-            "latitude": "10.96202778",
-            "longitude": "104.6614444",
-            "title": "PTT Bek Kus_PUTHISAK BEKKUS PETROL STATION CO., LTD.",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [],
-            "service": [
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Takeo",
-            "address": "#Land plot no. 945, National Road N o.3, Srok Chek Village, Takeo Province",
             "status": "16h",
             "promotion": [],
             "old_picture": "",

@@ -22,7 +22,7 @@ var OilPriceManager = (function () {
 
   // Fuel display config
   var FUEL_CONFIG = {
-    "ULR 91": { color: "#EF4444", gradient: "linear-gradient(135deg,#FF6B6B,#DC2626)", bg: "rgba(239,68,68,0.06)", icon: "fa-gas-pump", label: "សាំង ធម្មតា", labelEn: "ULR 91", symbol: "91" },
+    "ULR 92": { color: "#EF4444", gradient: "linear-gradient(135deg,#FF6B6B,#DC2626)", bg: "rgba(239,68,68,0.06)", icon: "fa-gas-pump", label: "សាំង ធម្មតា", labelEn: "ULR 92", symbol: "92" },
     "ULG 95": { color: "#22C55E", gradient: "linear-gradient(135deg,#4ADE80,#16A34A)", bg: "rgba(34,197,94,0.06)", icon: "fa-gas-pump", label: "សាំង ស៊ុមពែរ", labelEn: "ULG 95", symbol: "95" },
     "HSD":    { color: "#3B82F6", gradient: "linear-gradient(135deg,#60A5FA,#2563EB)", bg: "rgba(59,130,246,0.06)", icon: "fa-gas-pump", label: "ម៉ាស៊ូត", labelEn: "HSD", symbol: "D" },
   };
@@ -289,7 +289,7 @@ var OilPriceManager = (function () {
     }
 
     // Update chip subtitle with first price
-    var firstPrice = prices["ULR 91"];
+    var firstPrice = prices["ULR 92"];
     var chipSub = widgetEl ? widgetEl.querySelector(".opw-chip-sub") : null;
     if (firstPrice && chipSub) {
       chipSub.textContent = "ULR $" + Number(firstPrice.dollar).toFixed(2);
@@ -301,7 +301,7 @@ var OilPriceManager = (function () {
 
     // Render fuel cards
     var html = "";
-    var fuelOrder = ["ULR 91", "ULG 95", "HSD"];
+    var fuelOrder = ["ULR 92", "ULG 95", "HSD"];
     fuelOrder.forEach(function (key) {
       var p = prices[key];
       if (!p) return;
@@ -348,17 +348,10 @@ var OilPriceManager = (function () {
   }
 
   // ── Fetch data ────────────────────────────────────────────
-  function buildFreshUrl(url) {
-    var sep = url.indexOf("?") === -1 ? "?" : "&";
-    return url + sep + "_ts=" + Date.now();
-  }
-
   function fetchFromUrl(url) {
-    return fetch(buildFreshUrl(url), {
+    return fetch(url, {
       mode: "cors",
-      headers: {
-        "Accept": "application/json"
-      }
+      cache: "no-store"
     })
       .then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);

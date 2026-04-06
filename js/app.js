@@ -105,7 +105,9 @@
         PromotionManager.init(stations);
         FilterManager.autoSelectFilter();
         MapManager.fitToAllMarkers();
-        MapManager.setMapToCurrentLocation({ follow: false, openPopup: false, silent: true });
+        // Auto-zoom to user's current location on first open
+        MapManager.setMapToCurrentLocation({ follow: true, openPopup: false, silent: true })
+          .catch(function () { /* geolocation unavailable — fitToAllMarkers already showing */ });
       })
       .catch(function (error) {
         console.error("Error loading station app data:", error);

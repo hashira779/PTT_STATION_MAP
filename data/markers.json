@@ -908,7 +908,7 @@
             "schedule_key": ""
         },
         {
-            "id": 10028079,
+            "id": 30084278,
             "latitude": 11.5068611111111,
             "longitude": 104.993805555555,
             "title": "PTT THIGER Factory Road",
@@ -1229,10 +1229,10 @@
             "schedule_key": ""
         },
         {
-            "id": 10021688,
+            "id": 10038600,
             "latitude": 13.10675,
             "longitude": 103.196805555555,
-            "title": "PTT O'Char",
+            "title": "PTT LIMHAIHENG GARAGE (O'Char old name)",
             "description": [
                 "Amazon"
             ],
@@ -1420,7 +1420,7 @@
             "schedule_key": ""
         },
         {
-            "id": 10023997,
+            "id": 10033407,
             "latitude": 13.6538333333333,
             "longitude": 102.56275,
             "title": "PTT Poi Pet 1",
@@ -2091,7 +2091,7 @@
             "schedule_key": ""
         },
         {
-            "id": 10029786,
+            "id": 10033408,
             "latitude": 13.5969722222222,
             "longitude": 102.981305555555,
             "title": "PTT BANTEAY MEANCHEY",
@@ -2381,7 +2381,7 @@
             "schedule_key": ""
         },
         {
-            "id": 10033884,
+            "id": 10035896,
             "latitude": 10.6473333333333,
             "longitude": 104.192666666666,
             "title": "PTT KAMPOT OUT CITY",
@@ -2794,7 +2794,7 @@
             "schedule_key": ""
         },
         {
-            "id": 10036085,
+            "id": 10038024,
             "latitude": 11.5336388888888,
             "longitude": 104.961194444444,
             "title": "PTT Peng Huoth The Grand Star Platinum",

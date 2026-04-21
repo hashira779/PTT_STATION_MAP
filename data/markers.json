@@ -1007,38 +1007,6 @@
             "schedule_key": ""
         },
         {
-            "id": 10034461,
-            "latitude": 11.4847222222222,
-            "longitude": 104.749722222222,
-            "title": "PTT Boeng Thom",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Fleet card",
-                "KHQR",
-                "Cash"
-            ],
-            "province": "Phnom Penh",
-            "address": "located at plot land no. 986, Tuol Svay Village, Sangkat Boeung Thom, Khan Kamboul, Phnom Penh",
-            "status": "16h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
             "id": 10032855,
             "latitude": 11.6468944444444,
             "longitude": 104.862447222222,
@@ -1506,38 +1474,6 @@
             ],
             "province": "Phnom Penh",
             "address": "129, St 592, Corner St.317, Phum 5, Sangkat Boeungkok 2, Khan Toul Kork, Phnom Penh",
-            "status": "24h",
-            "promotion": [
-                ""
-            ],
-            "old_picture": "",
-            "picture": "2.png",
-            "schedule_group_code": "",
-            "schedule_key": ""
-        },
-        {
-            "id": 30063513,
-            "latitude": 11.5851472222222,
-            "longitude": 104.900702777777,
-            "title": "PTT Angten Toul Kork",
-            "description": [
-                "Amazon"
-            ],
-            "product": [
-                "ULG 95",
-                "ULR 91",
-                "HSD"
-            ],
-            "other_product": [
-                ""
-            ],
-            "service": [
-                "Cash",
-                "KHQR",
-                "Fleet card"
-            ],
-            "province": "Phnom Penh",
-            "address": "#120,St Pastor,Phum 4, Sangkat Chaktoumouk, Khan Doun Penh, Phnom Penh.",
             "status": "24h",
             "promotion": [
                 ""

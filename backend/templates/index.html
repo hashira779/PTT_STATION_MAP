@@ -189,6 +189,10 @@
                     <select id="filter-effective-schedule" class="p-3 bg-slate-50 border rounded-md"></select>
                 </div>
             </div>
+            <div class="px-2">
+                <textarea id="station-id-filter" rows="3" placeholder="Filter exact station IDs (comma, space, or new line), e.g. 10023997&#10;10025350&#10;10025853" class="w-full p-3 bg-slate-50 border rounded-md"></textarea>
+                <p class="mt-1 text-xs text-slate-500">Shows only the station IDs listed above. Supports comma, space, or new-line separated values.</p>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 px-2">
                 <select id="filter-service" class="p-3 bg-slate-50 border rounded-md"></select>
                 <select id="filter-description" class="p-3 bg-slate-50 border rounded-md"></select>
@@ -354,6 +358,7 @@ const confirmDeleteModalBtn = document.getElementById('confirm-delete-modal');
 
 /* ── Filter references ── */
 const stationSearch = document.getElementById('station-search');
+const stationIdFilter = document.getElementById('station-id-filter');
 const filterProvince = document.getElementById('filter-province');
 const filterGroup = document.getElementById('filter-group');
 const filterSpecialStatus = document.getElementById('filter-special-status');
@@ -409,6 +414,10 @@ function normalizeId(v) { return String(v ?? '').trim(); }
 function normalizeScheduleKey(v) { const r = String(v ?? '').trim(); return ({ '16': '16h', '24': '24h' })[r.toLowerCase()] || r; }
 function formatTime(h, m) { const p = h >= 12 ? 'PM' : 'AM'; return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${p}`; }
 function getScheduleByKey(k) { return currentScheduleConfig.schedules[normalizeScheduleKey(k)] || null; }
+
+function parseIdList(value) {
+    return [...new Set(String(value ?? '').split(/[\s,]+/).map(normalizeId).filter(Boolean))];
+}
 
 function getDefaultScheduleKey() {
     const c = normalizeScheduleKey(currentScheduleConfig.default_schedule_key || '');
@@ -621,6 +630,7 @@ function populateFilterDropdowns() {
 
 function applyFilters() {
     const search = (stationSearch.value || '').toLowerCase().trim();
+    const stationIds = parseIdList(stationIdFilter.value);
     const province = filterProvince.value;
     const group = filterGroup.value;
     const status = filterSpecialStatus.value;
@@ -630,6 +640,10 @@ function applyFilters() {
     const product = filterProduct.value;
     const otherProduct = filterOtherProduct.value;
     let results = currentMarkers;
+    if (stationIds.length) {
+        const idSet = new Set(stationIds);
+        results = results.filter(m => idSet.has(normalizeId(m.id)));
+    }
     if (search) results = results.filter(m =>
         normalizeId(m.id).toLowerCase().includes(search) ||
         (m.title || '').toLowerCase().includes(search) ||
@@ -857,7 +871,7 @@ function renderCheckboxesForField(field) {
 /* ══════════════════════════ VALIDATION ══════════════════════════ */
 function validateIds(textarea, outputEl, emptyMsg) {
     const valid = new Set(currentMarkers.map(m => normalizeId(m.id)));
-    const ids = textarea.value.split(/\s+|,|\n/).map(s => s.trim()).filter(Boolean);
+    const ids = parseIdList(textarea.value);
     if (!ids.length) { outputEl.innerHTML = `<span class="text-slate-400">${emptyMsg}</span>`; return; }
     const found = [], missing = [];
     ids.forEach(id => (valid.has(id) ? found : missing).push(id));
@@ -1072,6 +1086,7 @@ bulkArrayFieldSelect.addEventListener('change', () => renderCheckboxesForField(b
 
 /* Filters */
 stationSearch.addEventListener('input', applyFilters);
+stationIdFilter.addEventListener('input', applyFilters);
 filterProvince.addEventListener('change', applyFilters);
 filterGroup.addEventListener('change', applyFilters);
 filterSpecialStatus.addEventListener('change', applyFilters);
@@ -1080,7 +1095,7 @@ filterService.addEventListener('change', applyFilters);
 filterDescription.addEventListener('change', applyFilters);
 filterProduct.addEventListener('change', applyFilters);
 filterOtherProduct.addEventListener('change', applyFilters);
-resetFiltersButton.addEventListener('click', () => { stationSearch.value = ''; filterProvince.value = ''; filterGroup.value = ''; filterSpecialStatus.value = ''; filterEffectiveSchedule.value = ''; filterService.value = ''; filterDescription.value = ''; filterProduct.value = ''; filterOtherProduct.value = ''; applyFilters(); });
+resetFiltersButton.addEventListener('click', () => { stationSearch.value = ''; stationIdFilter.value = ''; filterProvince.value = ''; filterGroup.value = ''; filterSpecialStatus.value = ''; filterEffectiveSchedule.value = ''; filterService.value = ''; filterDescription.value = ''; filterProduct.value = ''; filterOtherProduct.value = ''; applyFilters(); });
 
 /* Selection */
 selectAllCheckbox.addEventListener('change', toggleSelectAllVisible);
